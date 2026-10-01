@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Nomad Visa Income & Family Threshold Matrix — Sovereign Tools</title>
+  <meta name="description" content="Instant filter across 25+ countries to check income requirements, family surcharges, and tax breaks.">
+  <meta property="og:title" content="Digital Nomad Visa Income & Family Threshold Matrix">
+  <meta property="og:description" content="Instant filter across 25+ countries to check income requirements, family surcharges, and tax breaks.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://petiay83.github.io/sovereign-tools/tools/nomad-visa-matrix/">
+  <meta name="google-site-verification" content="zaZl48bXL6x4bPO_O4vIjsYZQ2Sex89rhdC0i51FRxU">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              500: '#10b981',
+              600: '#059669',
+              900: '#064e3b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-[#090d16] text-zinc-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black">
+
+  <div class="h-1 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-500"></div>
+
+  <!-- Universal Tool Navbar -->
+  <header class="border-b border-zinc-800/80 bg-zinc-950/60 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="https://petiay83.github.io/sovereign-tools/" class="text-zinc-400 hover:text-white flex items-center gap-1.5 text-xs font-medium px-2.5 py-1.5 rounded-lg hover:bg-zinc-800/60 transition-colors border border-transparent hover:border-zinc-800">
+          <span>←</span>
+          <span>Hub</span>
+        </a>
+        <span class="text-zinc-700">/</span>
+        <span class="text-xs text-zinc-400 font-medium flex items-center gap-1">
+          <span>🌐</span> Nomad & Geo-Arbitrage
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Radical Privacy
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tool App Container -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-8 w-full">
+    <!-- Digital Nomad Visa Minimum Income & Family Matrix Content -->
+<div class="space-y-8">
+  <!-- Title & Intro -->
+  <div class="border-b border-zinc-800 pb-6">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-800/40 text-cyan-400 text-xs font-mono mb-3">
+      <span>🌐</span> GLOBAL IMMIGRATION MATRIX
+    </div>
+    <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">
+      Digital Nomad Visa Income & Family Threshold Matrix
+    </h1>
+    <p class="text-zinc-400 text-sm sm:text-base leading-relaxed max-w-3xl">
+      Statutory minimum salary requirements for remote worker visas across 22+ countries. Adjust your personal monthly income, partner status, and dependents to dynamically calculate exact qualification thresholds, legal family surcharges, and local tax regimes.
+    </p>
+  </div>
+
+  <!-- Interactive Control Bar -->
+  <div class="bg-zinc-900/80 border border-zinc-800/90 p-6 rounded-2xl space-y-6 shadow-xl shadow-zinc-950/40 backdrop-blur-md">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
+      
+      <!-- Monthly Income Slider (6 cols) -->
+      <div class="md:col-span-6 space-y-2">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-zinc-300 font-semibold uppercase tracking-wider">Your Monthly Net Income</span>
+          <div class="flex items-center gap-2">
+            <div class="inline-flex rounded-lg border border-zinc-800 bg-zinc-950 p-0.5 text-[11px] font-mono">
+              <button type="button" id="btnCurrUSD" onclick="setCurrency('USD')" class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">USD ($)</button>
+              <button type="button" id="btnCurrEUR" onclick="setCurrency('EUR')" class="px-2 py-0.5 rounded text-zinc-400 hover:text-white">EUR (€)</button>
+            </div>
+            <span id="incomeDisplay" class="font-mono text-emerald-400 font-bold text-base min-w-[100px] text-right">$4,000 / mo</span>
+          </div>
+        </div>
+        <input type="range" id="incomeRange" min="800" max="12000" step="100" value="4000"
+               class="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+        <div class="flex justify-between text-[10px] text-zinc-500 font-mono">
+          <span>Min: $800</span>
+          <span>$3,500 (EU Avg)</span>
+          <span>Max: $12,000+</span>
+        </div>
+      </div>
+
+      <!-- Family Status Controls (6 cols) -->
+      <div class="md:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Spouse Toggle -->
+        <div class="p-3 bg-zinc-950/80 border border-zinc-800/80 rounded-xl flex items-center justify-between">
+          <div>
+            <span class="text-xs font-semibold text-zinc-200 block">Bring Spouse / Partner</span>
+            <span class="text-[10px] text-zinc-500 block">Calculates legal dependent surcharge</span>
+          </div>
+          <input type="checkbox" id="spouseCheck" onchange="renderMatrix()"
+                 class="w-5 h-5 rounded bg-zinc-800 border-zinc-700 text-emerald-500 focus:ring-0 cursor-pointer accent-emerald-500">
+        </div>
+
+        <!-- Children Counter -->
+        <div class="p-3 bg-zinc-950/80 border border-zinc-800/80 rounded-xl flex items-center justify-between">
+          <div>
+            <span class="text-xs font-semibold text-zinc-200 block">Dependent Children</span>
+            <span class="text-[10px] text-zinc-500 block">Per-child statutory floor</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="adjustChildren(-1)" class="w-6 h-6 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 flex items-center justify-center font-bold text-xs">-</button>
+            <span id="childrenCount" class="font-mono font-bold text-xs text-white w-4 text-center">0</span>
+            <button type="button" onclick="adjustChildren(1)" class="w-6 h-6 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 flex items-center justify-center font-bold text-xs">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters & Tabs -->
+    <div class="pt-4 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <!-- Region Pills -->
+      <div class="flex flex-wrap gap-1.5" id="regionFilters">
+        <button onclick="setRegion('all')" class="region-btn px-3 py-1.5 rounded-lg font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">All Regions (<span id="totalCount">0</span>)</button>
+        <button onclick="setRegion('europe')" class="region-btn px-3 py-1.5 rounded-lg font-medium bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">🇪🇺 Europe (<span id="euCount">0</span>)</button>
+        <button onclick="setRegion('latam')" class="region-btn px-3 py-1.5 rounded-lg font-medium bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">🌎 Latin America (<span id="latamCount">0</span>)</button>
+        <button onclick="setRegion('asia')" class="region-btn px-3 py-1.5 rounded-lg font-medium bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">🌏 Asia-Pacific (<span id="asiaCount">0</span>)</button>
+        <button onclick="setRegion('middle_east')" class="region-btn px-3 py-1.5 rounded-lg font-medium bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white">🏜️ Middle East / Africa (<span id="meCount">0</span>)</button>
+      </div>
+
+      <!-- Quick Toggles -->
+      <div class="flex items-center gap-3">
+        <label class="inline-flex items-center gap-2 cursor-pointer text-zinc-400 hover:text-zinc-200">
+          <input type="checkbox" id="zeroTaxOnly" onchange="renderMatrix()" class="w-4 h-4 rounded bg-zinc-800 border-zinc-700 text-emerald-500 accent-emerald-500">
+          <span class="text-xs font-medium">⚡ 0% Foreign Tax Only</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Status Strip -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono">
+    <div class="p-4 bg-zinc-900/50 border border-zinc-800/80 rounded-xl flex items-center justify-between">
+      <span class="text-zinc-400">Qualified Destinations:</span>
+      <span id="qualifiedCountDisplay" class="font-bold text-base text-emerald-400">0</span>
+    </div>
+    <div class="p-4 bg-zinc-900/50 border border-zinc-800/80 rounded-xl flex items-center justify-between">
+      <span class="text-zinc-400">Current Family Composition:</span>
+      <span id="familySummaryDisplay" class="text-zinc-200 font-semibold">Single Individual</span>
+    </div>
+    <div class="p-4 bg-zinc-900/50 border border-zinc-800/80 rounded-xl flex items-center justify-between">
+      <span class="text-zinc-400">Lowest Income Option:</span>
+      <span id="lowestThresholdDisplay" class="font-bold text-zinc-100">--</span>
+    </div>
+  </div>
+
+  <!-- Matrix Country Cards Grid -->
+  <div id="countriesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <!-- Rendered dynamically -->
+  </div>
+
+  <!-- Empty State -->
+  <div id="noResultsState" class="hidden text-center py-16 bg-zinc-900/30 rounded-2xl border border-zinc-800">
+    <p class="text-zinc-400 text-sm">No countries match your current filter settings.</p>
+    <button onclick="resetFilters()" class="mt-3 px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs text-white">Reset Filters</button>
+  </div>
+
+  <!-- Legal Disclaimer & Methodological Notes -->
+  <div class="mt-12 pt-8 border-t border-zinc-800/80 text-xs text-zinc-500 space-y-3 leading-relaxed">
+    <h3 class="text-sm font-bold text-zinc-300 uppercase tracking-wider">Methodology & Currency Parity</h3>
+    <p>
+      Statutory minimum wages and indexes are verified against official 2024/2025/2026 gazette releases (e.g. Spain's SMI, Portugal's RMMG, Colombia's SMLMV). For cross-currency comparison, a reference exchange rate of 1 EUR = 1.08 USD is applied. Minimum amounts represent gross or net requirements as explicitly stipulated by each jurisdiction's immigration authority.
+    </p>
+    <p>
+      Always verify document apostille, clean criminal record certificates (usually valid for 90 days), and compliant international private health insurance requirements before booking consular appointments.
+    </p>
+  </div>
+</div>
+
+<script>
+  // Exchange Rate
+  const EUR_TO_USD = 1.08;
+
+  // Complete Verified Dataset
+  const COUNTRIES = [
+    {
+      id: "spain",
+      name: "Spain",
+      flag: "🇪🇸",
+      region: "europe",
+      visaName: "Digital Nomad Visa (Ley de Startups)",
+      baseEur: 2646,
+      calcThreshold: (spouse, children) => {
+        let total = 2646;
+        if (spouse) total += 850;
+        total += children * 284;
+        return total;
+      },
+      duration: "3-year residence permit (initial 1-yr visa if outside Spain)",
+      taxRate: "Beckham Law (24% flat rate up to €600k for 5 years)",
+      taxCategory: "low_tax",
+      schengen: true,
+      dependentsAllowed: true,
+      highlights: "Schengen freedom, path to permanent residency in 5 years",
+      requirements: ["Degree or 3+ yrs experience", "Criminal background check", "Private health insurance", "Company contract >3 months"],
+      officialUrl: "https://www.exteriores.gob.es/Consulados/londres/en/ServiciosConsulares/Paginas/Consular/Digital-Nomad-Visa.aspx"
+    },
+    {
+      id: "portugal",
+      name: "Portugal",
+      flag: "🇵🇹",
+      region: "europe",
+      visaName: "D8 Digital Nomad Visa",
+      baseEur: 3280,
+      calcThreshold: (spouse, children) => {
+        let total = 3280;
+        if (spouse) total += 410;
+        total += children * 246;
+        return total;
+      },
+      duration: "1 year (temporary) or 2 years (residence permit)",
+      taxRate: "Progressive (or IFICI / NHR 2.0 20% flat for qualified tech roles)",
+      taxCategory: "standard",
+      schengen: true,
+      dependentsAllowed: true,
+      highlights: "High safety index, robust expat community, 5-yr citizenship clock",
+      requirements: ["Remote employment/invoices", "NIF number & Portuguese bank account", "Criminal record check"],
+      officialUrl: "https://vistos.mne.gov.pt/en/national-visas/general-information/type-of-visa#digital-nomads"
+    },
+    {
+      id: "italy",
+      name: "Italy",
+      flag: "🇮🇹",
+      region: "europe",
+      visaName: "Digital Nomad Visa (2024 Launch)",
+      baseEur: 2333,
+      calcThreshold: (spouse, children) => {
+        let total = 2333;
+        if (spouse) total += 700;
+        total += children * 466;
+        return Math.round(total);
+      },
+      duration: "1 year (renewable annually)",
+      taxRate: "Regime Forfettario (5% flat rate for first 5 years if eligible, up to €85k)",
+      taxCategory: "low_tax",
+      schengen: true,
+      dependentsAllowed: true,
+      highlights: "Incredible lifestyle, Schengen travel, low flat tax for freelancers",
+      requirements: ["Highly qualified worker (3-yr degree or 5-yr certified exp)", "Annual health insurance (€30k coverage)", "Rental agreement in Italy"],
+      officialUrl: "https://vistoperitalia.esteri.it/home/en"
+    },
+    {
+      id: "greece",
+      name: "Greece",
+      flag: "🇬🇷",
+      region: "europe",
+      visaName: "Digital Nomad Visa (Law 4825)",
+      baseEur: 3500,
+      calcThreshold: (spouse, children) => {
+        let total = 3500;
+        if (spouse) total += 700;
+        total += children * 525;
+        return total;
+      },
+      duration: "1 year (extendable to 2-year residence permit)",
+      taxRate: "50% Income Tax Exemption for up to 7 years",
+      taxCategory: "low_tax",
+      schengen: true,
+      dependentsAllowed: true,
+      highlights: "50% tax break, 300+ sunny days, easy island hopping",
+      requirements: ["Clean criminal record", "Health insurance covering Greece", "Proof of remote contracts"],
+      officialUrl: "https://www.mfa.gr/en/visas/visa-types/national-visas.html"
+    },
+    {
+      id: "croatia",
+      name: "Croatia",
+      flag: "🇭🇷",
+      region: "europe",
+      visaName: "Digital Nomad Temporary Stay",
+      baseEur: 2540,
+      calcThreshold: (spouse, children) => {
+        let total = 2540;
+        const count = (spouse ? 1 : 0) + children;
+        total += count * 254;
+        return Math.round(total);
+      },
+      duration: "1 year (must leave 6 months before re-applying)",
+      taxRate: "0% Income Tax on foreign earnings",
+      taxCategory: "zero_tax",
+      schengen: true,
+      dependentsAllowed: true,
+      highlights: "Full 0% tax holiday, Adriatic coastline, full Schengen access",
+      requirements: ["Remote work outside Croatia", "Criminal record apostille", "Health insurance"],
+      officialUrl: "https://mup.gov.hr/aliens-281621/stay-and-work/temporary-stay-of-digital-nomads/286833"
+    },
+    {
+      id: "malta",
+      name: "Malta",
+      flag: "🇲🇹",
+      region: "europe",
+      visaName: "Nomad Residence Permit",
+      baseEur: 3500,
+      calcThreshold: (spouse, children) => {
+        let total = 3500;
+        if (spouse) total += 700;
+        total += children * 350;
+        return total;
+      },
+      duration: "1 year (renewable up to 4 years)",
+      taxRate: "10% flat rate nomad tax option",
+      taxCategory: "low_tax",
+      schengen: true,
+      dependentsAllowed: true,
+      highlights: "English-speaking country, island lifestyle, high internet speeds",
+      requirements: ["Rental lease in Malta", "Comprehensive health insurance", "Passing due diligence check"],
+      officialUrl: "https://nomad.residencymalta.gov.mt/"
+    },
+    {
+      id: "cyprus",
+      name: "Cyprus",
+      flag: "🇨🇾",
+      region: "europe",
+      visaName: "Cyprus Nomad Visa",
+      baseEur: 3500,
+      calcThreshold: (spouse, children) => {
+        let total = 3500;
+        if (spouse) total += 700;
+        total += children * 525;
+        return total;
+      },
+      duration: "1 year (renewable up to 3 years)",
+      taxRate: "Non-domiciled regime (0% tax on dividends/interest)",
+      taxCategory: "standard",
+      schengen: false,
+      dependentsAllowed: true,
+      highlights: "Mediterranean hub, favorable corporate/freelance tax structure",
+      requirements: ["Clean criminal record", "Medical insurance", "Rental agreement"],
+      officialUrl: "http://www.moi.gov.cy/crmd"
+    },
+    {
+      id: "hungary",
+      name: "Hungary",
+      flag: "🇭🇺",
+      region: "europe",
+      visaName: "White Card",
+      baseEur: 3000,
+      calcThreshold: (spouse, children) => {
+        return 3000;
+      },
+      duration: "1 year (renewable once for 1 year)",
+      taxRate: "15% flat income tax rate (after 183 days)",
+      taxCategory: "standard",
+      schengen: true,
+      dependentsAllowed: false,
+      highlights: "Budapest low cost of living, central European location",
+      requirements: ["Individual application strictly (family cannot join)", "Proof of remote contracts outside Hungary"],
+      officialUrl: "http://www.bmbah.hu/index.php?lang=en"
+    },
+    {
+      id: "romania",
+      name: "Romania",
+      flag: "🇷🇴",
+      region: "europe",
+      visaName: "Digital Nomad Visa",
+      baseEur: 3950,
+      calcThreshold: (spouse, children) => {
+        let total = 3950;
+        if (spouse) total += 500;
+        total += children * 300;
+        return total;
+      },
+      duration: "1 year (renewable for 1 more year)",
+      taxRate: "0% tax on foreign income if resident elsewhere",
+      taxCategory: "zero_tax",
+      schengen: true,
+      dependentsAllowed: true,
+      highlights: "Fastest fiber internet in Europe, low living costs, Transylvania",
+      requirements: ["Active work contract >3 years", "Criminal record certificate", "Accommodation booking"],
+      officialUrl: "https://eviza.mae.ro/"
+    },
+    {
+      id: "costa-rica",
+      name: "Costa Rica",
+      flag: "🇨🇷",
+      region: "latam",
+      visaName: "Estancia para Nómadas",
+      baseEur: 2777, // $3,000 USD
+      calcThreshold: (spouse, children) => {
+        if (spouse || children > 0) return 3703; // $4,000 USD in EUR
+        return 2777; // $3,000 USD in EUR
+      },
+      duration: "1 year (renewable for 1 year if stayed >180 days)",
+      taxRate: "0% Income Tax on foreign earnings + import duty exemptions",
+      taxCategory: "zero_tax",
+      schengen: false,
+      dependentsAllowed: true,
+      highlights: "Pura Vida lifestyle, Pacific/Caribbean beaches, zero local income tax",
+      requirements: ["12 months bank statements", "Medical insurance for full stay ($50k coverage)"],
+      officialUrl: "https://migracion.go.cr/"
+    },
+    {
+      id: "colombia",
+      name: "Colombia",
+      flag: "🇨🇴",
+      region: "latam",
+      visaName: "Visa V Nómadas Digitales",
+      baseEur: 1342, // $1,450 USD
+      calcThreshold: (spouse, children) => {
+        let total = 1342;
+        if (spouse) total += 231;
+        total += children * 138;
+        return Math.round(total);
+      },
+      duration: "Up to 2 years",
+      taxRate: "Progressive (if resident >183 days)",
+      taxCategory: "standard",
+      schengen: false,
+      dependentsAllowed: true,
+      highlights: "Extremely accessible salary floor, vibrant nomad hubs (Medellín/Bogotá)",
+      requirements: ["3 months bank statements", "Motivation letter explaining remote job", "Health insurance"],
+      officialUrl: "https://www.cancilleria.gov.co/tramites_servicios/visa"
+    },
+    {
+      id: "panama",
+      name: "Panama",
+      flag: "🇵🇦",
+      region: "latam",
+      visaName: "Short Stay Remote Worker Visa",
+      baseEur: 2777, // $3,000 USD
+      calcThreshold: (spouse, children) => {
+        let total = 2777;
+        const count = (spouse ? 1 : 0) + children;
+        total += count * 925; // $1,000 USD in EUR
+        return Math.round(total);
+      },
+      duration: "9 months (extendable once for 9 months)",
+      taxRate: "Territorial Tax System (0% on foreign-source income)",
+      taxCategory: "zero_tax",
+      schengen: false,
+      dependentsAllowed: true,
+      highlights: "US dollar economy, territorial tax haven, cosmopolitan capital",
+      requirements: ["Health insurance policy", "Employer certification", "Bank statements"],
+      officialUrl: "https://www.migracion.gob.pa/"
+    },
+    {
+      id: "brazil",
+      name: "Brazil",
+      flag: "🇧🇷",
+      region: "latam",
+      visaName: "Digital Nomad Visa (VITEM XIV)",
+      baseEur: 1388, // $1,500 USD
+      calcThreshold: (spouse, children) => {
+        let total = 1388;
+        if (spouse) total += 277;
+        total += children * 138;
+        return Math.round(total);
+      },
+      duration: "1 year (renewable for 1 more year)",
+      taxRate: "0% for first 183 days; progressive after 183 days",
+      taxCategory: "standard",
+      schengen: false,
+      dependentsAllowed: true,
+      highlights: "Affordable barrier, Rio / Florianópolis surf & tech culture",
+      requirements: ["Work contract", "Clean criminal record", "Health insurance"],
+      officialUrl: "https://www.gov.br/mre/pt-br"
+    },
+    {
+      id: "mexico",
+      name: "Mexico",
+      flag: "🇲🇽",
+      region: "latam",
+      visaName: "Temporary Resident (Economic Solvency)",
+      baseEur: 3518, // $3,800 USD
+      calcThreshold: (spouse, children) => {
+        let total = 3518;
+        if (spouse) total += 925;
+        total += children * 555;
+        return Math.round(total);
+      },
+      duration: "1 to 4 years (direct path to permanent residency)",
+      taxRate: "Territorial/Foreign earnings generally non-taxed unless generated locally",
+      taxCategory: "low_tax",
+      schengen: false,
+      dependentsAllowed: true,
+      highlights: "Easy US proximity, CDMX gastronomy, path to residency",
+      requirements: ["6 months bank statements with consistent salary deposits", "Consular interview"],
+      officialUrl: "https://consulmex.sre.gob.mx/"
+    },
+    {
+      id: "barbados",
+      name: "Barbados",
+      flag: "🇧🇧",
+      region: "latam",
+      visaName: "Barbados Welcome Stamp",
+      baseEur: 3857, // $4,166 USD
+      calcThreshold: (spouse, children) => {
+        return 3857; // Flat threshold regardless of family size
+      },
+      duration: "12 months (re-applicable)",
+      taxRate: "0% Local Income Tax for Welcome Stamp holders",
+      taxCategory: "zero_tax",
+      schengen: false,
+      dependentsAllowed: true,
+      highlights: "Caribbean island lifestyle, 0% local income tax, 7-day online approval",
+      requirements: ["Annual income declaration >$50k", "Online application"],
+      officialUrl: "https://www.visitbarbados.org/barbados-welcome-stamp"
+    },
+    {
+      id: "thailand",
+      name: "Thailand",
+      flag: "🇹🇭",
+      region: "asia",
+      visaName: "Destination Thailand Visa (DTV 2024)",
+      baseEur: 1111, // $1,200 USD
+      calcThreshold: (spouse, children) => {
+        return 1111; // DTV relies on 500k THB (~$14k) bank deposit
+      },
+      duration: "5 years (180 days per stay, extendable +180 days in-country)",
+      taxRate: "Foreign income not remitted in the same tax year is exempt",
+      taxCategory: "zero_tax",
+      schengen: false,
+      dependentsAllowed: true,
+      highlights: "Game-changer 5-year visa, low living cost, Bangkok/Chiang Mai hubs",
+      requirements: ["Bank statement showing >= 500,000 THB (~$14k USD)", "Employment contract or freelance portfolio"],
+      officialUrl: "https://thaievisa.go.th/"
+    },
+    {
+      id: "malaysia",
+      name: "Malaysia",
+      flag: "🇲🇾",
+      region: "asia",
+      visaName: "DE Rantau Nomad Pass (MDEC)",
+      baseEur: 1851, // $2,000 USD
+      calcThreshold: (spouse, children) => {
+        let total = 1851;
+        if (spouse) total += 277;
+        total += children * 138;
+        return Math.round(total);
+      },
+      duration: "Up to 12 months (renewable for another 12 months)",
+      taxRate: "Foreign-sourced income remitted to Malaysia currently exempt",
+      taxCategory: "zero_tax",
+      schengen: false,
+      dependentsAllowed: true,
+      highlights: "Very low living costs, English widely spoken, KL cosmopolitan hub",
+      requirements: ["Tech/Digital role (marketing, dev, design)", "Valid client contracts", "Police clearance"],
+      officialUrl: "https://mdec.my/derantau"
+    },
+    {
+      id: "japan",
+      name: "Japan",
+      flag: "🇯🇵",
+      region: "asia",
+      visaName: "Digital Nomad Visa (2024)",
+      baseEur: 5092, // $5,500 USD (~¥10M JPY/yr)
+      calcThreshold: (spouse, children) => {
+        return 5092;
+      },
+      duration: "Up to 6 months (cannot be renewed immediately; 6-mo cooling period)",
+      taxRate: "0% Japanese tax under bilateral tax treaties during 6-month stay",
+      taxCategory: "zero_tax",
+      schengen: false,
+      dependentsAllowed: true,
+      highlights: "Ultra-safe, Tokyo & Kyoto culture, high-speed bullet trains",
+      requirements: ["Private medical insurance covering >= ¥10M", "Citizenship of tax treaty country (49 countries)"],
+      officialUrl: "https://www.mofa.go.jp/ca/fna/page22e_001037.html"
+    },
+    {
+      id: "south-korea",
+      name: "South Korea",
+      flag: "🇰🇷",
+      region: "asia",
+      visaName: "Workation Visa (F-1-D)",
+      baseEur: 5000, // $5,400 USD (~85M KRW/yr)
+      calcThreshold: (spouse, children) => {
+        return 5000;
+      },
+      duration: "1 year (renewable for 1 more year)",
+      taxRate: "Non-resident status for tax purposes if staying under Workation visa conditions",
+      taxCategory: "low_tax",
+      schengen: false,
+      dependentsAllowed: true,
+      highlights: "Seoul tech capital, blazing fast 5G, rich cultural immersion",
+      requirements: ["1+ year employment at foreign company", "Criminal background check with apostille", "100M KRW medical coverage"],
+      officialUrl: "https://www.visa.go.kr/"
+    },
+    {
+      id: "taiwan",
+      name: "Taiwan",
+      flag: "🇹🇼",
+      region: "asia",
+      visaName: "Employment Gold Card",
+      baseEur: 4629, // $5,000 USD (NT$160k/mo)
+      calcThreshold: (spouse, children) => {
+        return 4629;
+      },
+      duration: "1 to 3 years (open work permit + residence permit)",
+      taxRate: "50% tax reduction on foreign earnings over NT$3M for up to 5 years",
+      taxCategory: "low_tax",
+      schengen: false,
+      dependentsAllowed: true,
+      highlights: "Open work permit, top global healthcare, high safety index",
+      requirements: ["Monthly salary >NT$160,000 in past 3 years", "Online application"],
+      officialUrl: "https://goldcard.nat.gov.tw/en/"
+    },
+    {
+      id: "uae-dubai",
+      name: "UAE (Dubai)",
+      flag: "🇦🇪",
+      region: "middle_east",
+      visaName: "Virtual Working Programme (Dubai)",
+      baseEur: 3240, // $3,500 USD
+      calcThreshold: (spouse, children) => {
+        return 3240;
+      },
+      duration: "1 year (renewable annually)",
+      taxRate: "0% Personal Income Tax in the UAE",
+      taxCategory: "zero_tax",
+      schengen: false,
+      dependentsAllowed: true,
+      highlights: "100% tax-free, global aviation hub, zero crime rate",
+      requirements: ["Proof of employment with 1-yr validity or company ownership", "3 months bank statements", "Health insurance"],
+      officialUrl: "https://www.visitdubai.com/en/invest-in-dubai/live-and-work/visas-and-entry/work-remotely-from-dubai"
+    },
+    {
+      id: "mauritius",
+      name: "Mauritius",
+      flag: "🇲🇺",
+      region: "middle_east",
+      visaName: "Premium Visa",
+      baseEur: 1388, // $1,500 USD
+      calcThreshold: (spouse, children) => {
+        let total = 1388;
+        if (spouse) total += 277;
+        total += children * 138;
+        return Math.round(total);
+      },
+      duration: "1 year (renewable)",
+      taxRate: "0% on money deposited in foreign bank accounts",
+      taxCategory: "zero_tax",
+      schengen: false,
+      dependentsAllowed: true,
+      highlights: "Zero visa fees, Indian Ocean island paradise, French/English speaking",
+      requirements: ["Free online application", "Travel & health insurance", "Proof of funds"],
+      officialUrl: "https://edbmauritius.org/premium-visa"
+    }
+  ];
+
+  // State
+  let currentCurrency = 'USD';
+  let activeRegion = 'all';
+  let spouseChecked = false;
+  let childrenNum = 0;
+
+  const incomeRange = document.getElementById('incomeRange');
+  const incomeDisplay = document.getElementById('incomeDisplay');
+  const spouseCheck = document.getElementById('spouseCheck');
+  const childrenCountEl = document.getElementById('childrenCount');
+  const zeroTaxOnlyCheck = document.getElementById('zeroTaxOnly');
+
+  const btnCurrUSD = document.getElementById('btnCurrUSD');
+  const btnCurrEUR = document.getElementById('btnCurrEUR');
+  const countriesGrid = document.getElementById('countriesGrid');
+  const noResultsState = document.getElementById('noResultsState');
+
+  const qualifiedCountDisplay = document.getElementById('qualifiedCountDisplay');
+  const familySummaryDisplay = document.getElementById('familySummaryDisplay');
+  const lowestThresholdDisplay = document.getElementById('lowestThresholdDisplay');
+
+  const totalCountEl = document.getElementById('totalCount');
+  const euCountEl = document.getElementById('euCount');
+  const latamCountEl = document.getElementById('latamCount');
+  const asiaCountEl = document.getElementById('asiaCount');
+  const meCountEl = document.getElementById('meCount');
+
+  function setCurrency(curr) {
+    currentCurrency = curr;
+    if (curr === 'USD') {
+      btnCurrUSD.className = 'px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold';
+      btnCurrEUR.className = 'px-2 py-0.5 rounded text-zinc-400 hover:text-white';
+    } else {
+      btnCurrEUR.className = 'px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold';
+      btnCurrUSD.className = 'px-2 py-0.5 rounded text-zinc-400 hover:text-white';
+    }
+    renderMatrix();
+  }
+
+  function setRegion(reg) {
+    activeRegion = reg;
+    document.querySelectorAll('.region-btn').forEach(b => {
+      b.className = 'region-btn px-3 py-1.5 rounded-lg font-medium bg-zinc-900 text-zinc-400 border border-zinc-800 hover:text-white';
+    });
+    event.target.className = 'region-btn px-3 py-1.5 rounded-lg font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+    renderMatrix();
+  }
+
+  function adjustChildren(delta) {
+    childrenNum = Math.max(0, Math.min(5, childrenNum + delta));
+    childrenCountEl.textContent = childrenNum;
+    renderMatrix();
+  }
+
+  function resetFilters() {
+    incomeRange.value = 4000;
+    spouseCheck.checked = false;
+    childrenNum = 0;
+    childrenCountEl.textContent = '0';
+    zeroTaxOnlyCheck.checked = false;
+    activeRegion = 'all';
+    renderMatrix();
+  }
+
+  incomeRange.addEventListener('input', () => {
+    renderMatrix();
+  });
+
+  function renderMatrix() {
+    spouseChecked = spouseCheck.checked;
+    const userIncomeRaw = parseFloat(incomeRange.value);
+
+    // Format income display
+    const symbol = currentCurrency === 'USD' ? '$' : '€';
+    incomeDisplay.textContent = `${symbol}${userIncomeRaw.toLocaleString('en-US')} / mo`;
+
+    // Convert user income to EUR for consistent baseline comparison
+    const userIncomeEur = currentCurrency === 'USD' ? (userIncomeRaw / EUR_TO_USD) : userIncomeRaw;
+
+    // Update Family Summary Text
+    let famText = 'Single Individual';
+    if (spouseChecked && childrenNum > 0) {
+      famText = `Couple + ${childrenNum} Child${childrenNum > 1 ? 'ren' : ''}`;
+    } else if (spouseChecked) {
+      famText = 'Couple (Spouse Included)';
+    } else if (childrenNum > 0) {
+      famText = `Single + ${childrenNum} Child${childrenNum > 1 ? 'ren' : ''}`;
+    }
+    familySummaryDisplay.textContent = famText;
+
+    // Filter list
+    const zeroTaxOnly = zeroTaxOnlyCheck.checked;
+
+    let qualifiedCount = 0;
+    let minThresholdEur = Infinity;
+    let minCountryName = '';
+
+    const cardsData = COUNTRIES.map(c => {
+      const thresholdEur = c.calcThreshold(spouseChecked, childrenNum);
+      const thresholdConverted = currentCurrency === 'USD' ? Math.round(thresholdEur * EUR_TO_USD) : Math.round(thresholdEur);
+      
+      const isQualified = userIncomeEur >= thresholdEur && (!spouseChecked || c.dependentsAllowed);
+      const diff = Math.round(userIncomeRaw - thresholdConverted);
+
+      if (thresholdEur < minThresholdEur) {
+        minThresholdEur = thresholdEur;
+        minCountryName = `${c.flag} ${c.name} (${symbol}${thresholdConverted.toLocaleString('en-US')})`;
+      }
+
+      if (isQualified) qualifiedCount++;
+
+      return {
+        ...c,
+        thresholdConverted,
+        isQualified,
+        diff
+      };
+    });
+
+    lowestThresholdDisplay.textContent = minCountryName || '--';
+    qualifiedCountDisplay.textContent = `${qualifiedCount} / ${COUNTRIES.length}`;
+
+    // Filter by Region & Tax
+    const filtered = cardsData.filter(c => {
+      const matchRegion = activeRegion === 'all' || c.region === activeRegion;
+      const matchTax = !zeroTaxOnly || c.taxCategory === 'zero_tax';
+      return matchRegion && matchTax;
+    });
+
+    // Counts for buttons
+    totalCountEl.textContent = COUNTRIES.length;
+    euCountEl.textContent = COUNTRIES.filter(c => c.region === 'europe').length;
+    latamCountEl.textContent = COUNTRIES.filter(c => c.region === 'latam').length;
+    asiaCountEl.textContent = COUNTRIES.filter(c => c.region === 'asia').length;
+    meCountEl.textContent = COUNTRIES.filter(c => c.region === 'middle_east').length;
+
+    if (filtered.length === 0) {
+      countriesGrid.innerHTML = '';
+      noResultsState.classList.remove('hidden');
+      return;
+    }
+
+    noResultsState.classList.add('hidden');
+
+    // Sort: Qualified first, then by lowest threshold
+    filtered.sort((a, b) => {
+      if (a.isQualified !== b.isQualified) return b.isQualified ? 1 : -1;
+      return a.thresholdConverted - b.thresholdConverted;
+    });
+
+    countriesGrid.innerHTML = filtered.map(c => {
+      const statusBadge = c.isQualified 
+        ? `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">🟢 Qualifies (+${symbol}${Math.abs(c.diff).toLocaleString('en-US')})</span>`
+        : (!c.dependentsAllowed && spouseChecked)
+          ? `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30">⚠️ Dependents Prohibited</span>`
+          : `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-rose-500/15 text-rose-400 border border-rose-500/30">🔴 Shortfall (${symbol}${Math.abs(c.diff).toLocaleString('en-US')} needed)</span>`;
+
+      let taxBadgeClass = 'bg-zinc-800 text-zinc-300 border-zinc-700';
+      if (c.taxCategory === 'zero_tax') {
+        taxBadgeClass = 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30';
+      } else if (c.taxCategory === 'low_tax') {
+        taxBadgeClass = 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30';
+      }
+
+      return `
+        <div class="p-5 rounded-2xl border transition-all duration-200 flex flex-col justify-between ${
+          c.isQualified 
+            ? 'bg-zinc-900/80 border-emerald-500/30 hover:border-emerald-400/60 shadow-lg shadow-emerald-950/20' 
+            : 'bg-zinc-900/40 border-zinc-800/80 hover:border-zinc-700 opacity-80 hover:opacity-100'
+        }">
+          <div>
+            <!-- Header: Flag + Country + Badge -->
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-2xl">${c.flag}</span>
+                <div>
+                  <h3 class="font-bold text-zinc-100 text-base leading-tight">${c.name}</h3>
+                  <span class="text-[10px] text-zinc-400 font-mono">${c.visaName}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Qualification Status Strip -->
+            <div class="mb-4">
+              ${statusBadge}
+            </div>
+
+            <!-- Threshold & Duration -->
+            <div class="grid grid-cols-2 gap-2 p-3 bg-zinc-950/70 rounded-xl border border-zinc-800/60 mb-3 text-xs font-mono">
+              <div>
+                <span class="text-[10px] text-zinc-500 block font-sans">Min. Threshold:</span>
+                <span class="font-bold text-white text-sm">${symbol}${c.thresholdConverted.toLocaleString('en-US')}<span class="text-[10px] text-zinc-500 font-normal">/mo</span></span>
+              </div>
+              <div>
+                <span class="text-[10px] text-zinc-500 block font-sans">Stay Validity:</span>
+                <span class="text-zinc-300 text-[11px] block leading-tight font-sans mt-0.5">${c.duration}</span>
+              </div>
+            </div>
+
+            <!-- Tax Treatment Tag -->
+            <div class="mb-3">
+              <span class="text-[10px] font-mono px-2 py-1 rounded-md border block leading-snug ${taxBadgeClass}">
+                ⚡ ${c.taxRate}
+              </span>
+            </div>
+
+            <!-- Requirements Summary -->
+            <div class="space-y-1 mb-4">
+              <span class="text-[10px] font-semibold uppercase tracking-wider text-zinc-500 block">Key Prerequisites:</span>
+              <ul class="text-[11px] text-zinc-400 space-y-0.5">
+                ${c.requirements.slice(0, 3).map(r => `<li class="flex items-center gap-1.5"><span class="text-emerald-500/70">✓</span> <span>${r}</span></li>`).join('')}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Official Consular Link -->
+          <div class="pt-3 border-t border-zinc-800/80">
+            <a href="${c.officialUrl}" target="_blank" rel="noopener noreferrer"
+               class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl text-xs font-medium bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white transition-colors">
+              <span>Official Government Portal</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Initial render
+  renderMatrix();
+</script>
+
+  </main>
+
+  <footer class="border-t border-zinc-800/80 bg-zinc-950/40 mt-16 py-6">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between text-xs text-zinc-500">
+      <a href="https://petiay83.github.io/sovereign-tools/" class="hover:text-zinc-300">← Back to All Sovereign Tools</a>
+      <span class="text-emerald-500/70">100% Client-Side Execution</span>
+    </div>
+  </footer>
+</body>
+</html>

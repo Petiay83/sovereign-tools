@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geo-Arbitrage & Freedom Runway Simulator — Sovereign Tools</title>
+  <meta name="description" content="Calculate your true financial autonomy horizon when relocating across tier-1, tier-2 and nomad hubs.">
+  <meta property="og:title" content="Geo-Arbitrage & Freedom Runway Simulator">
+  <meta property="og:description" content="Calculate your true financial autonomy horizon when relocating across tier-1, tier-2 and nomad hubs.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://petiay83.github.io/sovereign-tools/tools/geo-arbitrage-runway/">
+  <meta name="google-site-verification" content="zaZl48bXL6x4bPO_O4vIjsYZQ2Sex89rhdC0i51FRxU">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              500: '#10b981',
+              600: '#059669',
+              900: '#064e3b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-[#090d16] text-zinc-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black">
+
+  <div class="h-1 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-500"></div>
+
+  <!-- Universal Tool Navbar -->
+  <header class="border-b border-zinc-800/80 bg-zinc-950/60 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="https://petiay83.github.io/sovereign-tools/" class="text-zinc-400 hover:text-white flex items-center gap-1.5 text-xs font-medium px-2.5 py-1.5 rounded-lg hover:bg-zinc-800/60 transition-colors border border-transparent hover:border-zinc-800">
+          <span>←</span>
+          <span>Hub</span>
+        </a>
+        <span class="text-zinc-700">/</span>
+        <span class="text-xs text-zinc-400 font-medium flex items-center gap-1">
+          <span>🌐</span> Nomad & Geo-Arbitrage
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Radical Privacy
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tool App Container -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-8 w-full">
+    <div class="space-y-10">
+
+  <!-- Header Section -->
+  <div class="text-center max-w-3xl mx-auto space-y-3">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+      <span>🌐</span> Geo-Arbitrage Financial Model
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+      Geo-Arbitrage & Freedom Runway Calculator
+    </h1>
+    <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+      Quantify how relocating from high-cost western metros to global value hubs multiplies your runway from months into years — or unlocks perpetual financial independence.
+    </p>
+  </div>
+
+  <!-- Presets Bar -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 sm:p-5">
+    <div class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3 flex items-center justify-between">
+      <span>⚡ Quick Archetype Presets</span>
+      <span class="text-[11px] text-zinc-500 normal-case">Click to auto-populate numbers</span>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+      <button onclick="applyPreset('indie')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-emerald-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 flex items-center gap-1.5">
+          <span>🚀</span> Indie Bootstrapper
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">$25k savings · $0 income · 0% yield</div>
+      </button>
+
+      <button onclick="applyPreset('sabbatical')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-emerald-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 flex items-center gap-1.5">
+          <span>🌿</span> Career Sabbatical
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">$60k savings · $0 income · 4.5% yield</div>
+      </button>
+
+      <button onclick="applyPreset('freelance')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-emerald-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 flex items-center gap-1.5">
+          <span>💻</span> Remote Micro-Earn
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">$15k savings · $1,200/mo · 4.0% yield</div>
+      </button>
+
+      <button onclick="applyPreset('fire')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-emerald-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 flex items-center gap-1.5">
+          <span>🧭</span> Lean FIRE Vanguard
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">$200k portfolio · $0 income · 5.5% yield</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Primary Input Controls Panel -->
+  <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Savings / Capital -->
+      <div class="space-y-2">
+        <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 flex justify-between">
+          <span>Liquid Savings ($)</span>
+          <span id="savingsValDisplay" class="font-mono text-emerald-400 font-bold">$35,000</span>
+        </label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-zinc-500 font-mono text-sm">$</span>
+          <input type="number" id="savingsInput" value="35000" min="0" step="1000"
+                 class="w-full pl-8 pr-3 py-2.5 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500 transition-colors">
+        </div>
+        <input type="range" id="savingsRange" min="5000" max="250000" step="5000" value="35000"
+               class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+      </div>
+
+      <!-- Remote / Passive Monthly Income -->
+      <div class="space-y-2">
+        <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 flex justify-between">
+          <span>Monthly Income ($/mo)</span>
+          <span id="incomeValDisplay" class="font-mono text-cyan-400 font-bold">$500</span>
+        </label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-zinc-500 font-mono text-sm">$</span>
+          <input type="number" id="incomeInput" value="500" min="0" step="100"
+                 class="w-full pl-8 pr-3 py-2.5 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500 transition-colors">
+        </div>
+        <input type="range" id="incomeRange" min="0" max="5000" step="100" value="500"
+               class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-cyan-500">
+      </div>
+
+      <!-- Annual Real Investment Yield -->
+      <div class="space-y-2">
+        <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400 flex justify-between">
+          <span>Annual Yield on Capital</span>
+          <span id="yieldValDisplay" class="font-mono text-indigo-400 font-bold">4.5%</span>
+        </label>
+        <div class="relative">
+          <input type="number" id="yieldInput" value="4.5" min="0" max="15" step="0.5"
+                 class="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500 transition-colors">
+          <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-500 font-mono text-sm">%</span>
+        </div>
+        <div class="flex justify-between text-[10px] text-zinc-500 font-mono">
+          <span>0% Cash</span>
+          <span>4.5% HYSA</span>
+          <span>7% Index</span>
+        </div>
+      </div>
+
+      <!-- Lifestyle Tier -->
+      <div class="space-y-2">
+        <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-400">
+          Lifestyle Standard
+        </label>
+        <div class="grid grid-cols-3 gap-1.5 bg-zinc-950 p-1 rounded-xl border border-zinc-700/80">
+          <button type="button" data-tier="0.75" class="lifestyle-btn py-2 text-xs font-medium rounded-lg text-zinc-400 hover:text-white transition-all">
+            Frugal <span class="block text-[9px] opacity-70">0.75x</span>
+          </button>
+          <button type="button" data-tier="1.0" class="lifestyle-btn py-2 text-xs font-medium rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 transition-all">
+            Nomad <span class="block text-[9px] opacity-70">1.0x</span>
+          </button>
+          <button type="button" data-tier="1.4" class="lifestyle-btn py-2 text-xs font-medium rounded-lg text-zinc-400 hover:text-white transition-all">
+            Comfort <span class="block text-[9px] opacity-70">1.4x</span>
+          </button>
+        </div>
+        <p id="lifestyleTierDesc" class="text-[11px] text-zinc-500 leading-tight">
+          Balanced nomad: private 1BR apt, coworking, daily cafes, 3-4 dinners out/week.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Comparative Home Baseline Selection -->
+    <div class="pt-4 border-t border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider whitespace-nowrap">Home City Baseline:</span>
+        <select id="baselineSelect" class="bg-zinc-950 border border-zinc-700 text-zinc-200 text-xs rounded-xl px-3 py-2 font-medium focus:outline-none focus:border-emerald-500">
+          <option value="san-francisco">San Francisco ($5,200/mo)</option>
+          <option value="new-york" selected>New York City ($4,800/mo)</option>
+          <option value="london">London ($4,100/mo)</option>
+          <option value="zurich">Zurich ($5,500/mo)</option>
+          <option value="sydney">Sydney ($3,900/mo)</option>
+          <option value="berlin">Berlin ($2,600/mo)</option>
+          <option value="custom">Custom Baseline...</option>
+        </select>
+      </div>
+
+      <div id="customBaselineWrap" class="hidden flex items-center gap-2">
+        <span class="text-xs text-zinc-400">Custom Monthly Burn:</span>
+        <div class="relative w-28">
+          <span class="absolute inset-y-0 left-0 pl-2 flex items-center text-zinc-500 text-xs font-mono">$</span>
+          <input type="number" id="customBaselineInput" value="4500" min="500" step="100"
+                 class="w-full pl-6 pr-2 py-1.5 bg-zinc-950 border border-zinc-700 rounded-lg text-xs font-mono text-zinc-100">
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 text-xs text-zinc-400">
+        <span>Target Comparison Destination:</span>
+        <select id="targetCitySelect" class="bg-zinc-950 border border-emerald-500/50 text-emerald-300 text-xs rounded-xl px-3 py-2 font-medium focus:outline-none focus:border-emerald-400">
+          <!-- Populated dynamically -->
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Arbitrage Metrics Banner -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+    <!-- Baseline Runway Card -->
+    <div class="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5 relative overflow-hidden">
+      <div class="text-xs font-medium text-zinc-400 mb-1 flex items-center justify-between">
+        <span id="baselineTitleDisplay">Home City Runway</span>
+        <span class="text-rose-400 text-[11px] font-mono" id="baselineBurnDisplay">$4,800/mo</span>
+      </div>
+      <div class="text-3xl font-black text-zinc-200 font-mono tracking-tight my-2" id="baselineMonthsDisplay">
+        8.1 Months
+      </div>
+      <div class="text-xs text-zinc-500 flex items-center gap-1.5">
+        <span>Depleted by:</span>
+        <span class="text-zinc-400 font-mono font-medium" id="baselineDepleteDate">June 2027</span>
+      </div>
+      <div class="mt-3 text-[11px] text-zinc-500">
+        High overhead exhausts reserves rapidly before projects reach profitability.
+      </div>
+    </div>
+
+    <!-- Destination Runway Card (Highlight) -->
+    <div class="bg-gradient-to-br from-emerald-950/40 via-zinc-900 to-zinc-900 border border-emerald-500/40 rounded-2xl p-5 relative shadow-lg shadow-emerald-950/20">
+      <div class="absolute top-3 right-3">
+        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+          TARGET HUB
+        </span>
+      </div>
+      <div class="text-xs font-medium text-emerald-400/90 mb-1 flex items-center gap-1.5">
+        <span id="targetCityFlag">🇹🇭</span>
+        <span id="targetCityTitle" class="font-bold text-white">Chiang Mai, Thailand</span>
+      </div>
+      <div class="text-3xl font-black text-emerald-400 font-mono tracking-tight my-2" id="targetMonthsDisplay">
+        48.2 Months
+      </div>
+      <div class="text-xs text-zinc-400 flex items-center gap-1.5">
+        <span>Depleted by:</span>
+        <span class="text-emerald-300 font-mono font-medium" id="targetDepleteDate">November 2030</span>
+      </div>
+      <div class="mt-3 text-[11px] text-emerald-500/80 font-medium" id="targetBurnSummary">
+        Monthly Net Burn: $550/mo (Cost $1,050 - Income $500)
+      </div>
+    </div>
+
+    <!-- Freedom Multiplier & Infinite Gap -->
+    <div class="bg-zinc-900/60 border border-zinc-800 rounded-2xl p-5 flex flex-col justify-between">
+      <div>
+        <div class="text-xs font-medium text-zinc-400 mb-1 flex items-center justify-between">
+          <span>Freedom Arbitrage Multiplier</span>
+          <span class="text-emerald-400 font-mono font-semibold" id="multiplierBadge">+495%</span>
+        </div>
+        <div class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-400 font-mono tracking-tight my-2" id="multiplierDisplay">
+          5.9x Longer
+        </div>
+      </div>
+      <div class="pt-3 border-t border-zinc-800">
+        <div class="text-[11px] text-zinc-400" id="infiniteCrossoverText">
+          Crossover gap: Earning just <span class="font-mono text-cyan-300 font-bold">+$418/mo</span> more makes your runway <strong class="text-emerald-400">PERPETUAL (Infinite)</strong>.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Interactive Depletion Trajectory Chart (SVG) -->
+  <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 space-y-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div>
+        <h2 class="text-base font-bold text-white flex items-center gap-2">
+          <span>📈</span> Capital Depletion Trajectory
+        </h2>
+        <p class="text-xs text-zinc-400">
+          Simulating month-by-month capital balance factoring monthly net burn and monthly compound interest yield.
+        </p>
+      </div>
+
+      <!-- Chart Legend -->
+      <div class="flex items-center gap-4 text-xs font-medium">
+        <div class="flex items-center gap-1.5">
+          <span class="w-3 h-0.5 bg-rose-500 inline-block"></span>
+          <span class="text-zinc-400" id="legendBaseline">New York</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-3 h-0.5 bg-emerald-400 inline-block"></span>
+          <span class="text-zinc-200" id="legendTarget">Chiang Mai</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-3 h-0.5 bg-cyan-400 inline-block"></span>
+          <span class="text-zinc-400" id="legendAlt1">Medellín</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-3 h-0.5 bg-indigo-400 inline-block"></span>
+          <span class="text-zinc-400" id="legendAlt2">Bansko</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SVG Graph Container -->
+    <div class="relative w-full h-72 bg-zinc-950/80 rounded-xl border border-zinc-800/80 p-2 overflow-hidden">
+      <svg id="trajectoryChart" class="w-full h-full" viewBox="0 0 800 260" preserveAspectRatio="none">
+        <!-- Grid lines & curves will be rendered here by JavaScript -->
+      </svg>
+    </div>
+
+    <div class="flex items-center justify-between text-[11px] text-zinc-500 font-mono">
+      <span>Month 0 (Now)</span>
+      <span>Month 12</span>
+      <span>Month 24</span>
+      <span>Month 36</span>
+      <span>Month 48</span>
+      <span>Month 60 (5 Years)</span>
+    </div>
+  </div>
+
+  <!-- Global Geo-Arbitrage Explorer Grid -->
+  <div class="space-y-4">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div>
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          <span>🗺️</span> Global Geo-Arbitrage Directory (24 Benchmark Hubs)
+        </h2>
+        <p class="text-xs text-zinc-400">
+          Ranked by runway duration, monthly living expenditure, quality of life, and nomadic connectivity.
+        </p>
+      </div>
+
+      <!-- Controls: Region Filter & Sort -->
+      <div class="flex flex-wrap items-center gap-2.5">
+        <select id="regionFilter" class="bg-zinc-900 border border-zinc-700 text-zinc-300 text-xs rounded-xl px-3 py-2 font-medium focus:outline-none focus:border-emerald-500">
+          <option value="all">All Regions (24 Hubs)</option>
+          <option value="sea">Southeast Asia</option>
+          <option value="europe">Europe & Mediterranean</option>
+          <option value="latam">Latin America</option>
+          <option value="west">Tier-1 Western Baselines</option>
+        </select>
+
+        <select id="sortBy" class="bg-zinc-900 border border-zinc-700 text-zinc-300 text-xs rounded-xl px-3 py-2 font-medium focus:outline-none focus:border-emerald-500">
+          <option value="runway-desc">Sort: Longest Runway ↓</option>
+          <option value="cost-asc">Sort: Lowest Cost ↑</option>
+          <option value="multiplier-desc">Sort: Highest Multiplier ↓</option>
+          <option value="speed-desc">Sort: Fastest Internet ↓</option>
+          <option value="safety-desc">Sort: Highest Safety ↓</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- City Cards Grid -->
+    <div id="citiesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Populated dynamically -->
+    </div>
+  </div>
+
+  <!-- Geo-Arbitrage Rationalist Framework & Strategy -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 space-y-6">
+    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+      <span>📐</span> The Mathematical Mechanics of Geo-Arbitrage
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-zinc-400 leading-relaxed">
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm">
+          <span>1.</span> The Pre-Tax Advantage
+        </h4>
+        <p>
+          Reducing your burn by $2,500/month by moving from NYC to Chiang Mai is mathematically superior to earning an extra $3,500/month in salary. Salary is taxed at 30–45% marginal rates, whereas living cost reductions represent pure, untaxed free cash flow.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm">
+          <span>2.</span> The Compounding Buffer
+        </h4>
+        <p>
+          In a high-burn city, capital drops so fast that compounding interest has no time to act. In low-burn hubs, money market yield (4–5%) offsets a substantial fraction of your total living expenses, stretching your timeline asymptotically.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm">
+          <span>3.</span> The Crossover Threshold
+        </h4>
+        <p>
+          Once your monthly side/freelance income plus investment yield equals local living costs, your runway becomes infinite. Achieving this in London requires ~$4,500/mo net; in Da Nang or Bansko, it requires under ~$1,000/mo.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Interactive Engine JavaScript -->
+<script>
+  // Complete 24-City Curated Dataset
+  const CITIES = [
+    // Tier 1: Western Baselines
+    {
+      id: 'san-francisco',
+      name: 'San Francisco',
+      country: 'USA',
+      flag: '🇺🇸',
+      region: 'west',
+      tier: 'Tier 1 Baseline',
+      baseCost: 5200,
+      breakdown: { rent: 2800, food: 1200, coworking: 400, leisure: 800 },
+      internet: 320,
+      safety: 62,
+      climate: 'Cool / Foggy',
+      tags: ['Silicon Valley', 'High Burn']
+    },
+    {
+      id: 'new-york',
+      name: 'New York City',
+      country: 'USA',
+      flag: '🇺🇸',
+      region: 'west',
+      tier: 'Tier 1 Baseline',
+      baseCost: 4800,
+      breakdown: { rent: 2600, food: 1100, coworking: 400, leisure: 700 },
+      internet: 300,
+      safety: 68,
+      climate: 'Four Seasons',
+      tags: ['Metropolis', 'High Burn']
+    },
+    {
+      id: 'london',
+      name: 'London',
+      country: 'UK',
+      flag: '🇬🇧',
+      region: 'west',
+      tier: 'Tier 1 Baseline',
+      baseCost: 4100,
+      breakdown: { rent: 2200, food: 950, coworking: 350, leisure: 600 },
+      internet: 210,
+      safety: 70,
+      climate: 'Mild / Rainy',
+      tags: ['Global Hub', 'High Burn']
+    },
+    {
+      id: 'zurich',
+      name: 'Zurich',
+      country: 'Switzerland',
+      flag: '🇨🇭',
+      region: 'west',
+      tier: 'Tier 1 Baseline',
+      baseCost: 5500,
+      breakdown: { rent: 2900, food: 1400, coworking: 400, leisure: 800 },
+      internet: 450,
+      safety: 94,
+      climate: 'Alpine',
+      tags: ['Highest Cost', 'Elite Infrastructure']
+    },
+    {
+      id: 'sydney',
+      name: 'Sydney',
+      country: 'Australia',
+      flag: '🇦🇺',
+      region: 'west',
+      tier: 'Tier 1 Baseline',
+      baseCost: 3900,
+      breakdown: { rent: 2100, food: 900, coworking: 350, leisure: 550 },
+      internet: 180,
+      safety: 82,
+      climate: 'Warm Coastal',
+      tags: ['Coastal', 'High Burn']
+    },
+
+    // Tier 2: Developed Europe & Developed Asia
+    {
+      id: 'berlin',
+      name: 'Berlin',
+      country: 'Germany',
+      flag: '🇩🇪',
+      region: 'europe',
+      tier: 'Tier 2 Developed',
+      baseCost: 2600,
+      breakdown: { rent: 1350, food: 650, coworking: 250, leisure: 350 },
+      internet: 220,
+      safety: 76,
+      climate: 'Four Seasons',
+      tags: ['Tech Hub', 'Culture']
+    },
+    {
+      id: 'barcelona',
+      name: 'Barcelona',
+      country: 'Spain',
+      flag: '🇪🇸',
+      region: 'europe',
+      tier: 'Tier 2 Developed',
+      baseCost: 2350,
+      breakdown: { rent: 1250, food: 550, coworking: 220, leisure: 330 },
+      internet: 260,
+      safety: 71,
+      climate: 'Mediterranean Warm',
+      tags: ['Beach', 'Nomad Hub']
+    },
+    {
+      id: 'tokyo',
+      name: 'Tokyo',
+      country: 'Japan',
+      flag: '🇯🇵',
+      region: 'sea',
+      tier: 'Tier 2 Developed',
+      baseCost: 2150,
+      breakdown: { rent: 1100, food: 550, coworking: 200, leisure: 300 },
+      internet: 380,
+      safety: 96,
+      climate: 'Four Seasons',
+      tags: ['Ultra Safe', 'Top Transit']
+    },
+    {
+      id: 'lisbon',
+      name: 'Lisbon',
+      country: 'Portugal',
+      flag: '🇵🇹',
+      region: 'europe',
+      tier: 'Tier 2 Developed',
+      baseCost: 2100,
+      breakdown: { rent: 1150, food: 500, coworking: 200, leisure: 250 },
+      internet: 280,
+      safety: 86,
+      climate: 'Warm Sunny',
+      tags: ['Nomad Capital', 'Coast']
+    },
+    {
+      id: 'athens',
+      name: 'Athens',
+      country: 'Greece',
+      flag: '🇬🇷',
+      region: 'europe',
+      tier: 'Tier 2 Developed',
+      baseCost: 1750,
+      breakdown: { rent: 850, food: 450, coworking: 180, leisure: 270 },
+      internet: 140,
+      safety: 74,
+      climate: 'Mediterranean Hot',
+      tags: ['History', 'Affordable EU']
+    },
+    {
+      id: 'warsaw',
+      name: 'Warsaw',
+      country: 'Poland',
+      flag: '🇵🇱',
+      region: 'europe',
+      tier: 'Tier 2 Developed',
+      baseCost: 1650,
+      breakdown: { rent: 850, food: 420, coworking: 160, leisure: 220 },
+      internet: 290,
+      safety: 88,
+      climate: 'Four Seasons',
+      tags: ['Modern Tech', 'Safe']
+    },
+
+    // Tier 3: Value European & Latin America Hubs
+    {
+      id: 'budapest',
+      name: 'Budapest',
+      country: 'Hungary',
+      flag: '🇭🇺',
+      region: 'europe',
+      tier: 'Tier 3 Value Hub',
+      baseCost: 1550,
+      breakdown: { rent: 750, food: 420, coworking: 160, leisure: 220 },
+      internet: 280,
+      safety: 80,
+      climate: 'Continental',
+      tags: ['Thermal Baths', 'Architecture']
+    },
+    {
+      id: 'split',
+      name: 'Split',
+      country: 'Croatia',
+      flag: '🇭🇷',
+      region: 'europe',
+      tier: 'Tier 3 Value Hub',
+      baseCost: 1600,
+      breakdown: { rent: 800, food: 420, coworking: 150, leisure: 230 },
+      internet: 190,
+      safety: 89,
+      climate: 'Adriatic Coastal',
+      tags: ['Dalmatian Coast', 'Summer Hub']
+    },
+    {
+      id: 'mexico-city',
+      name: 'Mexico City (Condesa)',
+      country: 'Mexico',
+      flag: '🇲🇽',
+      region: 'latam',
+      tier: 'Tier 3 Value Hub',
+      baseCost: 1650,
+      breakdown: { rent: 850, food: 450, coworking: 150, leisure: 200 },
+      internet: 150,
+      safety: 64,
+      climate: 'Spring-like Altitude',
+      tags: ['Food Capital', 'CST Timezone']
+    },
+    {
+      id: 'medellin',
+      name: 'Medellín (El Poblado)',
+      country: 'Colombia',
+      flag: '🇨🇴',
+      region: 'latam',
+      tier: 'Tier 3 Value Hub',
+      baseCost: 1350,
+      breakdown: { rent: 680, food: 370, coworking: 130, leisure: 170 },
+      internet: 120,
+      safety: 65,
+      climate: 'Eternal Spring (24°C)',
+      tags: ['Nomad Epicenter', 'Affordable']
+    },
+    {
+      id: 'tbilisi',
+      name: 'Tbilisi',
+      country: 'Georgia',
+      flag: '🇬🇪',
+      region: 'europe',
+      tier: 'Tier 3 Value Hub',
+      baseCost: 1300,
+      breakdown: { rent: 650, food: 350, coworking: 130, leisure: 170 },
+      internet: 160,
+      safety: 86,
+      climate: 'Warm Continental',
+      tags: ['365-Day Visa', '1% Tax']
+    },
+    {
+      id: 'bansko',
+      name: 'Bansko',
+      country: 'Bulgaria',
+      flag: '🇧🇬',
+      region: 'europe',
+      tier: 'Tier 3 Value Hub',
+      baseCost: 1050,
+      breakdown: { rent: 450, food: 320, coworking: 130, leisure: 150 },
+      internet: 180,
+      safety: 90,
+      climate: 'Mountain / Ski',
+      tags: ['Lowest EU Tax (10%)', 'Mountain Base']
+    },
+
+    // Tier 4: Ultra Geo-Arbitrage
+    {
+      id: 'chiang-mai',
+      name: 'Chiang Mai (Nimman)',
+      country: 'Thailand',
+      flag: '🇹🇭',
+      region: 'sea',
+      tier: 'Tier 4 Ultra-Arbitrage',
+      baseCost: 1050,
+      breakdown: { rent: 450, food: 320, coworking: 120, leisure: 160 },
+      internet: 320,
+      safety: 91,
+      climate: 'Tropical Warm',
+      tags: ['Nomad Mecca', 'Café Culture']
+    },
+    {
+      id: 'da-nang',
+      name: 'Da Nang (An Thuong)',
+      country: 'Vietnam',
+      flag: '🇻🇳',
+      region: 'sea',
+      tier: 'Tier 4 Ultra-Arbitrage',
+      baseCost: 920,
+      breakdown: { rent: 380, food: 290, coworking: 100, leisure: 150 },
+      internet: 180,
+      safety: 88,
+      climate: 'Tropical Beach',
+      tags: ['Beachfront', 'Ultra Low Burn']
+    },
+    {
+      id: 'bali',
+      name: 'Bali (Canggu / Ubud)',
+      country: 'Indonesia',
+      flag: '🇮🇩',
+      region: 'sea',
+      tier: 'Tier 4 Ultra-Arbitrage',
+      baseCost: 1400,
+      breakdown: { rent: 700, food: 390, coworking: 140, leisure: 170 },
+      internet: 90,
+      safety: 82,
+      climate: 'Tropical Island',
+      tags: ['Villa Living', 'Community']
+    },
+    {
+      id: 'buenos-aires',
+      name: 'Buenos Aires (Palermo)',
+      country: 'Argentina',
+      flag: '🇦🇷',
+      region: 'latam',
+      tier: 'Tier 4 Ultra-Arbitrage',
+      baseCost: 1150,
+      breakdown: { rent: 550, food: 340, coworking: 120, leisure: 140 },
+      internet: 140,
+      safety: 72,
+      climate: 'Temperate Warm',
+      tags: ['European Architecture', 'Steak & Wine']
+    },
+    {
+      id: 'kuala-lumpur',
+      name: 'Kuala Lumpur',
+      country: 'Malaysia',
+      flag: '🇲🇾',
+      region: 'sea',
+      tier: 'Tier 4 Ultra-Arbitrage',
+      baseCost: 1350,
+      breakdown: { rent: 650, food: 380, coworking: 130, leisure: 190 },
+      internet: 270,
+      safety: 78,
+      climate: 'Equatorial Warm',
+      tags: ['Luxury Condos', 'DE Rantau Visa']
+    },
+    {
+      id: 'ho-chi-minh',
+      name: 'Ho Chi Minh City',
+      country: 'Vietnam',
+      flag: '🇻🇳',
+      region: 'sea',
+      tier: 'Tier 4 Ultra-Arbitrage',
+      baseCost: 1080,
+      breakdown: { rent: 480, food: 330, coworking: 120, leisure: 150 },
+      internet: 170,
+      safety: 80,
+      climate: 'Tropical Vibrant',
+      tags: ['Bustling Energy', 'Street Food']
+    }
+  ];
+
+  // State Management
+  let currentSavings = 35000;
+  let currentIncome = 500;
+  let currentYield = 4.5;
+  let currentLifestyleTier = 1.0;
+  let homeBaselineCityId = 'new-york';
+  let targetCityId = 'chiang-mai';
+  let customBaselineVal = 4800;
+
+  // DOM Elements
+  const savingsInput = document.getElementById('savingsInput');
+  const savingsRange = document.getElementById('savingsRange');
+  const savingsValDisplay = document.getElementById('savingsValDisplay');
+
+  const incomeInput = document.getElementById('incomeInput');
+  const incomeRange = document.getElementById('incomeRange');
+  const incomeValDisplay = document.getElementById('incomeValDisplay');
+
+  const yieldInput = document.getElementById('yieldInput');
+  const yieldValDisplay = document.getElementById('yieldValDisplay');
+
+  const baselineSelect = document.getElementById('baselineSelect');
+  const targetCitySelect = document.getElementById('targetCitySelect');
+  const customBaselineWrap = document.getElementById('customBaselineWrap');
+  const customBaselineInput = document.getElementById('customBaselineInput');
+
+  const regionFilter = document.getElementById('regionFilter');
+  const sortBy = document.getElementById('sortBy');
+  const citiesGrid = document.getElementById('citiesGrid');
+
+  // Populate Target City Select
+  function populateTargetSelect() {
+    targetCitySelect.innerHTML = CITIES.map(c => `
+      <option value="${c.id}" ${c.id === targetCityId ? 'selected' : ''}>
+        ${c.flag} ${c.name} ($${c.baseCost}/mo)
+      </option>
+    `).join('');
+  }
+
+  // Get Base Cost for Home Baseline
+  function getBaselineMonthlyCost() {
+    if (homeBaselineCityId === 'custom') {
+      return customBaselineVal * currentLifestyleTier;
+    }
+    const c = CITIES.find(city => city.id === homeBaselineCityId);
+    return (c ? c.baseCost : 4800) * currentLifestyleTier;
+  }
+
+  // Core Mathematical Runway Formula
+  // Calculates exact continuous/discrete months to zero capital factoring monthly yield and burn
+  function calculateRunway(savings, income, monthlyExpense, annualYieldPercent) {
+    const netBurn = monthlyExpense - income;
+
+    // Case 1: Income covers expenses completely
+    if (netBurn <= 0) {
+      return { months: Infinity, isPerpetual: true, type: 'cashflow_positive' };
+    }
+
+    if (savings <= 0) {
+      return { months: 0, isPerpetual: false, type: 'zero_capital' };
+    }
+
+    const r_m = (annualYieldPercent / 100) / 12;
+
+    // Case 2: Zero yield (linear depletion)
+    if (r_m <= 0) {
+      const months = savings / netBurn;
+      return { months, isPerpetual: false, type: 'linear' };
+    }
+
+    // Case 3: Interest on savings exceeds net monthly burn (Perpetual FIRE)
+    const monthlyInterest = savings * r_m;
+    if (monthlyInterest >= netBurn) {
+      return { months: Infinity, isPerpetual: true, type: 'fire_dividend' };
+    }
+
+    // Case 4: Capital depletes with interest buffer (Exact Logarithmic Formula)
+    // C_t = C0*(1+r_m)^t - netBurn*((1+r_m)^t - 1)/r_m = 0
+    // (1+r_m)^t * (C0 - netBurn/r_m) + netBurn/r_m = 0
+    // (1+r_m)^t = (netBurn / r_m) / (netBurn / r_m - C0) = 1 / (1 - (C0 * r_m / netBurn))
+    const ratio = (savings * r_m) / netBurn;
+    if (ratio >= 1) {
+      return { months: Infinity, isPerpetual: true, type: 'fire_dividend' };
+    }
+
+    const months = Math.log(1 / (1 - ratio)) / Math.log(1 + r_m);
+    return { months, isPerpetual: false, type: 'depletion' };
+  }
+
+  // Calculate Projected Depletion Date String
+  function formatDepletionDate(months) {
+    if (!isFinite(months)) return '♾️ Perpetual Freedom';
+    if (months <= 0) return 'Immediate Depletion';
+
+    const now = new Date();
+    const future = new Date(now.getFullYear(), now.getMonth() + Math.round(months), 1);
+    const options = { month: 'short', year: 'numeric' };
+    return future.toLocaleDateString('en-US', options);
+  }
+
+  // Format Months display
+  function formatMonths(months) {
+    if (!isFinite(months)) return '♾️ Perpetual';
+    if (months >= 24) {
+      const years = (months / 12).toFixed(1);
+      return `${months.toFixed(1)} Mo (${years} Yrs)`;
+    }
+    return `${months.toFixed(1)} Months`;
+  }
+
+  // Recalculate & Render Everything
+  function updateCalculations() {
+    savingsValDisplay.textContent = `$${currentSavings.toLocaleString()}`;
+    incomeValDisplay.textContent = `$${currentIncome.toLocaleString()}`;
+    yieldValDisplay.textContent = `${currentYield}%`;
+
+    const baselineCost = getBaselineMonthlyCost();
+    const baselineRunway = calculateRunway(currentSavings, currentIncome, baselineCost, currentYield);
+
+    const targetCity = CITIES.find(c => c.id === targetCityId) || CITIES[17]; // default Chiang Mai
+    const targetCost = targetCity.baseCost * currentLifestyleTier;
+    const targetRunway = calculateRunway(currentSavings, currentIncome, targetCost, currentYield);
+
+    // Update Baseline UI
+    const baselineCityObj = CITIES.find(c => c.id === homeBaselineCityId);
+    const baselineName = homeBaselineCityId === 'custom' ? 'Custom City' : (baselineCityObj ? baselineCityObj.name : 'Home City');
+    document.getElementById('baselineTitleDisplay').textContent = `${baselineName} Runway`;
+    document.getElementById('baselineBurnDisplay').textContent = `$${Math.round(baselineCost).toLocaleString()}/mo`;
+    document.getElementById('baselineMonthsDisplay').textContent = formatMonths(baselineRunway.months);
+    document.getElementById('baselineDepleteDate').textContent = formatDepletionDate(baselineRunway.months);
+
+    // Update Target UI
+    document.getElementById('targetCityFlag').textContent = targetCity.flag;
+    document.getElementById('targetCityTitle').textContent = `${targetCity.name}, ${targetCity.country}`;
+    document.getElementById('targetMonthsDisplay').textContent = formatMonths(targetRunway.months);
+    document.getElementById('targetDepleteDate').textContent = formatDepletionDate(targetRunway.months);
+
+    const targetNetBurn = Math.max(0, targetCost - currentIncome);
+    document.getElementById('targetBurnSummary').textContent = 
+      targetCost <= currentIncome 
+        ? `Surplus: +$${Math.round(currentIncome - targetCost).toLocaleString()}/mo savings growth!` 
+        : `Net Burn: $${Math.round(targetNetBurn).toLocaleString()}/mo (Cost $${Math.round(targetCost)} - Income $${Math.round(currentIncome)})`;
+
+    // Multiplier Calculation
+    const multiplierBadge = document.getElementById('multiplierBadge');
+    const multiplierDisplay = document.getElementById('multiplierDisplay');
+    const infiniteCrossoverText = document.getElementById('infiniteCrossoverText');
+
+    if (!isFinite(targetRunway.months) && isFinite(baselineRunway.months)) {
+      multiplierBadge.textContent = 'INFINITE';
+      multiplierDisplay.textContent = 'Infinite Autonomy';
+      infiniteCrossoverText.innerHTML = `🎉 <strong>Perpetual Freedom!</strong> In ${targetCity.name}, your passive yield + remote income exceeds your monthly burn. You never run out of capital.`;
+    } else if (!isFinite(baselineRunway.months) && !isFinite(targetRunway.months)) {
+      multiplierBadge.textContent = 'MAX';
+      multiplierDisplay.textContent = 'Self-Sustaining';
+      infiniteCrossoverText.innerHTML = `You are already financially perpetual in both locations!`;
+    } else {
+      const mult = baselineRunway.months > 0 ? (targetRunway.months / baselineRunway.months) : 1;
+      const pctGain = Math.round((mult - 1) * 100);
+      multiplierBadge.textContent = pctGain >= 0 ? `+${pctGain}%` : `${pctGain}%`;
+      multiplierDisplay.textContent = `${mult.toFixed(1)}x Longer`;
+
+      // Crossover Gap calculation
+      const r_m = (currentYield / 100) / 12;
+      const interestIncome = currentSavings * r_m;
+      const gap = Math.max(0, targetCost - currentIncome - interestIncome);
+
+      if (gap <= 0) {
+        infiniteCrossoverText.innerHTML = `🎉 In <strong>${targetCity.name}</strong>, your runway is already perpetual!`;
+      } else {
+        infiniteCrossoverText.innerHTML = `Crossover Gap: Earning just <span class="font-mono text-cyan-300 font-bold">+$${Math.round(gap)}/mo</span> more in ${targetCity.name} makes your runway <strong class="text-emerald-400">PERPETUAL (Infinite)</strong>.`;
+      }
+    }
+
+    // Update Trajectory Chart
+    renderTrajectoryChart(baselineCost, targetCity);
+
+    // Update Directory Cards
+    renderCityCards(baselineRunway.months);
+  }
+
+  // Trajectory SVG Simulation Chart
+  function renderTrajectoryChart(baselineCost, targetCity) {
+    const chart = document.getElementById('trajectoryChart');
+    const altCity1 = CITIES.find(c => c.id === 'medellin') || CITIES[14];
+    const altCity2 = CITIES.find(c => c.id === 'bansko') || CITIES[16];
+
+    document.getElementById('legendBaseline').textContent = homeBaselineCityId === 'custom' ? 'Baseline' : (CITIES.find(c => c.id === homeBaselineCityId)?.name || 'Home');
+    document.getElementById('legendTarget').textContent = targetCity.name;
+    document.getElementById('legendAlt1').textContent = altCity1.name;
+    document.getElementById('legendAlt2').textContent = altCity2.name;
+
+    const monthsHorizon = 60; // 5 years
+    const r_m = (currentYield / 100) / 12;
+
+    // Simulate Capital Trajectory for a given monthly cost
+    function simulate(monthlyCost) {
+      const points = [];
+      let cap = currentSavings;
+      const cost = monthlyCost * currentLifestyleTier;
+      for (let m = 0; m <= monthsHorizon; m++) {
+        points.push({ month: m, capital: Math.max(0, cap) });
+        if (cap > 0) {
+          cap = cap * (1 + r_m) + (currentIncome - cost);
+        }
+      }
+      return points;
+    }
+
+    const baselinePoints = simulate(baselineCost / currentLifestyleTier);
+    const targetPoints = simulate(targetCity.baseCost);
+    const alt1Points = simulate(altCity1.baseCost);
+    const alt2Points = simulate(altCity2.baseCost);
+
+    // Max capital for vertical scaling
+    let maxCap = currentSavings * 1.35;
+    [...baselinePoints, ...targetPoints, ...alt1Points, ...alt2Points].forEach(p => {
+      if (p.capital > maxCap) maxCap = p.capital;
+    });
+
+    const w = 800;
+    const h = 260;
+    const padX = 50;
+    const padY = 25;
+    const graphW = w - padX - 20;
+    const graphH = h - padY * 2;
+
+    function getX(m) {
+      return padX + (m / monthsHorizon) * graphW;
+    }
+    function getY(cap) {
+      return padY + graphH - (cap / maxCap) * graphH;
+    }
+
+    function makePath(points) {
+      return points.map((p, idx) => `${idx === 0 ? 'M' : 'L'} ${getX(p.month).toFixed(1)} ${getY(p.capital).toFixed(1)}`).join(' ');
+    }
+
+    let svgHtml = `
+      <!-- Horizontal Grid Lines -->
+      <line x1="${padX}" y1="${getY(0)}" x2="${w - 20}" y2="${getY(0)}" stroke="#3f3f46" stroke-width="1.5" stroke-dasharray="3,3" />
+      <text x="${padX - 8}" y="${getY(0) + 4}" fill="#71717a" font-size="10" font-family="JetBrains Mono" text-anchor="end">$0</text>
+
+      <line x1="${padX}" y1="${getY(currentSavings)}" x2="${w - 20}" y2="${getY(currentSavings)}" stroke="#27272a" stroke-width="1" />
+      <text x="${padX - 8}" y="${getY(currentSavings) + 4}" fill="#a1a1aa" font-size="10" font-family="JetBrains Mono" text-anchor="end">$${Math.round(currentSavings/1000)}k</text>
+
+      <!-- Vertical Grid Lines (Years) -->
+      ${[0, 12, 24, 36, 48, 60].map(m => `
+        <line x1="${getX(m)}" y1="${padY}" x2="${getX(m)}" y2="${h - padY}" stroke="#27272a" stroke-width="1" />
+      `).join('')}
+
+      <!-- Trajectory Paths -->
+      <path d="${makePath(baselinePoints)}" fill="none" stroke="#f43f5e" stroke-width="2.5" stroke-dasharray="4,4" />
+      <path d="${makePath(alt1Points)}" fill="none" stroke="#22d3ee" stroke-width="2" opacity="0.6" />
+      <path d="${makePath(alt2Points)}" fill="none" stroke="#818cf8" stroke-width="2" opacity="0.6" />
+      <path d="${makePath(targetPoints)}" fill="none" stroke="#10b981" stroke-width="3.5" />
+    `;
+
+    chart.innerHTML = svgHtml;
+  }
+
+  // Render Directory City Cards
+  function renderCityCards(baselineMonths) {
+    const filter = regionFilter.value;
+    const sort = sortBy.value;
+
+    let list = CITIES.filter(c => filter === 'all' || c.region === filter);
+
+    // Compute metrics for sorting
+    list = list.map(c => {
+      const cost = c.baseCost * currentLifestyleTier;
+      const runway = calculateRunway(currentSavings, currentIncome, cost, currentYield);
+      const mult = isFinite(runway.months) && isFinite(baselineMonths) && baselineMonths > 0 
+        ? (runway.months / baselineMonths) 
+        : (isFinite(runway.months) ? 1 : 999);
+      return { ...c, calculatedCost: cost, runway, mult };
+    });
+
+    // Sorting logic
+    list.sort((a, b) => {
+      if (sort === 'runway-desc') return (b.runway.months - a.runway.months);
+      if (sort === 'cost-asc') return (a.calculatedCost - b.calculatedCost);
+      if (sort === 'multiplier-desc') return (b.mult - a.mult);
+      if (sort === 'speed-desc') return (b.internet - a.internet);
+      if (sort === 'safety-desc') return (b.safety - a.safety);
+      return 0;
+    });
+
+    citiesGrid.innerHTML = list.map(c => {
+      const isTarget = c.id === targetCityId;
+      const runwayText = formatMonths(c.runway.months);
+      const isPerpetual = !isFinite(c.runway.months);
+
+      // Crossover gap for this city
+      const r_m = (currentYield / 100) / 12;
+      const interest = currentSavings * r_m;
+      const gap = Math.max(0, c.calculatedCost - currentIncome - interest);
+
+      return `
+        <div onclick="selectTargetCity('${c.id}')"
+             class="group cursor-pointer rounded-2xl p-5 border transition-all duration-200 relative ${
+               isTarget 
+                 ? 'bg-zinc-900 border-emerald-500 shadow-lg shadow-emerald-950/30' 
+                 : 'bg-zinc-900/50 hover:bg-zinc-900 border-zinc-800 hover:border-zinc-700'
+             }">
+          
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">${c.flag}</span>
+              <div>
+                <h3 class="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
+                  ${c.name}
+                </h3>
+                <span class="text-[11px] text-zinc-500">${c.country} · ${c.tier}</span>
+              </div>
+            </div>
+            
+            <div class="text-right">
+              <div class="text-xs font-mono font-bold text-zinc-200">
+                $${Math.round(c.calculatedCost).toLocaleString()}
+                <span class="text-[10px] text-zinc-500 font-normal">/mo</span>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 rounded font-mono font-medium ${c.mult >= 2 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-zinc-800 text-zinc-400'}">
+                ${isPerpetual ? 'PERPETUAL' : `${c.mult.toFixed(1)}x vs home`}
+              </span>
+            </div>
+          </div>
+
+          <!-- Runway Metric Box -->
+          <div class="bg-zinc-950/70 border border-zinc-800/80 rounded-xl p-3 my-3 flex items-center justify-between">
+            <span class="text-xs text-zinc-400 font-medium">Freedom Runway:</span>
+            <span class="text-sm font-mono font-extrabold ${isPerpetual ? 'text-emerald-400 animate-pulse' : 'text-zinc-100'}">
+              ${runwayText}
+            </span>
+          </div>
+
+          <!-- Expense Category Progress Bar -->
+          <div class="space-y-1 mb-3">
+            <div class="flex justify-between text-[10px] text-zinc-500 font-mono">
+              <span>Rent (~${Math.round(c.breakdown.rent * currentLifestyleTier)}$)</span>
+              <span>Food (~${Math.round(c.breakdown.food * currentLifestyleTier)}$)</span>
+              <span>Other</span>
+            </div>
+            <div class="w-full h-1.5 bg-zinc-800 rounded-full flex overflow-hidden">
+              <div style="width: ${(c.breakdown.rent / c.baseCost) * 100}%" class="bg-emerald-500/70"></div>
+              <div style="width: ${(c.breakdown.food / c.baseCost) * 100}%" class="bg-cyan-500/70"></div>
+              <div style="width: ${((c.breakdown.coworking + c.breakdown.leisure) / c.baseCost) * 100}%" class="bg-indigo-500/70"></div>
+            </div>
+          </div>
+
+          <!-- Nomad Vitals -->
+          <div class="grid grid-cols-3 gap-2 text-center text-[10px] py-2 border-t border-zinc-800/60 font-mono text-zinc-400">
+            <div>
+              <span class="text-zinc-500 block">Wifi</span>
+              <span class="text-zinc-200 font-semibold">${c.internet} Mbps</span>
+            </div>
+            <div>
+              <span class="text-zinc-500 block">Safety</span>
+              <span class="text-zinc-200 font-semibold">${c.safety}/100</span>
+            </div>
+            <div>
+              <span class="text-zinc-500 block">Climate</span>
+              <span class="text-zinc-200 font-semibold">${c.climate.split(' ')[0]}</span>
+            </div>
+          </div>
+
+          <!-- Infinity Gap Note -->
+          <div class="mt-2 text-[10px] text-zinc-500 text-center">
+            ${isPerpetual 
+              ? '<span class="text-emerald-400 font-medium">✓ Capital does not deplete here</span>' 
+              : `+$${Math.round(gap)}/mo remote earn to reach Perpetual FIRE`}
+          </div>
+
+        </div>
+      `;
+    }).join('');
+  }
+
+  // City Selection
+  function selectTargetCity(cityId) {
+    targetCityId = cityId;
+    targetCitySelect.value = cityId;
+    updateCalculations();
+  }
+
+  // Preset Handlers
+  function applyPreset(type) {
+    if (type === 'indie') {
+      currentSavings = 25000;
+      currentIncome = 0;
+      currentYield = 0.0;
+      currentLifestyleTier = 0.75;
+      targetCityId = 'chiang-mai';
+    } else if (type === 'sabbatical') {
+      currentSavings = 60000;
+      currentIncome = 0;
+      currentYield = 4.5;
+      currentLifestyleTier = 1.0;
+      targetCityId = 'lisbon';
+    } else if (type === 'freelance') {
+      currentSavings = 15000;
+      currentIncome = 1200;
+      currentYield = 4.0;
+      currentLifestyleTier = 1.0;
+      targetCityId = 'da-nang';
+    } else if (type === 'fire') {
+      currentSavings = 200000;
+      currentIncome = 0;
+      currentYield = 5.5;
+      currentLifestyleTier = 1.0;
+      targetCityId = 'bansko';
+    }
+
+    // Sync input values
+    savingsInput.value = currentSavings;
+    savingsRange.value = Math.min(250000, currentSavings);
+    incomeInput.value = currentIncome;
+    incomeRange.value = Math.min(5000, currentIncome);
+    yieldInput.value = currentYield;
+
+    // Sync lifestyle buttons
+    document.querySelectorAll('.lifestyle-btn').forEach(btn => {
+      const tier = parseFloat(btn.getAttribute('data-tier'));
+      if (tier === currentLifestyleTier) {
+        btn.className = 'lifestyle-btn py-2 text-xs font-medium rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 transition-all';
+      } else {
+        btn.className = 'lifestyle-btn py-2 text-xs font-medium rounded-lg text-zinc-400 hover:text-white transition-all';
+      }
+    });
+
+    targetCitySelect.value = targetCityId;
+    updateCalculations();
+  }
+
+  // Event Listeners
+  savingsInput.addEventListener('input', (e) => {
+    currentSavings = Math.max(0, parseFloat(e.target.value) || 0);
+    savingsRange.value = Math.min(250000, currentSavings);
+    updateCalculations();
+  });
+  savingsRange.addEventListener('input', (e) => {
+    currentSavings = parseFloat(e.target.value);
+    savingsInput.value = currentSavings;
+    updateCalculations();
+  });
+
+  incomeInput.addEventListener('input', (e) => {
+    currentIncome = Math.max(0, parseFloat(e.target.value) || 0);
+    incomeRange.value = Math.min(5000, currentIncome);
+    updateCalculations();
+  });
+  incomeRange.addEventListener('input', (e) => {
+    currentIncome = parseFloat(e.target.value);
+    incomeInput.value = currentIncome;
+    updateCalculations();
+  });
+
+  yieldInput.addEventListener('input', (e) => {
+    currentYield = Math.max(0, parseFloat(e.target.value) || 0);
+    updateCalculations();
+  });
+
+  baselineSelect.addEventListener('change', (e) => {
+    homeBaselineCityId = e.target.value;
+    if (homeBaselineCityId === 'custom') {
+      customBaselineWrap.classList.remove('hidden');
+    } else {
+      customBaselineWrap.classList.add('hidden');
+    }
+    updateCalculations();
+  });
+
+  customBaselineInput.addEventListener('input', (e) => {
+    customBaselineVal = Math.max(100, parseFloat(e.target.value) || 4500);
+    updateCalculations();
+  });
+
+  targetCitySelect.addEventListener('change', (e) => {
+    targetCityId = e.target.value;
+    updateCalculations();
+  });
+
+  document.querySelectorAll('.lifestyle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.lifestyle-btn').forEach(b => {
+        b.className = 'lifestyle-btn py-2 text-xs font-medium rounded-lg text-zinc-400 hover:text-white transition-all';
+      });
+      btn.className = 'lifestyle-btn py-2 text-xs font-medium rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 transition-all';
+      currentLifestyleTier = parseFloat(btn.getAttribute('data-tier'));
+      
+      const desc = document.getElementById('lifestyleTierDesc');
+      if (currentLifestyleTier === 0.75) {
+        desc.textContent = 'Frugal / Lean: private room or studio outside center, local dining, public transit.';
+      } else if (currentLifestyleTier === 1.0) {
+        desc.textContent = 'Balanced nomad: private 1BR apt, coworking, daily cafes, 3-4 dinners out/week.';
+      } else {
+        desc.textContent = 'Premium / Expat: high-end condo with pool/gym, daily dining out, frequent weekend travel.';
+      }
+      updateCalculations();
+    });
+  });
+
+  regionFilter.addEventListener('change', () => updateCalculations());
+  sortBy.addEventListener('change', () => updateCalculations());
+
+  // Initialization
+  populateTargetSelect();
+  updateCalculations();
+</script>
+
+  </main>
+
+  <footer class="border-t border-zinc-800/80 bg-zinc-950/40 mt-16 py-6">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between text-xs text-zinc-500">
+      <a href="https://petiay83.github.io/sovereign-tools/" class="hover:text-zinc-300">← Back to All Sovereign Tools</a>
+      <span class="text-emerald-500/70">100% Client-Side Execution</span>
+    </div>
+  </footer>
+</body>
+</html>

@@ -64,7 +64,7 @@
       "id": "geo-arbitrage-runway",
       "title": "Geo-Arbitrage & Freedom Runway Simulator",
       "cluster": "nomad",
-      "status": "planned",
+      "status": "live",
       "tags": [
         "runway",
         "fire",

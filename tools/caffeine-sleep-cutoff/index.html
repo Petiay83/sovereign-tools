@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caffeine Half-Life & Sleep Disruption Visualizer — Sovereign Tools</title>
+  <meta name="description" content="Interactive plasma concentration curve with CYP1A2 metabolic variations and deep-sleep thresholds.">
+  <meta property="og:title" content="Caffeine Half-Life & Sleep Disruption Visualizer">
+  <meta property="og:description" content="Interactive plasma concentration curve with CYP1A2 metabolic variations and deep-sleep thresholds.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://petiay83.github.io/sovereign-tools/tools/caffeine-sleep-cutoff/">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              500: '#10b981',
+              600: '#059669',
+              900: '#064e3b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-[#090d16] text-zinc-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black">
+
+  <div class="h-1 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-500"></div>
+
+  <!-- Universal Tool Navbar -->
+  <header class="border-b border-zinc-800/80 bg-zinc-950/60 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="https://petiay83.github.io/sovereign-tools/" class="text-zinc-400 hover:text-white flex items-center gap-1.5 text-xs font-medium px-2.5 py-1.5 rounded-lg hover:bg-zinc-800/60 transition-colors border border-transparent hover:border-zinc-800">
+          <span>←</span>
+          <span>Hub</span>
+        </a>
+        <span class="text-zinc-700">/</span>
+        <span class="text-xs text-zinc-400 font-medium flex items-center gap-1">
+          <span>🧬</span> Rationality & Longevity
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Radical Privacy
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tool App Container -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-8 w-full">
+    <!-- Caffeine & Sleep Decay Visualizer Tool Content -->
+<div class="space-y-8">
+  <!-- Title & Intro -->
+  <div class="border-b border-zinc-800 pb-6">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-800/40 text-cyan-400 text-xs font-mono mb-3">
+      <span>🧬</span> PHARMACOKINETICS SIMULATOR
+    </div>
+    <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">
+      Caffeine Half-Life & Sleep Cutoff Visualizer
+    </h1>
+    <p class="text-zinc-400 text-sm sm:text-base leading-relaxed max-w-3xl">
+      Caffeine has an average half-life of 5 to 7 hours, blocking adenosine receptors and quietly eroding slow-wave (deep) sleep even if you fall asleep without trouble. Calculate your exact residual blood levels and determine your personal zero-disruption cutoff.
+    </p>
+  </div>
+
+  <!-- Interactive Simulator Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Controls Column (5 cols) -->
+    <div class="lg:col-span-5 space-y-6 bg-zinc-900/60 border border-zinc-800/80 p-6 rounded-2xl">
+      <h2 class="text-sm font-semibold uppercase tracking-wider text-zinc-400 flex items-center gap-2">
+        <span>⚙️</span> Parameters & Dosage
+      </h2>
+
+      <!-- Presets -->
+      <div>
+        <label class="block text-xs font-medium text-zinc-300 mb-2">Quick Dose Presets</label>
+        <div class="grid grid-cols-3 gap-2">
+          <button type="button" onclick="setPreset(65, 'Espresso (Single)')" class="preset-btn px-2.5 py-1.5 rounded-lg bg-zinc-800/60 hover:bg-zinc-800 text-zinc-300 text-xs border border-zinc-700/60 transition-all text-center">
+            ☕ Espresso<br><span class="text-[10px] text-zinc-500">65 mg</span>
+          </button>
+          <button type="button" onclick="setPreset(150, 'Filter Coffee (Cup)')" class="preset-btn px-2.5 py-1.5 rounded-lg bg-zinc-800/60 hover:bg-zinc-800 text-zinc-300 text-xs border border-zinc-700/60 transition-all text-center">
+            🫗 Filter / Mug<br><span class="text-[10px] text-zinc-500">150 mg</span>
+          </button>
+          <button type="button" onclick="setPreset(200, 'Cold Brew / Large')" class="preset-btn px-2.5 py-1.5 rounded-lg bg-zinc-800/60 hover:bg-zinc-800 text-zinc-300 text-xs border border-zinc-700/60 transition-all text-center">
+            🧊 Cold Brew<br><span class="text-[10px] text-zinc-500">200 mg</span>
+          </button>
+          <button type="button" onclick="setPreset(160, 'Energy Drink')" class="preset-btn px-2.5 py-1.5 rounded-lg bg-zinc-800/60 hover:bg-zinc-800 text-zinc-300 text-xs border border-zinc-700/60 transition-all text-center">
+            ⚡ Energy Can<br><span class="text-[10px] text-zinc-500">160 mg</span>
+          </button>
+          <button type="button" onclick="setPreset(45, 'Green Tea / Matcha')" class="preset-btn px-2.5 py-1.5 rounded-lg bg-zinc-800/60 hover:bg-zinc-800 text-zinc-300 text-xs border border-zinc-700/60 transition-all text-center">
+            🍵 Matcha / Tea<br><span class="text-[10px] text-zinc-500">45 mg</span>
+          </button>
+          <button type="button" onclick="setPreset(300, 'Pre-Workout')" class="preset-btn px-2.5 py-1.5 rounded-lg bg-zinc-800/60 hover:bg-zinc-800 text-zinc-300 text-xs border border-zinc-700/60 transition-all text-center">
+            🏋️ Pre-Workout<br><span class="text-[10px] text-zinc-500">300 mg</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Dose Slider -->
+      <div>
+        <div class="flex justify-between items-center text-xs mb-1.5">
+          <span class="text-zinc-300 font-medium">Total Caffeine Dose</span>
+          <span id="doseVal" class="font-mono text-emerald-400 font-bold text-sm">150 mg</span>
+        </div>
+        <input type="range" id="doseInput" min="20" max="600" step="5" value="150"
+               class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+      </div>
+
+      <!-- Time of Consumption -->
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-medium text-zinc-300 mb-1.5">Intake Time</label>
+          <input type="time" id="intakeTime" value="14:00"
+                 class="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-zinc-200 text-xs focus:outline-none focus:border-emerald-500 font-mono">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-zinc-300 mb-1.5">Target Bedtime</label>
+          <input type="time" id="bedTime" value="23:30"
+                 class="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-zinc-200 text-xs focus:outline-none focus:border-emerald-500 font-mono">
+        </div>
+      </div>
+
+      <!-- Metabolic Variation (CYP1A2 enzyme) -->
+      <div>
+        <label class="block text-xs font-medium text-zinc-300 mb-1.5">Metabolic Clearance (CYP1A2)</label>
+        <select id="metabolismType" class="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-zinc-200 text-xs focus:outline-none focus:border-emerald-500">
+          <option value="5.0">Standard Metabolizer (T½ ~ 5.0 hours)</option>
+          <option value="3.5">Fast Metabolizer (T½ ~ 3.5 hours)</option>
+          <option value="7.5">Slow Metabolizer (T½ ~ 7.5 hours)</option>
+          <option value="10.0">Oral Contraceptives / Pregnancy (T½ ~ 10.0 hours)</option>
+          <option value="3.2">Active Smoker / Nicotine (T½ ~ 3.2 hours)</option>
+        </select>
+        <p class="text-[11px] text-zinc-500 mt-1.5 leading-relaxed">
+          The CYP1A2 liver enzyme breaks down 95% of caffeine. Genetics can vary clearance rates by over 2.5x.
+        </p>
+      </div>
+    </div>
+
+    <!-- Output & Chart Column (7 cols) -->
+    <div class="lg:col-span-7 space-y-6">
+      <!-- High-Impact Outcome Card -->
+      <div id="outcomeBox" class="p-6 rounded-2xl border transition-all duration-300 bg-zinc-900/60 border-zinc-800">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+          <div>
+            <span class="text-xs uppercase tracking-wider text-zinc-400 font-medium">Estimated Residual at Bedtime</span>
+            <div class="flex items-baseline gap-2 mt-1">
+              <span id="residualMg" class="text-4xl font-extrabold font-mono text-white">--</span>
+              <span class="text-xs text-zinc-400">in plasma</span>
+            </div>
+          </div>
+          <div id="statusBadge" class="self-start sm:self-auto px-3 py-1.5 rounded-xl text-xs font-semibold">
+            Calculating...
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-zinc-800/80 text-xs">
+          <div>
+            <span class="text-zinc-500 block mb-0.5">Recommended Safe Cutoff</span>
+            <span id="safeCutoffTime" class="text-sm font-semibold font-mono text-emerald-400">--:--</span>
+          </div>
+          <div>
+            <span class="text-zinc-500 block mb-0.5">Deep Sleep (SWS) Impact</span>
+            <span id="sleepImpactText" class="text-sm font-medium text-zinc-200">Analyzing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Canvas Plasma Decay Graph -->
+      <div class="bg-zinc-900/60 border border-zinc-800/80 p-5 rounded-2xl">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+            Plasma Concentration Curve (24h)
+          </span>
+          <div class="flex items-center gap-3 text-[11px] text-zinc-400">
+            <span class="flex items-center gap-1">
+              <span class="w-2.5 h-0.5 bg-emerald-400 rounded"></span> Caffeine
+            </span>
+            <span class="flex items-center gap-1">
+              <span class="w-2.5 h-0.5 bg-rose-500 rounded border-dashed"></span> Sleep Threshold
+            </span>
+          </div>
+        </div>
+
+        <div class="relative w-full h-56">
+          <canvas id="decayCanvas" class="w-full h-full block"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deep Dive & Science Section (SEO / Quality) -->
+  <div class="mt-12 pt-8 border-t border-zinc-800/80 grid grid-cols-1 md:grid-cols-2 gap-8 text-xs sm:text-sm text-zinc-400 leading-relaxed">
+    <div class="space-y-3">
+      <h3 class="text-sm font-bold text-zinc-200 uppercase tracking-wider">The Pharmacokinetics of Sleep Disruption</h3>
+      <p>
+        Caffeine works primarily as a competitive antagonist of adenosine \(A_1\) and \(A_{2A}\) receptors. Adenosine is the molecular byproduct of cellular energy expenditure (ATP breakdown) that builds up throughout your waking hours, creating "sleep pressure".
+      </p>
+      <p>
+        Even if you can fall asleep with 40mg of caffeine in your bloodstream, clinical polysomnography studies show it fragments sleep architecture, reduces Stage 3 & 4 non-REM slow-wave sleep (where physical repair and glymphatic brain clearance occur) by up to 20%, and increases micro-arousals.
+      </p>
+    </div>
+    <div class="space-y-3">
+      <h3 class="text-sm font-bold text-zinc-200 uppercase tracking-wider">How This Model Computes Decay</h3>
+      <p>
+        This calculator uses first-order pharmacokinetics with instantaneous gastrointestinal absorption (peaking at ~45 minutes):
+      </p>
+      <div class="p-3 bg-zinc-950 rounded-xl font-mono text-[11px] text-emerald-300 border border-zinc-800">
+        C(t) = C₀ · (0.5)^(Δt / T½)
+      </div>
+      <p>
+        Where \(C₀\) is the initial bioavailable dose, \(\Delta t\) is hours elapsed since peak, and \(T½\) is the clearance half-life dictated by your CYP1A2 enzymatic phenotype.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const doseInput = document.getElementById('doseInput');
+  const doseVal = document.getElementById('doseVal');
+  const intakeTimeInput = document.getElementById('intakeTime');
+  const bedTimeInput = document.getElementById('bedTime');
+  const metabolismSelect = document.getElementById('metabolismType');
+
+  const residualMgEl = document.getElementById('residualMg');
+  const statusBadgeEl = document.getElementById('statusBadge');
+  const outcomeBoxEl = document.getElementById('outcomeBox');
+  const safeCutoffEl = document.getElementById('safeCutoffTime');
+  const sleepImpactEl = document.getElementById('sleepImpactText');
+  const canvas = document.getElementById('decayCanvas');
+  const ctx = canvas.getContext('2d');
+
+  function setPreset(mg, name) {
+    doseInput.value = mg;
+    updateCalculations();
+  }
+
+  function parseTimeToMinutes(timeStr) {
+    const [h, m] = timeStr.split(':').map(Number);
+    return h * 60 + m;
+  }
+
+  function formatMinutesToTime(mins) {
+    mins = ((mins % 1440) + 1440) % 1440;
+    const h = Math.floor(mins / 60);
+    const m = Math.floor(mins % 60);
+    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+  }
+
+  function updateCalculations() {
+    const dose = parseFloat(doseInput.value);
+    doseVal.textContent = `${dose} mg`;
+
+    const halfLifeHours = parseFloat(metabolismSelect.value);
+    const intakeMins = parseTimeToMinutes(intakeTimeInput.value);
+    const bedMins = parseTimeToMinutes(bedTimeInput.value);
+
+    // Calculate hours between intake and bedtime
+    let elapsedMinutes = bedMins - intakeMins;
+    if (elapsedMinutes < 0) {
+      elapsedMinutes += 1440; // crosses midnight
+    }
+    const elapsedHours = elapsedMinutes / 60;
+
+    // First order decay after 45 min absorption peak
+    let residual = 0;
+    if (elapsedHours < 0.75) {
+      residual = dose * (elapsedHours / 0.75); // still absorbing
+    } else {
+      const decayTime = elapsedHours - 0.75;
+      residual = dose * Math.pow(0.5, decayTime / halfLifeHours);
+    }
+    residual = Math.round(residual * 10) / 10;
+    residualMgEl.textContent = `${residual} mg`;
+
+    // Safe bedtime cutoff: residual < 20mg
+    // 20 = dose * (0.5)^((cutoffDelta - 0.75) / halfLife)
+    let hoursNeededForSafe = 0;
+    if (dose > 20) {
+      hoursNeededForSafe = 0.75 + halfLifeHours * (Math.log(dose / 20) / Math.log(2));
+    }
+    const safeCutoffMins = bedMins - Math.round(hoursNeededForSafe * 60);
+    safeCutoffEl.textContent = formatMinutesToTime(safeCutoffMins);
+
+    // Sleep risk evaluation
+    if (residual < 20) {
+      statusBadgeEl.className = 'self-start sm:self-auto px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30';
+      statusBadgeEl.textContent = '🟢 Deep Sleep Safe';
+      outcomeBoxEl.className = 'p-6 rounded-2xl border transition-all duration-300 bg-zinc-900/60 border-emerald-500/30';
+      sleepImpactEl.textContent = 'Negligible adenosine disruption (<20mg)';
+    } else if (residual <= 50) {
+      statusBadgeEl.className = 'self-start sm:self-auto px-3 py-1.5 rounded-xl text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/30';
+      statusBadgeEl.textContent = '🟡 Moderate Sleep Risk';
+      outcomeBoxEl.className = 'p-6 rounded-2xl border transition-all duration-300 bg-zinc-900/60 border-amber-500/30';
+      sleepImpactEl.textContent = 'Possible ~10-15% reduction in Slow-Wave Sleep';
+    } else {
+      statusBadgeEl.className = 'self-start sm:self-auto px-3 py-1.5 rounded-xl text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/30';
+      statusBadgeEl.textContent = '🔴 High Disruption Warning';
+      outcomeBoxEl.className = 'p-6 rounded-2xl border transition-all duration-300 bg-zinc-900/60 border-rose-500/30';
+      sleepImpactEl.textContent = 'Severe suppression of deep sleep & delta brainwaves';
+    }
+
+    drawGraph(dose, intakeMins, bedMins, halfLifeHours);
+  }
+
+  function drawGraph(dose, intakeMins, bedMins, halfLifeHours) {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+
+    const w = rect.width;
+    const h = rect.height;
+    ctx.clearRect(0, 0, w, h);
+
+    const padLeft = 40;
+    const padBottom = 25;
+    const padTop = 15;
+    const padRight = 20;
+
+    const plotW = w - padLeft - padRight;
+    const plotH = h - padTop - padBottom;
+
+    // Simulation window: 24 hours starting 2 hours before intake
+    const startMins = intakeMins - 120;
+    const totalSimHours = 24;
+
+    const maxMg = Math.max(dose * 1.1, 100);
+
+    // Draw grid lines
+    ctx.strokeStyle = '#27272a';
+    ctx.lineWidth = 1;
+    ctx.font = '10px JetBrains Mono, monospace';
+    ctx.fillStyle = '#71717a';
+
+    for (let mg = 50; mg < maxMg; mg += 50) {
+      const y = padTop + plotH - (mg / maxMg) * plotH;
+      ctx.beginPath();
+      ctx.moveTo(padLeft, y);
+      ctx.lineTo(w - padRight, y);
+      ctx.stroke();
+      ctx.fillText(`${mg}mg`, 5, y + 3);
+    }
+
+    // Draw Sleep Safe Threshold (20 mg)
+    const thresholdY = padTop + plotH - (20 / maxMg) * plotH;
+    ctx.save();
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = '#f43f5e';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(padLeft, thresholdY);
+    ctx.lineTo(w - padRight, thresholdY);
+    ctx.stroke();
+    ctx.fillStyle = '#f43f5e';
+    ctx.fillText('20mg Cutoff', w - padRight - 65, thresholdY - 4);
+    ctx.restore();
+
+    // Bedtime vertical line
+    let bedOffsetMins = bedMins - startMins;
+    if (bedOffsetMins < 0) bedOffsetMins += 1440;
+    const bedX = padLeft + (bedOffsetMins / (totalSimHours * 60)) * plotW;
+
+    if (bedX >= padLeft && bedX <= w - padRight) {
+      ctx.save();
+      ctx.strokeStyle = '#6366f1';
+      ctx.setLineDash([3, 3]);
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(bedX, padTop);
+      ctx.lineTo(bedX, padTop + plotH);
+      ctx.stroke();
+      ctx.fillStyle = '#818cf8';
+      ctx.fillText('Bedtime', bedX - 20, padTop + 10);
+      ctx.restore();
+    }
+
+    // Draw Curve
+    ctx.beginPath();
+    let started = false;
+    for (let m = 0; m <= totalSimHours * 60; m += 10) {
+      const currentSimMin = startMins + m;
+      let timeSinceIntake = (currentSimMin - intakeMins) / 60;
+      if (timeSinceIntake < 0) timeSinceIntake += 24;
+
+      let mgVal = 0;
+      if (timeSinceIntake >= 0 && timeSinceIntake <= 24) {
+        if (timeSinceIntake < 0.75) {
+          mgVal = dose * (timeSinceIntake / 0.75);
+        } else {
+          mgVal = dose * Math.pow(0.5, (timeSinceIntake - 0.75) / halfLifeHours);
+        }
+      }
+
+      const x = padLeft + (m / (totalSimHours * 60)) * plotW;
+      const y = padTop + plotH - (mgVal / maxMg) * plotH;
+
+      if (!started) {
+        ctx.moveTo(x, y);
+        started = true;
+      } else {
+        ctx.lineTo(x, y);
+      }
+    }
+
+    ctx.strokeStyle = '#10b981';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+
+    // Shading under curve
+    ctx.lineTo(w - padRight, padTop + plotH);
+    ctx.lineTo(padLeft, padTop + plotH);
+    ctx.closePath();
+    const grad = ctx.createLinearGradient(0, padTop, 0, padTop + plotH);
+    grad.addColorStop(0, 'rgba(16, 185, 129, 0.25)');
+    grad.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // X Axis Labels
+    ctx.fillStyle = '#71717a';
+    for (let hStep = 0; hStep <= totalSimHours; hStep += 6) {
+      const x = padLeft + (hStep / totalSimHours) * plotW;
+      const labelMin = (startMins + hStep * 60) % 1440;
+      const labelTime = formatMinutesToTime(labelMin);
+      ctx.fillText(labelTime, x - 12, padTop + plotH + 16);
+    }
+  }
+
+  [doseInput, intakeTimeInput, bedTimeInput, metabolismSelect].forEach(el => {
+    el.addEventListener('input', updateCalculations);
+    el.addEventListener('change', updateCalculations);
+  });
+
+  window.addEventListener('resize', updateCalculations);
+  updateCalculations();
+</script>
+
+  </main>
+
+  <footer class="border-t border-zinc-800/80 bg-zinc-950/40 mt-16 py-6">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between text-xs text-zinc-500">
+      <a href="https://petiay83.github.io/sovereign-tools/" class="hover:text-zinc-300">← Back to All Sovereign Tools</a>
+      <span class="text-emerald-500/70">100% Client-Side Execution</span>
+    </div>
+  </footer>
+</body>
+</html>

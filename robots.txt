@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://petiay83.github.io/sovereign-tools/sitemap.xml

@@ -28,6 +28,13 @@ def load_registry():
     with open(REGISTRY_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
+def get_analytics_tags(site):
+    code = site.get("goatcounter")
+    if not code:
+        return ""
+    return f"""  <!-- Privacy-Preserving Cookieless Analytics (GoatCounter) -->
+  <script data-goatcounter="https://{code}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>"""
+
 def generate_hub_html(registry):
     site = registry["site"]
     clusters = registry["clusters"]
@@ -83,6 +90,7 @@ def generate_hub_html(registry):
       font-family: 'JetBrains Mono', monospace;
     }}
   </style>
+{get_analytics_tags(site)}
 </head>
 <body class="bg-[#090d16] text-zinc-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black">
 
@@ -175,6 +183,10 @@ def generate_hub_html(registry):
         <span class="text-emerald-500/80">Local Client-Side Runtime</span>
       </div>
       <div class="flex items-center gap-6">
+        <a href="https://{site.get('goatcounter', 'sovereign-tools')}.goatcounter.com" target="_blank" rel="noopener" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Live Stats</span>
+        </a>
         <a href="{site["github"]}" class="hover:text-zinc-300 transition-colors">Contribute on GitHub</a>
         <a href="https://github.com/Petiay83/sovereign-tools/issues" class="hover:text-zinc-300 transition-colors">Request a Tool</a>
       </div>
@@ -365,6 +377,7 @@ def wrap_tool_content(tool_meta, content_html, registry):
       font-family: 'JetBrains Mono', monospace;
     }}
   </style>
+{get_analytics_tags(site)}
 </head>
 <body class="bg-[#090d16] text-zinc-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black">
 

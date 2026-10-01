@@ -1,0 +1,652 @@
+<div class="space-y-10">
+
+  <!-- Header Section -->
+  <div class="text-center max-w-3xl mx-auto space-y-3">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+      <span>🧭</span> Axiological Alignment Engine
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+      Philosophical Radar & Values Compatibility Compass
+    </h1>
+    <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+      Superficial personality tests measure trivia. Long-term partnerships and co-founder alliances flourish or fracture on <strong>core philosophical values</strong>. Compare your 12-dimensional worldview vector privately via peer-to-peer link.
+    </p>
+  </div>
+
+  <!-- Presets Bar -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 sm:p-5">
+    <div class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3 flex items-center justify-between">
+      <span>⚡ Archetypal Dynamic Presets</span>
+      <span class="text-[11px] text-zinc-500 normal-case">Click to explore classic relationship polarities</span>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+      <button onclick="applyPreset('founders')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-emerald-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 flex items-center gap-1.5">
+          <span>🚀</span> Co-Founders Alignment
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">Pragmatic Operator vs Moonshot Visionary</div>
+      </button>
+
+      <button onclick="applyPreset('nomad')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-cyan-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-cyan-400 flex items-center gap-1.5">
+          <span>💑</span> Nomad vs Home-Builder
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">Borderless Geo-Arbitrage vs Rooted Sanctuary</div>
+      </button>
+
+      <button onclick="applyPreset('rationalist')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-indigo-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-indigo-400 flex items-center gap-1.5">
+          <span>🧬</span> Rationalist & Romantic
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">Bayesian Empiricism vs Intuitive Sentiment</div>
+      </button>
+
+      <button onclick="applyPreset('stoic')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-amber-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-amber-400 flex items-center gap-1.5">
+          <span>🧘</span> Stoic & Faustian Maximizer
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">Tranquil Contentment vs Asymmetric Scaling</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Peer-to-Peer URL Invitation Banner -->
+  <div class="bg-gradient-to-r from-emerald-950/40 via-zinc-900 to-cyan-950/40 border border-emerald-500/30 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div class="space-y-1">
+      <div class="flex items-center gap-2">
+        <span class="text-base">🔗</span>
+        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Zero-Database P2P Comparison</span>
+      </div>
+      <p class="text-xs text-zinc-300">
+        Fill out your profile, click copy, and send the link to your partner or co-founder. Your values are encoded directly into the URL — no accounts, no cookies, 100% private.
+      </p>
+    </div>
+
+    <button onclick="copyPartnerLink()" id="copyLinkBtn" class="self-start sm:self-auto px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold rounded-xl text-xs transition-all flex items-center gap-1.5 whitespace-nowrap shadow-lg shadow-emerald-950/40">
+      <span>📋 Copy Comparison Link for Partner</span>
+    </button>
+  </div>
+
+  <!-- Main Radar Chart & Compatibility Overview -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- Left: SVG Spider / Radar Chart -->
+    <div class="lg:col-span-7 bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-zinc-800">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <span>🕸️</span> 12-Axis Axiological Overlay
+          </h2>
+          <p class="text-xs text-zinc-400">Comparing worldview profiles across 12 polarities (Scale 1–10).</p>
+        </div>
+
+        <!-- Legend -->
+        <div class="flex items-center gap-4 text-xs font-mono">
+          <div class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+            <span id="legendNameA" class="text-emerald-300 font-semibold">Person A</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-3 h-3 rounded-full bg-cyan-400"></span>
+            <span id="legendNameB" class="text-cyan-300 font-semibold">Person B</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SVG Radar Canvas -->
+      <div class="relative w-full aspect-square max-w-[480px] mx-auto flex items-center justify-center p-2">
+        <svg id="radarChart" class="w-full h-full" viewBox="0 0 500 500">
+          <!-- Rendered dynamically by JavaScript -->
+        </svg>
+      </div>
+
+      <!-- Active Axis Inspection Text -->
+      <div id="radarTooltip" class="h-6 text-center text-xs font-mono text-zinc-400">
+        Hover over any axis or point to inspect exact scores
+      </div>
+    </div>
+
+    <!-- Right: Compatibility Score & Diagnostic Matrix -->
+    <div class="lg:col-span-5 space-y-6">
+
+      <!-- Overall Compatibility Score Card -->
+      <div class="bg-gradient-to-br from-emerald-950/40 via-zinc-900 to-zinc-900 border border-emerald-500/40 rounded-2xl p-6 shadow-xl space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Axiological Compatibility</span>
+          <span id="scoreBadge" class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+            Resonance
+          </span>
+        </div>
+
+        <div class="text-4xl sm:text-5xl font-black font-mono tracking-tight text-white" id="scoreDisplay">
+          82%
+        </div>
+
+        <p class="text-xs text-zinc-300 leading-relaxed" id="scoreSummary">
+          High philosophical resonance. Strong alignment on foundational existential priorities with complementary growth opportunities.
+        </p>
+
+        <!-- Progress Bar -->
+        <div class="w-full h-2.5 bg-zinc-950 rounded-full border border-zinc-800 overflow-hidden mt-2">
+          <div id="scoreBar" class="h-full bg-gradient-to-r from-emerald-500 to-cyan-400 transition-all duration-500" style="width: 82%"></div>
+        </div>
+      </div>
+
+      <!-- Synergy & Friction Matrix -->
+      <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-5 space-y-4 shadow-xl">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-2">
+          <span>⚡</span> Resonance & Friction Matrix
+        </h3>
+
+        <!-- Resonances -->
+        <div class="space-y-1.5 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs">
+          <div class="text-[11px] font-bold text-emerald-400 flex items-center gap-1">
+            <span>🟢</span> Core Resonances (Identical Values)
+          </div>
+          <div id="resonancesList" class="text-[11px] text-zinc-300 space-y-1 leading-snug">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Frictions -->
+        <div class="space-y-1.5 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs">
+          <div class="text-[11px] font-bold text-amber-400 flex items-center gap-1">
+            <span>⚡</span> Growth Polarities / Friction Points
+          </div>
+          <div id="frictionsList" class="text-[11px] text-zinc-300 space-y-1 leading-snug">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Dealbreaker Alert -->
+        <div id="dealbreakerAlert" class="hidden p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300 space-y-1">
+          <div class="font-bold flex items-center gap-1 text-[11px]">
+            <span>🚨</span> Critical Dealbreaker Divergence Detected
+          </div>
+          <p id="dealbreakerText" class="text-[11px] text-zinc-300 leading-snug">
+            Sharp divergence on fundamental existential choices.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- The 12 Philosophical Dimensions Sliders Workspace -->
+  <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-xl">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-zinc-800 gap-4">
+      <div>
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <span>⚙️</span> Configure the 12 Axiological Polarities
+        </h3>
+        <p class="text-xs text-zinc-400">Adjust scores from 1 (Left Pole) to 10 (Right Pole) for Person A and Person B.</p>
+      </div>
+
+      <!-- Person Selector Toggle for Mobile / Quick edit -->
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 text-xs">
+          <span class="text-emerald-400 font-semibold">Name A:</span>
+          <input type="text" id="nameAInput" value="Alex" class="px-2 py-1 bg-zinc-950 border border-zinc-700 rounded-lg text-xs font-medium w-24 text-zinc-100">
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+          <span class="text-cyan-400 font-semibold">Name B:</span>
+          <input type="text" id="nameBInput" value="Jordan" class="px-2 py-1 bg-zinc-950 border border-zinc-700 rounded-lg text-xs font-medium w-24 text-zinc-100">
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 Sliders Grid -->
+    <div id="slidersContainer" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+      <!-- Populated dynamically by JavaScript -->
+    </div>
+  </div>
+
+  <!-- Deep Philosophical Rationale -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 space-y-6">
+    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+      <span>📜</span> The Foundations of Axiological Compatibility
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-zinc-400 leading-relaxed">
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-emerald-400">
+          <span>1.</span> Why Hobbies Don't Matter
+        </h4>
+        <p>
+          Couples rarely split because one likes hiking and the other likes cinema. Partnerships dissolve over structural friction: whether to risk capital on an asymmetric venture, whether to raise children, and how to speak the truth when tension peaks.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-cyan-400">
+          <span>2.</span> Complementarity vs Conflict
+        </h4>
+        <p>
+          Some polarities are healthy complements: an analytical partner paired with an intuitive partner can form an indomitable team. Other polarities are zero-sum dealbreakers: wanting borderless nomadism while the other demands rooted homeownership leads to irreconcilable resentment.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-indigo-400">
+          <span>3.</span> The Power of Explicit Vectors
+        </h4>
+        <p>
+          Most people discover their partner's stance on financial risk or childrearing five years too late. Laying down your 12-dimensional axiological vector turns implicit, simmering landmines into clear, conscious design choices.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Interactive Engine JavaScript -->
+<script>
+  // The 12 Fundamental Axiological Dimensions
+  const DIMENSIONS = [
+    {
+      id: 'autonomy',
+      title: 'Autonomy vs Collectivism',
+      left: 'Absolute Sovereignty',
+      right: 'Tribal / Communal Duty',
+      dealbreaker: false
+    },
+    {
+      id: 'candor',
+      title: 'Radical Candor vs Diplomacy',
+      left: 'Unvarnished Truth',
+      right: 'Social Cushioning',
+      dealbreaker: false
+    },
+    {
+      id: 'ambition',
+      title: 'Faustian Ambition vs Contentment',
+      left: 'Scale & Legacy',
+      right: 'Tranquil Presence',
+      dealbreaker: false
+    },
+    {
+      id: 'risk',
+      title: 'Calculated Risk vs Preservation',
+      left: 'Asymmetric Volatility',
+      right: 'Safety & Predictability',
+      dealbreaker: true
+    },
+    {
+      id: 'mobility',
+      title: 'Nomad Mobility vs Rooted Steadfastness',
+      left: 'Borderless Geo-Arbitrage',
+      right: 'Local Land & Sanctuary',
+      dealbreaker: true
+    },
+    {
+      id: 'rationalism',
+      title: 'Empirical Rationalism vs Mysticism',
+      left: 'Bayesian Science',
+      right: 'Intuitive Spirit',
+      dealbreaker: false
+    },
+    {
+      id: 'tech',
+      title: 'Tech Acceleration vs Naturalism',
+      left: 'Transhumanism & AI',
+      right: 'Ancestral Living',
+      dealbreaker: false
+    },
+    {
+      id: 'capital',
+      title: 'Capital Compounding vs Experience Spending',
+      left: 'Frugal Sovereign Runway',
+      right: 'Sensory Indulgence Now',
+      dealbreaker: true
+    },
+    {
+      id: 'conformity',
+      title: 'Sovereign Non-Conformity vs Institutional Trust',
+      left: 'Radical Skepticism',
+      right: 'Civic Duty & Protocol',
+      dealbreaker: false
+    },
+    {
+      id: 'children',
+      title: 'Generational Dynasty vs Childfree Freedom',
+      left: 'Dynasty & Raising Kids',
+      right: 'Autonomous Childfree',
+      dealbreaker: true
+    },
+    {
+      id: 'stoicism',
+      title: 'Stoic Self-Reliance vs Interdependence',
+      left: 'Inner Citadel',
+      right: 'Emotional Merging',
+      dealbreaker: false
+    },
+    {
+      id: 'conflict',
+      title: 'Analytical Resolution vs Spatial Cool-Down',
+      left: 'Resolve with Logic Now',
+      right: 'Solitary Space First',
+      dealbreaker: false
+    }
+  ];
+
+  // Presets
+  const PRESETS = {
+    founders: {
+      nameA: "Tech Lead",
+      nameB: "Visionary CEO",
+      a: [9, 9, 8, 7, 7, 10, 9, 9, 8, 3, 8, 9],
+      b: [7, 6, 10, 9, 8, 6, 9, 6, 7, 2, 7, 6]
+    },
+    nomad: {
+      nameA: "Nomad Nomad",
+      nameB: "Sanctuary Seeker",
+      a: [10, 8, 8, 8, 10, 8, 8, 8, 9, 2, 8, 8],
+      b: [5, 6, 5, 4, 2, 5, 4, 6, 5, 8, 5, 4]
+    },
+    rationalist: {
+      nameA: "Bayesian Mind",
+      nameB: "Intuitive Heart",
+      a: [8, 9, 7, 7, 6, 10, 8, 8, 8, 4, 8, 9],
+      b: [6, 4, 5, 5, 5, 2, 4, 5, 4, 7, 4, 3]
+    },
+    stoic: {
+      nameA: "Stoic Minimalist",
+      nameB: "Faustian Maximizer",
+      a: [9, 8, 3, 4, 6, 8, 5, 9, 8, 3, 10, 8],
+      b: [8, 8, 10, 9, 8, 7, 9, 5, 8, 3, 6, 8]
+    }
+  };
+
+  // State
+  let nameA = "Alex";
+  let nameB = "Jordan";
+  let vectorA = [8, 8, 8, 7, 9, 8, 8, 8, 9, 3, 8, 8];
+  let vectorB = [7, 7, 6, 6, 8, 7, 7, 7, 7, 3, 7, 7];
+
+  // DOM Elements
+  const nameAInput = document.getElementById('nameAInput');
+  const nameBInput = document.getElementById('nameBInput');
+  const legendNameA = document.getElementById('legendNameA');
+  const legendNameB = document.getElementById('legendNameB');
+  const radarChart = document.getElementById('radarChart');
+  const radarTooltip = document.getElementById('radarTooltip');
+  const scoreDisplay = document.getElementById('scoreDisplay');
+  const scoreBadge = document.getElementById('scoreBadge');
+  const scoreSummary = document.getElementById('scoreSummary');
+  const scoreBar = document.getElementById('scoreBar');
+  const resonancesList = document.getElementById('resonancesList');
+  const frictionsList = document.getElementById('frictionsList');
+  const dealbreakerAlert = document.getElementById('dealbreakerAlert');
+  const dealbreakerText = document.getElementById('dealbreakerText');
+  const slidersContainer = document.getElementById('slidersContainer');
+
+  // Parse URL Parameters (P2P State)
+  function initFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('a')) {
+      const parsedA = params.get('a').split(',').map(n => parseInt(n, 10));
+      if (parsedA.length === 12 && parsedA.every(n => !isNaN(n))) {
+        vectorA = parsedA;
+      }
+    }
+    if (params.has('b')) {
+      const parsedB = params.get('b').split(',').map(n => parseInt(n, 10));
+      if (parsedB.length === 12 && parsedB.every(n => !isNaN(n))) {
+        vectorB = parsedB;
+      }
+    }
+    if (params.has('nameA')) {
+      nameA = params.get('nameA');
+      nameAInput.value = nameA;
+    }
+    if (params.has('nameB')) {
+      nameB = params.get('nameB');
+      nameBInput.value = nameB;
+    }
+  }
+
+  // Generate Sliders
+  function renderSliders() {
+    slidersContainer.innerHTML = DIMENSIONS.map((d, idx) => `
+      <div class="p-3.5 bg-zinc-950/70 border border-zinc-800 rounded-xl space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-white flex items-center gap-1.5">
+            ${d.dealbreaker ? '<span class="text-rose-400" title="Core Dealbreaker Dimension">⚡</span>' : ''}
+            <span>${idx + 1}. ${d.title}</span>
+          </span>
+          <div class="text-[11px] font-mono">
+            <span class="text-emerald-400 font-bold">${nameA}: ${vectorA[idx]}</span>
+            <span class="text-zinc-600 mx-1">·</span>
+            <span class="text-cyan-400 font-bold">${nameB}: ${vectorB[idx]}</span>
+          </div>
+        </div>
+
+        <div class="flex justify-between text-[10px] text-zinc-500 font-medium">
+          <span>← ${d.left} (1)</span>
+          <span>${d.right} (10) →</span>
+        </div>
+
+        <!-- Slider A (Emerald) -->
+        <div class="flex items-center gap-2">
+          <span class="w-12 text-[10px] text-emerald-400 font-mono">${nameA}</span>
+          <input type="range" min="1" max="10" step="1" value="${vectorA[idx]}"
+                 oninput="updateVector('a', ${idx}, this.value)"
+                 class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+        </div>
+
+        <!-- Slider B (Cyan) -->
+        <div class="flex items-center gap-2">
+          <span class="w-12 text-[10px] text-cyan-400 font-mono">${nameB}</span>
+          <input type="range" min="1" max="10" step="1" value="${vectorB[idx]}"
+                 oninput="updateVector('b', ${idx}, this.value)"
+                 class="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function updateVector(person, idx, val) {
+    const num = parseInt(val, 10);
+    if (person === 'a') {
+      vectorA[idx] = num;
+    } else {
+      vectorB[idx] = num;
+    }
+    renderSliders();
+    updateCalculations();
+  }
+
+  // Presets
+  function applyPreset(key) {
+    const p = PRESETS[key];
+    if (!p) return;
+    nameA = p.nameA;
+    nameB = p.nameB;
+    nameAInput.value = nameA;
+    nameBInput.value = nameB;
+    vectorA = [...p.a];
+    vectorB = [...p.b];
+    renderSliders();
+    updateCalculations();
+  }
+
+  // Main Calculation & Rendering
+  function updateCalculations() {
+    nameA = nameAInput.value.trim() || 'Person A';
+    nameB = nameBInput.value.trim() || 'Person B';
+    legendNameA.textContent = nameA;
+    legendNameB.textContent = nameB;
+
+    // Mathematical Similarity
+    let totalL1 = 0;
+    const maxPossible = 12 * 9; // 108
+    const diffs = [];
+
+    for (let i = 0; i < 12; i++) {
+      const diff = Math.abs(vectorA[i] - vectorB[i]);
+      totalL1 += diff;
+      diffs.push({
+        dim: DIMENSIONS[i],
+        diff: diff,
+        valA: vectorA[i],
+        valB: vectorB[i]
+      });
+    }
+
+    const similarityPct = Math.round((1 - (totalL1 / maxPossible)) * 100);
+    scoreDisplay.textContent = `${similarityPct}%`;
+    scoreBar.style.width = `${similarityPct}%`;
+
+    if (similarityPct >= 80) {
+      scoreBadge.className = 'px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+      scoreBadge.textContent = 'High Resonance';
+      scoreSummary.textContent = 'Deep worldview synergy. Foundational life priorities and operating philosophies align seamlessly.';
+    } else if (similarityPct >= 65) {
+      scoreBadge.className = 'px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-cyan-500/20 text-cyan-300 border border-cyan-500/30';
+      scoreBadge.textContent = 'Complementary Balance';
+      scoreSummary.textContent = 'Healthy balance of shared values and divergent polarities. Can produce powerful creative synergy if communicated clearly.';
+    } else {
+      scoreBadge.className = 'px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-rose-500/20 text-rose-300 border border-rose-500/30';
+      scoreBadge.textContent = 'Significant Divergence';
+      scoreSummary.textContent = 'Substantial tension across core life priorities. Requires deliberate, explicit contractual boundaries to avoid friction.';
+    }
+
+    // Top Resonances (lowest diff)
+    const sortedByDiff = [...diffs].sort((a, b) => a.diff - b.diff);
+    const resonances = sortedByDiff.filter(d => d.diff <= 1).slice(0, 3);
+    resonancesList.innerHTML = resonances.length 
+      ? resonances.map(r => `• <strong>${r.dim.title}:</strong> Both around ~${r.valA}/10`).join('<br>')
+      : '• No identical axes (diverse perspectives throughout)';
+
+    // Top Frictions (highest diff)
+    const sortedByDesc = [...diffs].sort((a, b) => b.diff - a.diff);
+    const frictions = sortedByDesc.filter(d => d.diff >= 3).slice(0, 3);
+    frictionsList.innerHTML = frictions.length
+      ? frictions.map(f => `• <strong>${f.dim.title}:</strong> ${nameA} (${f.valA}) vs ${nameB} (${f.valB}) — Δ${f.diff}`).join('<br>')
+      : '• Minimal friction (all dimensions within 2 points)';
+
+    // Dealbreakers
+    const dealbreakers = diffs.filter(d => d.dim.dealbreaker && d.diff >= 4);
+    if (dealbreakers.length > 0) {
+      dealbreakerAlert.classList.remove('hidden');
+      dealbreakerText.innerHTML = `Critical friction detected in: <strong>${dealbreakers.map(d => d.dim.title).join(', ')}</strong>. Because these dimensions dictate physical relocation, children, or financial solvency, align explicitly on these first!`;
+    } else {
+      dealbreakerAlert.classList.add('hidden');
+    }
+
+    // Render Spider Chart
+    renderRadar();
+  }
+
+  // Draw 12-Axis SVG Spider / Radar Chart
+  function renderRadar() {
+    const size = 500;
+    const center = size / 2;
+    const radius = 175;
+    const numAxes = 12;
+
+    function getCoord(axisIndex, score) {
+      const angle = (Math.PI * 2 / numAxes) * axisIndex - (Math.PI / 2);
+      const r = (score / 10) * radius;
+      return {
+        x: center + r * Math.cos(angle),
+        y: center + r * Math.sin(angle)
+      };
+    }
+
+    let svgHtml = '';
+
+    // Concentric Web Polygons (Levels 2, 4, 6, 8, 10)
+    [2, 4, 6, 8, 10].forEach(level => {
+      const points = [];
+      for (let i = 0; i < numAxes; i++) {
+        const pt = getCoord(i, level);
+        points.push(`${pt.x.toFixed(1)},${pt.y.toFixed(1)}`);
+      }
+      svgHtml += `<polygon points="${points.join(' ')}" fill="none" stroke="#27272a" stroke-width="1" />`;
+    });
+
+    // 12 Axis Lines & Labels
+    for (let i = 0; i < numAxes; i++) {
+      const edge = getCoord(i, 10);
+      const labelPt = getCoord(i, 11.5);
+      const angle = (Math.PI * 2 / numAxes) * i - (Math.PI / 2);
+
+      svgHtml += `<line x1="${center}" y1="${center}" x2="${edge.x.toFixed(1)}" y2="${edge.y.toFixed(1)}" stroke="#3f3f46" stroke-width="1" stroke-dasharray="2,2" />`;
+
+      // Axis Label
+      const anchor = Math.abs(Math.cos(angle)) < 0.2 ? 'middle' : (Math.cos(angle) > 0 ? 'start' : 'end');
+      svgHtml += `
+        <text x="${labelPt.x.toFixed(1)}" y="${labelPt.y.toFixed(1)}" 
+              fill="#a1a1aa" font-size="10" font-family="JetBrains Mono" text-anchor="${anchor}" dominant-baseline="central">
+          ${i + 1}
+        </text>
+      `;
+    }
+
+    // Person A Polygon (Emerald)
+    const pointsA = vectorA.map((score, i) => {
+      const pt = getCoord(i, score);
+      return `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`;
+    }).join(' ');
+
+    svgHtml += `<polygon points="${pointsA}" fill="#10b981" fill-opacity="0.25" stroke="#10b981" stroke-width="2.5" />`;
+
+    // Person B Polygon (Cyan)
+    const pointsB = vectorB.map((score, i) => {
+      const pt = getCoord(i, score);
+      return `${pt.x.toFixed(1)},${pt.y.toFixed(1)}`;
+    }).join(' ');
+
+    svgHtml += `<polygon points="${pointsB}" fill="#22d3ee" fill-opacity="0.25" stroke="#22d3ee" stroke-width="2.5" />`;
+
+    // Interactive Data Dots
+    vectorA.forEach((score, i) => {
+      const pt = getCoord(i, score);
+      svgHtml += `
+        <circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="4.5" fill="#10b981" stroke="#090d16" stroke-width="1.5"
+                onmouseover="showTooltip('${nameA}', '${DIMENSIONS[i].title}', ${score})" />
+      `;
+    });
+
+    vectorB.forEach((score, i) => {
+      const pt = getCoord(i, score);
+      svgHtml += `
+        <circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="4.5" fill="#22d3ee" stroke="#090d16" stroke-width="1.5"
+                onmouseover="showTooltip('${nameB}', '${DIMENSIONS[i].title}', ${score})" />
+      `;
+    });
+
+    radarChart.innerHTML = svgHtml;
+  }
+
+  function showTooltip(person, dim, score) {
+    radarTooltip.innerHTML = `<strong>${person}</strong>: ${dim} ➔ <span class="text-white font-bold">${score}/10</span>`;
+  }
+
+  // Copy P2P Link
+  function copyPartnerLink() {
+    const baseUrl = window.location.origin + window.location.pathname;
+    const aStr = vectorA.join(',');
+    const bStr = vectorB.join(',');
+    const link = `${baseUrl}?a=${aStr}&b=${bStr}&nameA=${encodeURIComponent(nameA)}&nameB=${encodeURIComponent(nameB)}`;
+
+    navigator.clipboard.writeText(link).then(() => {
+      const btn = document.getElementById('copyLinkBtn');
+      btn.innerHTML = '<span>✓ Link Copied to Clipboard!</span>';
+      setTimeout(() => {
+        btn.innerHTML = '<span>📋 Copy Comparison Link for Partner</span>';
+      }, 2500);
+    });
+  }
+
+  // Event Listeners
+  nameAInput.addEventListener('input', () => updateCalculations());
+  nameBInput.addEventListener('input', () => updateCalculations());
+
+  // Initialization
+  initFromUrl();
+  renderSliders();
+  updateCalculations();
+</script>

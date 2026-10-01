@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sovereign Tools</title>
+    <link>https://petiay83.github.io/sovereign-tools/</link>
+    <description>Zero server tracking, 100% client-side execution, radical privacy. Fast, distraction-free utilities designed for personal autonomy.</description>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 01 Oct 2026 21:25:43 +0000</lastBuildDate>
+    <atom:link href="https://petiay83.github.io/sovereign-tools/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>FEIE 330-Day Physical Presence & Expat Tax Calculator</title>
+      <link>https://petiay83.github.io/sovereign-tools/tools/feie-tax-calculator/</link>
+      <guid isPermaLink="true">https://petiay83.github.io/sovereign-tools/tools/feie-tax-calculator/</guid>
+      <description>Determine IRS Foreign Earned Income Exclusion eligibility using a rolling 365-day qualifying period.</description>
+      <category>nomad</category>
+      <pubDate>Thu, 01 Oct 2026 21:25:43 +0000</pubDate>
+    </item>
+    <item>
+      <title>Digital Nomad Visa Income & Family Threshold Matrix</title>
+      <link>https://petiay83.github.io/sovereign-tools/tools/nomad-visa-matrix/</link>
+      <guid isPermaLink="true">https://petiay83.github.io/sovereign-tools/tools/nomad-visa-matrix/</guid>
+      <description>Instant filter across 25+ countries to check income requirements, family surcharges, and tax breaks.</description>
+      <category>nomad</category>
+      <pubDate>Thu, 01 Oct 2026 21:25:43 +0000</pubDate>
+    </item>
+    <item>
+      <title>Geo-Arbitrage & Freedom Runway Simulator</title>
+      <link>https://petiay83.github.io/sovereign-tools/tools/geo-arbitrage-runway/</link>
+      <guid isPermaLink="true">https://petiay83.github.io/sovereign-tools/tools/geo-arbitrage-runway/</guid>
+      <description>Calculate your true financial autonomy horizon when relocating across tier-1, tier-2 and nomad hubs.</description>
+      <category>nomad</category>
+      <pubDate>Thu, 01 Oct 2026 21:25:43 +0000</pubDate>
+    </item>
+    <item>
+      <title>Caffeine Half-Life & Sleep Disruption Visualizer</title>
+      <link>https://petiay83.github.io/sovereign-tools/tools/caffeine-sleep-cutoff/</link>
+      <guid isPermaLink="true">https://petiay83.github.io/sovereign-tools/tools/caffeine-sleep-cutoff/</guid>
+      <description>Interactive plasma concentration curve with CYP1A2 metabolic variations and deep-sleep thresholds.</description>
+      <category>rationality</category>
+      <pubDate>Thu, 01 Oct 2026 21:25:43 +0000</pubDate>
+    </item>
+    <item>
+      <title>Longevity Lipid & Insulin Resistance Index Calculator</title>
+      <link>https://petiay83.github.io/sovereign-tools/tools/longevity-lipid-ratios/</link>
+      <guid isPermaLink="true">https://petiay83.github.io/sovereign-tools/tools/longevity-lipid-ratios/</guid>
+      <description>Evaluate ApoB/ApoA1, TG/HDL ratios, and cardiovascular risk targets purely inside your browser.</description>
+      <category>rationality</category>
+      <pubDate>Thu, 01 Oct 2026 21:25:43 +0000</pubDate>
+    </item>
+    <item>
+      <title>Bayesian Belief Updating & Evidence Evaluator</title>
+      <link>https://petiay83.github.io/sovereign-tools/tools/bayesian-updater/</link>
+      <guid isPermaLink="true">https://petiay83.github.io/sovereign-tools/tools/bayesian-updater/</guid>
+      <description>Mathematically calibrate confidence in your hypotheses when new empirical evidence arrives.</description>
+      <category>rationality</category>
+      <pubDate>Thu, 01 Oct 2026 21:25:43 +0000</pubDate>
+    </item>
+    <item>
+      <title>Interactive Life in Weeks & Finite Horizon Visualizer</title>
+      <link>https://petiay83.github.io/sovereign-tools/tools/life-in-weeks/</link>
+      <guid isPermaLink="true">https://petiay83.github.io/sovereign-tools/tools/life-in-weeks/</guid>
+      <description>A high-impact 90-year visual grid mapping elapsed time, remaining seasons, and shared moments with loved ones.</description>
+      <category>clarity</category>
+      <pubDate>Thu, 01 Oct 2026 21:25:43 +0000</pubDate>
+    </item>
+    <item>
+      <title>Stoic Dichotomy of Control Workspace</title>
+      <link>https://petiay83.github.io/sovereign-tools/tools/dichotomy-of-control/</link>
+      <guid isPermaLink="true">https://petiay83.github.io/sovereign-tools/tools/dichotomy-of-control/</guid>
+      <description>Interactive triage of thoughts and anxieties: dissolve uncontrollable noise, synthesize agency.</description>
+      <category>clarity</category>
+      <pubDate>Thu, 01 Oct 2026 21:25:43 +0000</pubDate>
+    </item>
+    <item>
+      <title>Circadian Light & Cortisol Protocol Timing (Huberman Model)</title>
+      <link>https://petiay83.github.io/sovereign-tools/tools/circadian-window/</link>
+      <guid isPermaLink="true">https://petiay83.github.io/sovereign-tools/tools/circadian-window/</guid>
+      <description>Precision schedule for morning photon exposure, 90-min adenosine clearance delay, and melatonin priming.</description>
+      <category>clarity</category>
+      <pubDate>Thu, 01 Oct 2026 21:25:43 +0000</pubDate>
+    </item>
+    <item>
+      <title>Non-Violent Communication (NVC) Phrasing Transformer</title>
+      <link>https://petiay83.github.io/sovereign-tools/tools/nvc-builder/</link>
+      <guid isPermaLink="true">https://petiay83.github.io/sovereign-tools/tools/nvc-builder/</guid>
+      <description>Transform reactive blaming into clear Observation, Emotion, Need, and Actionable Request.</description>
+      <category>connection</category>
+      <pubDate>Thu, 01 Oct 2026 21:25:43 +0000</pubDate>
+    </item>
+    <item>
+      <title>Philosophical & Axiological Compatibility Radar</title>
+      <link>https://petiay83.github.io/sovereign-tools/tools/values-compatibility-compass/</link>
+      <guid isPermaLink="true">https://petiay83.github.io/sovereign-tools/tools/values-compatibility-compass/</guid>
+      <description>Compare deep worldviews on freedom, truth, capital, and destiny with peer-to-peer hash comparison.</description>
+      <category>connection</category>
+      <pubDate>Thu, 01 Oct 2026 21:25:43 +0000</pubDate>
+    </item>
+    <item>
+      <title>Cognitive Distortion & Thought Reframing Sieve</title>
+      <link>https://petiay83.github.io/sovereign-tools/tools/cognitive-bias-spotter/</link>
+      <guid isPermaLink="true">https://petiay83.github.io/sovereign-tools/tools/cognitive-bias-spotter/</guid>
+      <description>Identify catastrophizing, mind-reading, and black-and-white fallacies with CBT deconstruction.</description>
+      <category>connection</category>
+      <pubDate>Thu, 01 Oct 2026 21:25:43 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

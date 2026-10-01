@@ -1,0 +1,24 @@
+{
+  "name": "Sovereign Tools",
+  "short_name": "Sovereign",
+  "description": "High-Precision Client-Side Micro-Tools for Nomads, Rationalists & Independent Thinkers",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#090d16",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "utilities",
+    "productivity",
+    "finance",
+    "lifestyle"
+  ]
+}

@@ -5,11 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sovereign Tools — Sovereign & Rational Micro-Tools</title>
   <meta name="description" content="Zero server tracking, 100% client-side execution, radical privacy. Fast, distraction-free utilities designed for personal autonomy.">
+  <link rel="canonical" href="https://petiay83.github.io/sovereign-tools/">
+  
+  <!-- Open Graph -->
   <meta property="og:title" content="Sovereign Tools">
   <meta property="og:description" content="Zero server tracking, 100% client-side execution, radical privacy. Fast, distraction-free utilities designed for personal autonomy.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://petiay83.github.io/sovereign-tools">
+  <meta property="og:image" content="https://petiay83.github.io/sovereign-tools/icon.svg">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Sovereign Tools">
+  <meta name="twitter:description" content="Zero server tracking, 100% client-side execution, radical privacy. Fast, distraction-free utilities designed for personal autonomy.">
+  <meta name="twitter:image" content="https://petiay83.github.io/sovereign-tools/icon.svg">
+  
+  <!-- PWA & Mobile -->
+  <link rel="manifest" href="https://petiay83.github.io/sovereign-tools/manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="https://petiay83.github.io/sovereign-tools/icon.svg">
+  <meta name="theme-color" content="#090d16">
+  
+  <!-- RSS Feed -->
+  <link rel="alternate" type="application/rss+xml" title="Sovereign Tools RSS Feed" href="https://petiay83.github.io/sovereign-tools/feed.xml">
+  
   <meta name="google-site-verification" content="zaZl48bXL6x4bPO_O4vIjsYZQ2Sex89rhdC0i51FRxU">
+  
+  <!-- Structured Data (Schema.org) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Sovereign Tools",
+  "url": "https://petiay83.github.io/sovereign-tools/",
+  "description": "Zero server tracking, 100% client-side execution, radical privacy. Fast, distraction-free utilities designed for personal autonomy.",
+  "creator": {
+    "@type": "Organization",
+    "name": "Sovereign Tools",
+    "url": "https://petiay83.github.io/sovereign-tools/"
+  }
+}
+  </script>
   
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -341,6 +376,12 @@
           copyText.textContent = 'Copy';
           copyIcon.textContent = '📋';
         }, 2000);
+      });
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('https://petiay83.github.io/sovereign-tools/sw.js').catch(() => {});
       });
     }
   </script>

@@ -12,7 +12,7 @@ import shutil
 import subprocess
 import urllib.parse
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Ensure utf-8 output on Windows console
 if sys.stdout.encoding != 'utf-8':
@@ -51,6 +51,19 @@ def generate_hub_html(registry):
     hub_reddit = f"https://reddit.com/submit?url={hub_url_encoded}&title={hub_title_encoded}"
     hub_whatsapp = f"https://api.whatsapp.com/send?text={hub_title_encoded}%20{hub_url_encoded}"
 
+    hub_jsonld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": site["title"],
+        "url": f"{site['baseUrl']}/",
+        "description": site["description"],
+        "creator": {
+            "@type": "Organization",
+            "name": "Sovereign Tools",
+            "url": f"{site['baseUrl']}/"
+        }
+    }, indent=2, ensure_ascii=False)
+
     html = f"""<!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
@@ -58,11 +71,35 @@ def generate_hub_html(registry):
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{site["title"]} — Sovereign & Rational Micro-Tools</title>
   <meta name="description" content="{site["description"]}">
+  <link rel="canonical" href="{site["baseUrl"]}/">
+  
+  <!-- Open Graph -->
   <meta property="og:title" content="{site["title"]}">
   <meta property="og:description" content="{site["description"]}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{site["baseUrl"]}">
+  <meta property="og:image" content="{site["baseUrl"]}/icon.svg">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{site["title"]}">
+  <meta name="twitter:description" content="{site["description"]}">
+  <meta name="twitter:image" content="{site["baseUrl"]}/icon.svg">
+  
+  <!-- PWA & Mobile -->
+  <link rel="manifest" href="{site["baseUrl"]}/manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="{site["baseUrl"]}/icon.svg">
+  <meta name="theme-color" content="#090d16">
+  
+  <!-- RSS Feed -->
+  <link rel="alternate" type="application/rss+xml" title="Sovereign Tools RSS Feed" href="{site["baseUrl"]}/feed.xml">
+  
   <meta name="google-site-verification" content="{site.get('googleSiteVerification', '')}">
+  
+  <!-- Structured Data (Schema.org) -->
+  <script type="application/ld+json">
+{hub_jsonld}
+  </script>
   
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -389,6 +426,12 @@ def generate_hub_html(registry):
         }}, 2000);
       }});
     }}
+
+    if ('serviceWorker' in navigator) {{
+      window.addEventListener('load', () => {{
+        navigator.serviceWorker.register('{site["baseUrl"]}/sw.js').catch(() => {{}});
+      }});
+    }}
   </script>
 </body>
 </html>
@@ -429,10 +472,116 @@ Allow: /
 Sitemap: {site["baseUrl"]}/sitemap.xml
 """
 
+def generate_feed(registry):
+    site = registry["site"]
+    tools = registry["tools"]
+    now_rfc822 = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S +0000")
+    
+    xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{site["title"]}</title>
+    <link>{site["baseUrl"]}/</link>
+    <description>{site["description"]}</description>
+    <language>en-us</language>
+    <lastBuildDate>{now_rfc822}</lastBuildDate>
+    <atom:link href="{site["baseUrl"]}/feed.xml" rel="self" type="application/rss+xml"/>
+"""
+    for t in tools:
+        if t.get("status") == "live":
+            xml += f"""    <item>
+      <title>{t["title"]}</title>
+      <link>{site["baseUrl"]}/tools/{t["id"]}/</link>
+      <guid isPermaLink="true">{site["baseUrl"]}/tools/{t["id"]}/</guid>
+      <description>{t["description"]}</description>
+      <category>{t.get("cluster", "general")}</category>
+      <pubDate>{now_rfc822}</pubDate>
+    </item>
+"""
+    xml += """  </channel>
+</rss>
+"""
+    return xml
+
 def wrap_tool_content(tool_meta, content_html, registry):
     site = registry["site"]
     clusters = registry["clusters"]
     cluster = next((c for c in clusters if c["id"] == tool_meta["cluster"]), {"name": "Tool", "icon": "⚡"})
+
+    cluster_category_map = {
+        "nomad": "FinanceApplication",
+        "rationality": "HealthApplication",
+        "clarity": "LifestyleApplication",
+        "connection": "CommunicationApplication"
+    }
+    app_category = cluster_category_map.get(tool_meta.get("cluster"), "UtilityApplication")
+
+    tool_jsonld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": tool_meta["title"],
+        "description": tool_meta["description"],
+        "url": f"{site['baseUrl']}/tools/{tool_meta['id']}/",
+        "applicationCategory": app_category,
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "Sovereign Tools",
+            "url": f"{site['baseUrl']}/"
+        }
+    }, indent=2, ensure_ascii=False)
+
+    # Cross-linking: find 3 related tools (same cluster first, then others)
+    same_cluster_tools = [t for t in registry["tools"] if t.get("cluster") == tool_meta["cluster"] and t["id"] != tool_meta["id"] and t.get("status") == "live"]
+    other_tools = [t for t in registry["tools"] if t.get("cluster") != tool_meta["cluster"] and t["id"] != tool_meta["id"] and t.get("status") == "live"]
+    related_tools = (same_cluster_tools + other_tools)[:3]
+
+    related_cards_html = ""
+    for rt in related_tools:
+        rt_cluster = next((c for c in clusters if c["id"] == rt["cluster"]), {"name": "Tool", "icon": "⚡"})
+        tags_html = " ".join([f'<span class="text-[10px] px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400 font-mono">#{tag}</span>' for tag in rt.get("tags", [])[:3]])
+        related_cards_html += f"""
+      <a href="{site['baseUrl']}/tools/{rt['id']}/" class="group p-4 bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800/80 hover:border-emerald-500/40 rounded-xl transition-all flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-1.5 text-xs text-zinc-400 mb-2">
+            <span>{rt_cluster['icon']}</span>
+            <span>{rt_cluster['name']}</span>
+          </div>
+          <h4 class="text-sm font-semibold text-zinc-200 group-hover:text-emerald-400 transition-colors mb-1.5 leading-snug">
+            {rt['title']}
+          </h4>
+          <p class="text-xs text-zinc-400 line-clamp-2 leading-relaxed mb-3">
+            {rt['description']}
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-1">
+          {tags_html}
+        </div>
+      </a>"""
+
+    related_section_html = f"""
+    <!-- Related Tools Cross-Linking Section -->
+    <section class="mt-16 pt-8 border-t border-zinc-800/80">
+      <div class="flex items-center justify-between mb-5">
+        <div class="flex items-center gap-2">
+          <span class="text-emerald-400 font-bold">⚡</span>
+          <h3 class="text-sm font-semibold text-zinc-200">Related Sovereign Micro-Tools</h3>
+        </div>
+        <a href="{site['baseUrl']}/" class="text-xs text-emerald-400 hover:text-emerald-300 font-medium transition-colors flex items-center gap-1">
+          <span>All 12 Tools</span>
+          <span>→</span>
+        </a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {related_cards_html}
+      </div>
+    </section>"""
 
     share_title_encoded = urllib.parse.quote(tool_meta["title"])
     share_url = f"{site['baseUrl']}/tools/{tool_meta['id']}/"
@@ -449,11 +598,35 @@ def wrap_tool_content(tool_meta, content_html, registry):
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{tool_meta["title"]} — Sovereign Tools</title>
   <meta name="description" content="{tool_meta["description"]}">
+  <link rel="canonical" href="{site["baseUrl"]}/tools/{tool_meta["id"]}/">
+  
+  <!-- Open Graph -->
   <meta property="og:title" content="{tool_meta["title"]}">
   <meta property="og:description" content="{tool_meta["description"]}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{site["baseUrl"]}/tools/{tool_meta["id"]}/">
+  <meta property="og:image" content="{site["baseUrl"]}/icon.svg">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{tool_meta["title"]}">
+  <meta name="twitter:description" content="{tool_meta["description"]}">
+  <meta name="twitter:image" content="{site["baseUrl"]}/icon.svg">
+  
+  <!-- PWA & Mobile -->
+  <link rel="manifest" href="{site["baseUrl"]}/manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="{site["baseUrl"]}/icon.svg">
+  <meta name="theme-color" content="#090d16">
+  
+  <!-- RSS Feed -->
+  <link rel="alternate" type="application/rss+xml" title="Sovereign Tools RSS Feed" href="{site["baseUrl"]}/feed.xml">
+  
   <meta name="google-site-verification" content="{site.get('googleSiteVerification', '')}">
+  
+  <!-- Structured Data (Schema.org) -->
+  <script type="application/ld+json">
+{tool_jsonld}
+  </script>
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -522,6 +695,7 @@ def wrap_tool_content(tool_meta, content_html, registry):
   <!-- Tool App Container -->
   <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-8 w-full">
     {content_html}
+    {related_section_html}
   </main>
 
   <footer class="border-t border-zinc-800/80 bg-zinc-950/40 mt-16 py-6">
@@ -614,6 +788,12 @@ def wrap_tool_content(tool_meta, content_html, registry):
         }}, 2000);
       }});
     }}
+
+    if ('serviceWorker' in navigator) {{
+      window.addEventListener('load', () => {{
+        navigator.serviceWorker.register('{site["baseUrl"]}/sw.js').catch(() => {{}});
+      }});
+    }}
   </script>
 </body>
 </html>
@@ -664,6 +844,11 @@ def build_all():
     with open(ROOT_DIR / "robots.txt", "w", encoding="utf-8") as f:
         f.write(generate_robots(registry))
     print("✅ Generated robots.txt")
+
+    # 4. Generate RSS/Atom Feed
+    with open(ROOT_DIR / "feed.xml", "w", encoding="utf-8") as f:
+        f.write(generate_feed(registry))
+    print("✅ Generated feed.xml (RSS 2.0)")
 
 def submit_indexnow(key="a0e6956b6fee12a3d0a6c5c00ce92219"):
     import urllib.request

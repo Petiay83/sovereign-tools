@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circadian Light & Cortisol Protocol Timing (Huberman Model) — Sovereign Tools</title>
+  <meta name="description" content="Precision schedule for morning photon exposure, 90-min adenosine clearance delay, and melatonin priming.">
+  <meta property="og:title" content="Circadian Light & Cortisol Protocol Timing (Huberman Model)">
+  <meta property="og:description" content="Precision schedule for morning photon exposure, 90-min adenosine clearance delay, and melatonin priming.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://petiay83.github.io/sovereign-tools/tools/circadian-window/">
+  <meta name="google-site-verification" content="zaZl48bXL6x4bPO_O4vIjsYZQ2Sex89rhdC0i51FRxU">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              500: '#10b981',
+              600: '#059669',
+              900: '#064e3b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-[#090d16] text-zinc-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black">
+
+  <div class="h-1 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-500"></div>
+
+  <!-- Universal Tool Navbar -->
+  <header class="border-b border-zinc-800/80 bg-zinc-950/60 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="https://petiay83.github.io/sovereign-tools/" class="text-zinc-400 hover:text-white flex items-center gap-1.5 text-xs font-medium px-2.5 py-1.5 rounded-lg hover:bg-zinc-800/60 transition-colors border border-transparent hover:border-zinc-800">
+          <span>←</span>
+          <span>Hub</span>
+        </a>
+        <span class="text-zinc-700">/</span>
+        <span class="text-xs text-zinc-400 font-medium flex items-center gap-1">
+          <span>⏳</span> Stoicism & Memento Mori
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Radical Privacy
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tool App Container -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-8 w-full">
+    <div class="space-y-10">
+
+  <!-- Header Section -->
+  <div class="text-center max-w-3xl mx-auto space-y-3">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+      <span>☀️</span> Neurobiology of Alertness & Sleep
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+      Circadian Light & Cortisol Protocol Timing
+    </h1>
+    <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+      Synchronize your master circadian clock (SCN) using Dr. Andrew Huberman's Stanford neurobiology protocols. Pinpoint exact windows for retinal photon exposure, 90-min adenosine clearance, ultradian focus, and core body temperature cooling.
+    </p>
+  </div>
+
+  <!-- Presets Bar -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 sm:p-5">
+    <div class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3 flex items-center justify-between">
+      <span>⚡ Circadian Schedule Presets</span>
+      <span class="text-[11px] text-zinc-500 normal-case">Click to auto-populate biological windows</span>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+      <button onclick="applyPreset('early')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-emerald-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 flex items-center gap-1.5">
+          <span>🌅</span> Early Riser
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">05:30 AM Wake · 09:30 PM Sleep</div>
+      </button>
+
+      <button onclick="applyPreset('standard')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-cyan-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-cyan-400 flex items-center gap-1.5">
+          <span>💼</span> Standard Professional
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">07:00 AM Wake · 11:00 PM Sleep</div>
+      </button>
+
+      <button onclick="applyPreset('owl')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-indigo-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-indigo-400 flex items-center gap-1.5">
+          <span>🦉</span> Night Creative
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">08:30 AM Wake · 12:30 AM Sleep</div>
+      </button>
+
+      <button onclick="applyPreset('jetlag')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-amber-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-amber-400 flex items-center gap-1.5">
+          <span>✈️</span> Phase Advance (Reset)
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">06:00 AM Wake · Immediate Lux Blitz</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Primary Inputs Panel -->
+  <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Wake-up Time Input -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300">
+          Wake-Up Time (Alarm)
+        </label>
+        <div class="relative">
+          <input type="time" id="wakeInput" value="07:00"
+                 class="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500 transition-colors">
+        </div>
+        <p class="text-[11px] text-zinc-500">Biological anchor that resets your 24-hour suprachiasmatic timer.</p>
+      </div>
+
+      <!-- Target Bedtime Input -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300">
+          Target Bedtime (Sleep)
+        </label>
+        <div class="relative">
+          <input type="time" id="bedInput" value="23:00"
+                 class="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 font-mono text-sm focus:outline-none focus:border-cyan-500 transition-colors">
+        </div>
+        <p class="text-[11px] text-zinc-500" id="sleepDurationText">Calculated Sleep Window: 8.0 Hours</p>
+      </div>
+
+      <!-- Sky / Morning Lux Condition -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300">
+          Morning Weather / Light Source
+        </label>
+        <select id="skyConditionSelect" class="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-200 text-xs font-medium focus:outline-none focus:border-emerald-500">
+          <option value="sunny">☀️ Direct Sunlight (10,000–50,000 Lux) · 5–10 min</option>
+          <option value="cloudy" selected>⛅ Cloudy / Overcast (1,000–5,000 Lux) · 15–20 min</option>
+          <option value="rain">🌧️ Heavy Overcast / Rain (500–1,000 Lux) · 20–30 min</option>
+          <option value="lamp">💡 10,000 Lux SAD Light Box · 20–30 min</option>
+        </select>
+        <p class="text-[11px] text-zinc-500">Lux dictates photons required to activate retinal ipRGCs.</p>
+      </div>
+
+    </div>
+
+    <!-- Live Status Banner & Calendar Download -->
+    <div class="pt-4 border-t border-zinc-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <div class="text-xs">
+          <span class="text-zinc-400">Current Phase:</span>
+          <strong id="liveCurrentPhase" class="text-white ml-1 font-mono">Calculating...</strong>
+        </div>
+      </div>
+
+      <button onclick="downloadICal()" class="self-start sm:self-auto px-4 py-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 shadow-lg shadow-emerald-950/20">
+        <span>📅 Export Schedule to Calendar (.ics)</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 24-Hour Visual Circadian Bar -->
+  <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
+    <div class="flex items-center justify-between">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-2">
+        <span>🕒</span> 24-Hour Circadian Phase Architecture
+      </h3>
+      <span class="text-[11px] text-zinc-500 font-mono">SCN Oscillator Trajectory</span>
+    </div>
+
+    <!-- Timeline Bar Container -->
+    <div class="space-y-2">
+      <div id="circadianBar" class="relative w-full h-8 bg-zinc-950 rounded-xl border border-zinc-800 overflow-hidden flex">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+
+      <!-- Time Axis Labels -->
+      <div class="flex justify-between text-[10px] text-zinc-500 font-mono px-1">
+        <span>00:00</span>
+        <span>04:00</span>
+        <span>08:00</span>
+        <span>12:00</span>
+        <span>16:00</span>
+        <span>20:00</span>
+        <span>24:00</span>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="flex flex-wrap gap-4 text-[11px] text-zinc-400 pt-2 border-t border-zinc-800/80">
+      <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-amber-500"></span> Sunlight Window</div>
+      <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-zinc-700"></span> Caffeine Delay (No Sip)</div>
+      <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-500"></span> Deep Work (Ultradian)</div>
+      <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-rose-500"></span> Caffeine Cutoff</div>
+      <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-orange-400"></span> Sunset Anchor</div>
+      <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-indigo-500"></span> Dim Lights / Sleep</div>
+    </div>
+  </div>
+
+  <!-- The 6 Precision Biological Milestones -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+    <!-- Card 1: Retinal Photon Exposure -->
+    <div class="bg-zinc-900/70 border border-amber-500/30 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between text-xs font-semibold mb-2">
+          <span class="text-amber-400 flex items-center gap-1.5">
+            <span>☀️</span> Retinal Photon Window
+          </span>
+          <span id="badgePhotonDuration" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-300 border border-amber-500/20">
+            15–20 min
+          </span>
+        </div>
+        <div class="text-2xl font-black font-mono text-white tracking-tight my-1" id="timePhotonWindow">
+          07:00 – 07:45 AM
+        </div>
+        <p class="text-xs text-zinc-300 leading-relaxed mt-2" id="descPhoton">
+          Direct light exposure triggers the <strong>Cortisol Awakening Response (CAR)</strong> and resets your 14–16h melatonin timer.
+        </p>
+      </div>
+
+      <div class="pt-3 border-t border-zinc-800 text-[11px] text-amber-400/90 font-medium">
+        ⚠️ Mandate: <strong>NO sunglasses</strong>. Do NOT view through window glass (filters blue photons by 50x).
+      </div>
+    </div>
+
+    <!-- Card 2: 90-Minute Caffeine Delay -->
+    <div class="bg-zinc-900/70 border border-emerald-500/30 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between text-xs font-semibold mb-2">
+          <span class="text-emerald-400 flex items-center gap-1.5">
+            <span>☕</span> Safe Caffeine Window
+          </span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+            Crash Prevention
+          </span>
+        </div>
+        <div class="text-2xl font-black font-mono text-white tracking-tight my-1" id="timeCaffeineWindow">
+          08:30 AM – 01:00 PM
+        </div>
+        <p class="text-xs text-zinc-300 leading-relaxed mt-2">
+          Delaying caffeine 90–120 min allows circulating adenosine to clear naturally, <strong>completely eliminating the 2:00 PM energy crash</strong>.
+        </p>
+      </div>
+
+      <div class="pt-3 border-t border-zinc-800 text-[11px] text-emerald-400/90 font-medium" id="caffeineCutoffNote">
+        🛑 Strict Cutoff: 01:00 PM (10 hours before bedtime).
+      </div>
+    </div>
+
+    <!-- Card 3: Ultradian Deep Work Blocks -->
+    <div class="bg-zinc-900/70 border border-cyan-500/30 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between text-xs font-semibold mb-2">
+          <span class="text-cyan-400 flex items-center gap-1.5">
+            <span>🧠</span> Peak Ultradian Cycles
+          </span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
+            Dopamine & Acetylcholine
+          </span>
+        </div>
+        <div class="text-xl font-black font-mono text-white tracking-tight my-1" id="timeUltradianWindow">
+          Block 1: 09:30 – 11:00 AM<br>
+          Block 2: 01:30 – 03:00 PM
+        </div>
+        <p class="text-xs text-zinc-300 leading-relaxed mt-2">
+          90-minute neurobiological focus cycles. Maximum mental acuity and creative problem solving.
+        </p>
+      </div>
+
+      <div class="pt-3 border-t border-zinc-800 text-[11px] text-cyan-400/90 font-medium">
+        ⚡ Tip: Put phone on airplane mode. Deep focus degrades after 90 minutes.
+      </div>
+    </div>
+
+    <!-- Card 4: Midday NSDR / Reset -->
+    <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between text-xs font-semibold mb-2">
+          <span class="text-zinc-300 flex items-center gap-1.5">
+            <span>🧘</span> NSDR / Rest Window
+          </span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-zinc-800 text-zinc-400 border border-zinc-700">
+            Dopamine Reset
+          </span>
+        </div>
+        <div class="text-2xl font-black font-mono text-white tracking-tight my-1" id="timeNSDRWindow">
+          01:30 – 02:30 PM
+        </div>
+        <p class="text-xs text-zinc-300 leading-relaxed mt-2">
+          20 minutes of Non-Sleep Deep Rest (NSDR / Yoga Nidra) or power nap. Restores striatal dopamine reserves without sleep inertia.
+        </p>
+      </div>
+
+      <div class="pt-3 border-t border-zinc-800 text-[11px] text-zinc-400">
+        🌙 Never nap for longer than 30 minutes or within 6 hours of bedtime.
+      </div>
+    </div>
+
+    <!-- Card 5: Sunset Circadian Anchor -->
+    <div class="bg-zinc-900/70 border border-orange-500/30 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between text-xs font-semibold mb-2">
+          <span class="text-orange-400 flex items-center gap-1.5">
+            <span>🌅</span> Sunset Circadian Anchor
+          </span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-500/10 text-orange-300 border border-orange-500/20">
+            Low Solar Angle
+          </span>
+        </div>
+        <div class="text-2xl font-black font-mono text-white tracking-tight my-1" id="timeSunsetWindow">
+          06:30 – 07:30 PM
+        </div>
+        <p class="text-xs text-zinc-300 leading-relaxed mt-2">
+          Viewing low-angle sunlight signals the SCN of the day-to-night shift and <strong>buffers the retina against evening artificial light toxicity</strong>.
+        </p>
+      </div>
+
+      <div class="pt-3 border-t border-zinc-800 text-[11px] text-orange-400/90 font-medium">
+        👀 5–10 minutes of outdoor viewing as the sun dips towards the horizon.
+      </div>
+    </div>
+
+    <!-- Card 6: DLMO & Thermal Core Cooling -->
+    <div class="bg-zinc-900/70 border border-indigo-500/30 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between text-xs font-semibold mb-2">
+          <span class="text-indigo-400 flex items-center gap-1.5">
+            <span>🌙</span> DLMO & Core Cooling
+          </span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+            Melatonin Prep
+          </span>
+        </div>
+        <div class="text-2xl font-black font-mono text-white tracking-tight my-1" id="timeCoolingWindow">
+          09:00 – 10:00 PM
+        </div>
+        <p class="text-xs text-zinc-300 leading-relaxed mt-2">
+          Dim overhead lights 2h prior. Hot shower or bath 60–90 min before bed dilates peripheral capillaries, dumping 1–2°F of internal core heat.
+        </p>
+      </div>
+
+      <div class="pt-3 border-t border-zinc-800 text-[11px] text-indigo-400/90 font-medium" id="tminNote">
+        🌡️ Biological Temperature Minimum ($T_{min}$): ~05:15 AM.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Deep Scientific Mechanisms Explainer -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 space-y-6">
+    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+      <span>🧬</span> The Neurobiology Behind the Protocol
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-zinc-400 leading-relaxed">
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-amber-400">
+          <span>1.</span> Melanopsin ipRGCs & SCN
+        </h4>
+        <p>
+          Specialized retinal neurons containing melanopsin respond directly to blue-cyan wavelengths (~480 nm). They do not form visual images; instead, they send direct electrical signals via the retinohypothalamic tract to the suprachiasmatic nucleus (SCN), resetting peripheral clocks in the liver, heart, and adrenal glands.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-emerald-400">
+          <span>2.</span> Adenosine Kinetics & Crash
+        </h4>
+        <p>
+          Adenosine builds up while awake, creating "sleep pressure". During groggy morning waking, residual adenosine lingers. If you consume caffeine immediately, it antagonizes adenosine receptors without clearing the molecule. Once caffeine degrades, a backlog of adenosine binds all at once, triggering an intense afternoon energy collapse.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-indigo-400">
+          <span>3.</span> Phase Response Curve & T_min
+        </h4>
+        <p>
+          Your body temperature minimum ($T_{min}$) occurs ~90–120 min before waking. Exposing eyes to bright light <em>after</em> $T_{min}$ advances your circadian rhythm (makes you sleepy earlier and wake up earlier). Exposing eyes to bright light <em>before</em> $T_{min}$ delays your clock (makes you want to stay up later).
+        </p>
+      </div>
+    </div>
+
+    <!-- Citations -->
+    <div class="pt-4 border-t border-zinc-800/80 text-[11px] text-zinc-500 space-y-1">
+      <div class="font-semibold text-zinc-400">Academic Literature:</div>
+      <p>1. Huberman AD, et al. <em>Circadian mechanisms in health, alertness, and neural plasticity.</em> Stanford Medicine, 2021–2024.</p>
+      <p>2. Hattar S, et al. <em>Melanopsin-containing retinal ganglion cells: architecture and function.</em> Science, 2002.</p>
+      <p>3. Czeisler CA, et al. <em>Stability, precision, and near-24-hour period of the human circadian pacemaker.</em> Science, 1999.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Interactive Engine JavaScript -->
+<script>
+  // State
+  let wakeMinutes = 7 * 60; // 07:00 AM = 420 mins from midnight
+  let bedMinutes = 23 * 60; // 11:00 PM = 1380 mins from midnight
+  let skyCondition = 'cloudy';
+
+  // DOM Elements
+  const wakeInput = document.getElementById('wakeInput');
+  const bedInput = document.getElementById('bedInput');
+  const skyConditionSelect = document.getElementById('skyConditionSelect');
+  const sleepDurationText = document.getElementById('sleepDurationText');
+  const liveCurrentPhase = document.getElementById('liveCurrentPhase');
+
+  const timePhotonWindow = document.getElementById('timePhotonWindow');
+  const badgePhotonDuration = document.getElementById('badgePhotonDuration');
+  const timeCaffeineWindow = document.getElementById('timeCaffeineWindow');
+  const caffeineCutoffNote = document.getElementById('caffeineCutoffNote');
+  const timeUltradianWindow = document.getElementById('timeUltradianWindow');
+  const timeNSDRWindow = document.getElementById('timeNSDRWindow');
+  const timeSunsetWindow = document.getElementById('timeSunsetWindow');
+  const timeCoolingWindow = document.getElementById('timeCoolingWindow');
+  const tminNote = document.getElementById('tminNote');
+  const circadianBar = document.getElementById('circadianBar');
+
+  // Helper: Minutes to HH:MM AM/PM string
+  function formatTime(totalMins) {
+    let m = ((totalMins % 1440) + 1440) % 1440;
+    const hours24 = Math.floor(m / 60);
+    const mins = Math.floor(m % 60);
+    const padMins = mins < 10 ? '0' + mins : mins;
+
+    const ampm = hours24 >= 12 ? 'PM' : 'AM';
+    const hours12 = hours24 % 12 === 0 ? 12 : hours24 % 12;
+    const padHours = hours12 < 10 ? '0' + hours12 : hours12;
+    return `${padHours}:${padMins} ${ampm}`;
+  }
+
+  // Presets
+  function applyPreset(name) {
+    if (name === 'early') {
+      wakeInput.value = '05:30';
+      bedInput.value = '21:30';
+    } else if (name === 'standard') {
+      wakeInput.value = '07:00';
+      bedInput.value = '23:00';
+    } else if (name === 'owl') {
+      wakeInput.value = '08:30';
+      bedInput.value = '00:30';
+    } else if (name === 'jetlag') {
+      wakeInput.value = '06:00';
+      bedInput.value = '22:00';
+      skyConditionSelect.value = 'sunny';
+    }
+    updateCalculations();
+  }
+
+  // Parse time input to minutes
+  function parseTimeToMinutes(timeStr) {
+    const parts = timeStr.split(':');
+    return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+  }
+
+  // Main Calculation Engine
+  function updateCalculations() {
+    wakeMinutes = parseTimeToMinutes(wakeInput.value);
+    bedMinutes = parseTimeToMinutes(bedInput.value);
+    skyCondition = skyConditionSelect.value;
+
+    // Sleep Duration
+    let sleepMins = bedMinutes > wakeMinutes 
+      ? (1440 - bedMinutes + wakeMinutes) 
+      : (wakeMinutes - bedMinutes);
+    const sleepHours = (sleepMins / 60).toFixed(1);
+    sleepDurationText.textContent = `Calculated Sleep Window: ${sleepHours} Hours`;
+
+    // 1. Photon Window (Wake to Wake + 45 min)
+    const photonStart = wakeMinutes;
+    const photonEnd = wakeMinutes + 45;
+    timePhotonWindow.textContent = `${formatTime(photonStart)} – ${formatTime(photonEnd)}`;
+
+    if (skyCondition === 'sunny') {
+      badgePhotonDuration.textContent = '5–10 min outside';
+    } else if (skyCondition === 'cloudy') {
+      badgePhotonDuration.textContent = '15–20 min outside';
+    } else if (skyCondition === 'rain') {
+      badgePhotonDuration.textContent = '20–30 min outside';
+    } else {
+      badgePhotonDuration.textContent = '20–30 min @ 10k Lux';
+    }
+
+    // 2. Caffeine Window (Wake + 90 min to Bedtime - 10 hours)
+    const caffeineStart = wakeMinutes + 90;
+    const caffeineCutoff = bedMinutes - (10 * 60);
+    timeCaffeineWindow.textContent = `${formatTime(caffeineStart)} – ${formatTime(caffeineCutoff)}`;
+    caffeineCutoffNote.textContent = `🛑 Strict Cutoff: ${formatTime(caffeineCutoff)} (10 hours before sleep).`;
+
+    // 3. Ultradian Focus Windows
+    const u1Start = wakeMinutes + (2.5 * 60);
+    const u1End = wakeMinutes + (4.0 * 60);
+    const u2Start = wakeMinutes + (6.0 * 60);
+    const u2End = wakeMinutes + (7.5 * 60);
+    timeUltradianWindow.innerHTML = `Block 1: ${formatTime(u1Start)} – ${formatTime(u1End)}<br>Block 2: ${formatTime(u2Start)} – ${formatTime(u2End)}`;
+
+    // 4. NSDR / Midday Reset
+    const nsdrStart = wakeMinutes + (6.5 * 60);
+    const nsdrEnd = wakeMinutes + (7.5 * 60);
+    timeNSDRWindow.textContent = `${formatTime(nsdrStart)} – ${formatTime(nsdrEnd)}`;
+
+    // 5. Sunset Window (~2 to 3 hours before DLMO / ~4-5 hours before bed)
+    const sunsetStart = bedMinutes - (4.5 * 60);
+    const sunsetEnd = bedMinutes - (3.5 * 60);
+    timeSunsetWindow.textContent = `${formatTime(sunsetStart)} – ${formatTime(sunsetEnd)}`;
+
+    // 6. DLMO & Core Cooling
+    const dlmoStart = bedMinutes - (2.5 * 60);
+    const coolingStart = bedMinutes - 90;
+    const coolingEnd = bedMinutes - 45;
+    timeCoolingWindow.textContent = `${formatTime(coolingStart)} – ${formatTime(coolingEnd)}`;
+
+    // T_min calculation
+    const tmin = wakeMinutes - 105;
+    tminNote.innerHTML = `🌡️ Core Temperature Minimum (T_min): ~<strong>${formatTime(tmin)}</strong>`;
+
+    // Render Timeline Bar
+    renderCircadianBar(photonStart, photonEnd, caffeineStart, caffeineCutoff, u1Start, u1End, u2Start, u2End, sunsetStart, sunsetEnd, dlmoStart);
+
+    // Update Live Current Phase
+    updateLivePhase(photonStart, photonEnd, caffeineStart, caffeineCutoff, u1Start, u1End, u2Start, u2End, sunsetStart, sunsetEnd, dlmoStart);
+  }
+
+  // Render Horizontal Circadian Timeline Bar
+  function renderCircadianBar(pS, pE, cS, cC, u1S, u1E, u2S, u2E, sS, sE, dS) {
+    const totalMins = 1440;
+
+    function getPct(m) {
+      return (((m % 1440) + 1440) % 1440 / totalMins) * 100;
+    }
+
+    let html = `
+      <!-- Base Sleep Zone -->
+      <div class="absolute inset-0 bg-zinc-950 flex items-center justify-center text-[10px] text-zinc-700 font-mono">24-Hour Cycle</div>
+    `;
+
+    function addBlock(start, end, colorClass, label) {
+      const s = ((start % 1440) + 1440) % 1440;
+      const e = ((end % 1440) + 1440) % 1440;
+      if (s < e) {
+        html += `<div style="left: ${(s/1440)*100}%; width: ${((e-s)/1440)*100}%" class="absolute top-0 bottom-0 ${colorClass} opacity-80 flex items-center justify-center text-[9px] text-black font-bold overflow-hidden" title="${label}">${label}</div>`;
+      } else {
+        html += `<div style="left: ${(s/1440)*100}%; width: ${((1440-s)/1440)*100}%" class="absolute top-0 bottom-0 ${colorClass} opacity-80" title="${label}"></div>`;
+        html += `<div style="left: 0%; width: ${(e/1440)*100}%" class="absolute top-0 bottom-0 ${colorClass} opacity-80" title="${label}"></div>`;
+      }
+    }
+
+    // Add Phase Blocks
+    addBlock(pS, pE, 'bg-amber-500', 'Light');
+    addBlock(pE, cS, 'bg-zinc-700 text-zinc-300', 'Delay');
+    addBlock(cS, cC, 'bg-emerald-500/30 text-emerald-300 border-l border-r border-emerald-500/50', 'Caffeine');
+    addBlock(u1S, u1E, 'bg-cyan-500', 'Focus 1');
+    addBlock(u2S, u2E, 'bg-cyan-500', 'Focus 2');
+    addBlock(sS, sE, 'bg-orange-500', 'Sunset');
+    addBlock(dS, bedMinutes, 'bg-indigo-600 text-white', 'DLMO');
+
+    // Current Time Marker
+    const now = new Date();
+    const curMins = now.getHours() * 60 + now.getMinutes();
+    const curPct = (curMins / 1440) * 100;
+    html += `
+      <div style="left: ${curPct}%" class="absolute top-0 bottom-0 w-1 bg-white shadow-lg shadow-white z-20" title="Current Time">
+        <div class="w-2.5 h-2.5 rounded-full bg-white -ml-[3px] -mt-1 shadow-md"></div>
+      </div>
+    `;
+
+    circadianBar.innerHTML = html;
+  }
+
+  // Update Live Current Phase string
+  function updateLivePhase(pS, pE, cS, cC, u1S, u1E, u2S, u2E, sS, sE, dS) {
+    const now = new Date();
+    const curMins = now.getHours() * 60 + now.getMinutes();
+
+    let phase = "Rest & Melatonin Window";
+    if (curMins >= pS && curMins < pE) {
+      phase = "☀️ Morning Light Exposure Window (Get outside now!)";
+    } else if (curMins >= pE && curMins < cS) {
+      phase = "☕ Adenosine Clearance Buffer (Hold off on caffeine)";
+    } else if (curMins >= u1S && curMins < u1E) {
+      phase = "🧠 Peak Ultradian Focus Block #1 (High Deep Work)";
+    } else if (curMins >= cS && curMins < cC) {
+      phase = "⚡ Active Alertness & Caffeine Zone";
+    } else if (curMins >= u2S && curMins < u2E) {
+      phase = "🧠 Ultradian Focus Block #2";
+    } else if (curMins >= sS && curMins < sE) {
+      phase = "🌅 Sunset Viewing & Circadian Anchor";
+    } else if (curMins >= dS && curMins < bedMinutes) {
+      phase = "🌙 Dim Light Melatonin Onset (Kill overhead lights!)";
+    }
+
+    liveCurrentPhase.textContent = phase;
+  }
+
+  // iCal (.ics) Calendar File Exporter
+  function downloadICal() {
+    const wakeStr = wakeInput.value;
+    const bedStr = bedInput.value;
+
+    function getIcalTime(timeMins) {
+      const now = new Date();
+      const m = ((timeMins % 1440) + 1440) % 1440;
+      const h = Math.floor(m / 60);
+      const min = Math.floor(m % 60);
+      const d = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, min, 0);
+
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      const hour = String(d.getHours()).padStart(2, '0');
+      const minute = String(d.getMinutes()).padStart(2, '0');
+      return `${year}${month}${day}T${hour}${minute}00`;
+    }
+
+    function createEvent(summary, startMins, endMins, desc) {
+      return `BEGIN:VEVENT
+UID:${Date.now()}-${startMins}@sovereigntools
+DTSTAMP:${getIcalTime(0)}
+DTSTART:${getIcalTime(startMins)}
+DTEND:${getIcalTime(endMins)}
+SUMMARY:${summary}
+DESCRIPTION:${desc}
+END:VEVENT`;
+    }
+
+    const photonStart = wakeMinutes;
+    const photonEnd = wakeMinutes + 30;
+    const caffeineStart = wakeMinutes + 90;
+    const caffeineCutoff = bedMinutes - (10 * 60);
+    const u1Start = wakeMinutes + 150;
+    const u1End = wakeMinutes + 240;
+    const sunsetStart = bedMinutes - 240;
+    const sunsetEnd = bedMinutes - 210;
+    const dlmoStart = bedMinutes - 120;
+
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Sovereign Tools//Huberman Circadian Protocol//EN
+CALSCALE:GREGORIAN
+${createEvent("☀️ Morning Retinal Sunlight", photonStart, photonEnd, "Direct outdoor light exposure without sunglasses. Triggers Cortisol Awakening Response.")}
+${createEvent("☕ First Safe Caffeine Sip", caffeineStart, caffeineStart + 15, "Adenosine has cleared. Enjoy coffee or tea without causing an afternoon crash.")}
+${createEvent("🧠 Ultradian Focus Block #1", u1Start, u1End, "90-minute peak acetylcholine and dopamine flow state for deep analytical work.")}
+${createEvent("🛑 Strict Caffeine Cutoff", caffeineCutoff, caffeineCutoff + 15, "No caffeine after this point to ensure Stage 3 deep restorative sleep.")}
+${createEvent("🌅 Sunset Light Viewing", sunsetStart, sunsetEnd, "View low-solar angle light to anchor circadian phase and protect retina.")}
+${createEvent("🌙 Dim Lights & Core Cooling", dlmoStart, bedMinutes, "Turn off overhead lights. Take hot shower to trigger vasodilation core temperature cooling.")}
+END:VCALENDAR`;
+
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `huberman-circadian-${wakeStr.replace(':', '')}.ics`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  // Event Listeners
+  wakeInput.addEventListener('change', () => updateCalculations());
+  bedInput.addEventListener('change', () => updateCalculations());
+  skyConditionSelect.addEventListener('change', () => updateCalculations());
+
+  // Initialization
+  updateCalculations();
+</script>
+
+  </main>
+
+  <footer class="border-t border-zinc-800/80 bg-zinc-950/40 mt-16 py-6">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between text-xs text-zinc-500">
+      <a href="https://petiay83.github.io/sovereign-tools/" class="hover:text-zinc-300">← Back to All Sovereign Tools</a>
+      <span class="text-emerald-500/70">100% Client-Side Execution</span>
+    </div>
+  </footer>
+</body>
+</html>

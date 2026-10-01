@@ -10,6 +10,7 @@ import sys
 import json
 import shutil
 import subprocess
+import urllib.parse
 from pathlib import Path
 from datetime import datetime
 
@@ -42,6 +43,13 @@ def generate_hub_html(registry):
 
     clusters_json = json.dumps(clusters, ensure_ascii=False)
     tools_json = json.dumps(tools, ensure_ascii=False)
+
+    hub_title_encoded = urllib.parse.quote(site["title"])
+    hub_url_encoded = urllib.parse.quote(site["baseUrl"])
+    hub_twitter = f"https://twitter.com/intent/tweet?text={hub_title_encoded}&url={hub_url_encoded}"
+    hub_telegram = f"https://t.me/share/url?url={hub_url_encoded}&text={hub_title_encoded}"
+    hub_reddit = f"https://reddit.com/submit?url={hub_url_encoded}&title={hub_title_encoded}"
+    hub_whatsapp = f"https://api.whatsapp.com/send?text={hub_title_encoded}%20{hub_url_encoded}"
 
     html = f"""<!DOCTYPE html>
 <html lang="en" class="dark">
@@ -111,11 +119,17 @@ def generate_hub_html(registry):
         </div>
       </div>
 
-      <div class="flex items-center gap-4 text-xs sm:text-sm">
+      <div class="flex items-center gap-2 sm:gap-3 text-xs sm:text-sm">
         <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 font-medium">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           100% Client-Side · Radical Privacy
         </span>
+        <button onclick="toggleHubShareModal()" class="px-3 py-1.5 text-zinc-200 hover:text-white rounded-lg bg-zinc-900 hover:bg-zinc-800 transition-colors flex items-center gap-1.5 border border-zinc-700/80 text-xs font-semibold cursor-pointer">
+          <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+          </svg>
+          <span>Share</span>
+        </button>
         <a href="{site["github"]}" target="_blank" rel="noopener noreferrer" 
            class="p-2 text-zinc-400 hover:text-white rounded-lg hover:bg-zinc-800/60 transition-colors flex items-center gap-2 border border-zinc-800">
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -291,6 +305,91 @@ def generate_hub_html(registry):
 
     renderTools();
   </script>
+
+  <!-- Hub Share Modal -->
+  <div id="hubShareModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4" onclick="if(event.target===this) toggleHubShareModal()">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative text-left" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">⚡</span>
+          <h3 class="font-bold text-zinc-100 text-sm sm:text-base">Share Sovereign Tools</h3>
+        </div>
+        <button onclick="toggleHubShareModal()" class="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition-colors text-sm">✕</button>
+      </div>
+
+      <p class="text-xs text-zinc-400 mb-5 leading-relaxed">
+        12 high-precision client-side micro-tools for nomads, rationalists, and independent thinkers. 100% private, zero tracking.
+      </p>
+
+      <!-- Direct Link Input + Copy Button -->
+      <div class="flex items-center gap-2 p-1.5 rounded-xl bg-zinc-950 border border-zinc-800 mb-5">
+        <input id="hubShareUrlInput" type="text" readonly value="{site["baseUrl"]}/" class="bg-transparent text-xs text-zinc-300 px-2 py-1 flex-1 outline-none font-mono selection:bg-emerald-500 selection:text-black">
+        <button onclick="copyHubShareLink()" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-semibold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer">
+          <span id="hubCopyIcon">📋</span>
+          <span id="hubCopyText">Copy</span>
+        </button>
+      </div>
+
+      <!-- Social Media Share Buttons -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <a href="{hub_twitter}" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 transition-all text-xs text-zinc-300">
+          <span class="font-bold text-sm">𝕏</span>
+          <span class="text-[11px]">Twitter / X</span>
+        </a>
+        <a href="{hub_telegram}" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 transition-all text-xs text-zinc-300">
+          <span class="text-sm">✈️</span>
+          <span class="text-[11px]">Telegram</span>
+        </a>
+        <a href="{hub_reddit}" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 transition-all text-xs text-zinc-300">
+          <span class="text-sm">🤖</span>
+          <span class="text-[11px]">Reddit</span>
+        </a>
+        <a href="{hub_whatsapp}" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 transition-all text-xs text-zinc-300">
+          <span class="text-sm">💬</span>
+          <span class="text-[11px]">WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleHubShareModal() {{
+      if (navigator.share && window.innerWidth < 640) {{
+        navigator.share({{
+          title: {json.dumps(site["title"])},
+          text: {json.dumps(site["description"])},
+          url: window.location.href
+        }}).catch(() => {{}});
+        return;
+      }}
+      const modal = document.getElementById('hubShareModal');
+      modal.classList.toggle('hidden');
+    }}
+
+    function copyHubShareLink() {{
+      const input = document.getElementById('hubShareUrlInput');
+      const copyText = document.getElementById('hubCopyText');
+      const copyIcon = document.getElementById('hubCopyIcon');
+      
+      navigator.clipboard.writeText(input.value || window.location.href).then(() => {{
+        copyText.textContent = 'Copied!';
+        copyIcon.textContent = '✓';
+        setTimeout(() => {{
+          copyText.textContent = 'Copy';
+          copyIcon.textContent = '📋';
+        }}, 2000);
+      }}).catch(() => {{
+        input.select();
+        document.execCommand('copy');
+        copyText.textContent = 'Copied!';
+        copyIcon.textContent = '✓';
+        setTimeout(() => {{
+          copyText.textContent = 'Copy';
+          copyIcon.textContent = '📋';
+        }}, 2000);
+      }});
+    }}
+  </script>
 </body>
 </html>
 """
@@ -334,6 +433,14 @@ def wrap_tool_content(tool_meta, content_html, registry):
     site = registry["site"]
     clusters = registry["clusters"]
     cluster = next((c for c in clusters if c["id"] == tool_meta["cluster"]), {"name": "Tool", "icon": "⚡"})
+
+    share_title_encoded = urllib.parse.quote(tool_meta["title"])
+    share_url = f"{site['baseUrl']}/tools/{tool_meta['id']}/"
+    share_url_encoded = urllib.parse.quote(share_url)
+    twitter_share_url = f"https://twitter.com/intent/tweet?text={share_title_encoded}&url={share_url_encoded}"
+    telegram_share_url = f"https://t.me/share/url?url={share_url_encoded}&text={share_title_encoded}"
+    reddit_share_url = f"https://reddit.com/submit?url={share_url_encoded}&title={share_title_encoded}"
+    whatsapp_share_url = f"https://api.whatsapp.com/send?text={share_title_encoded}%20{share_url_encoded}"
 
     full_html = f"""<!DOCTYPE html>
 <html lang="en" class="dark">
@@ -397,11 +504,17 @@ def wrap_tool_content(tool_meta, content_html, registry):
         </span>
       </div>
 
-      <div class="flex items-center gap-3">
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-medium">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-medium">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
           Radical Privacy
         </span>
+        <button onclick="toggleShareModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800/80 hover:bg-zinc-700/80 border border-zinc-700/60 text-zinc-200 text-xs font-medium transition-all hover:border-emerald-500/40 cursor-pointer">
+          <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+          </svg>
+          <span>Share</span>
+        </button>
       </div>
     </div>
   </header>
@@ -417,6 +530,91 @@ def wrap_tool_content(tool_meta, content_html, registry):
       <span class="text-emerald-500/70">100% Client-Side Execution</span>
     </div>
   </footer>
+
+  <!-- Universal Share Modal -->
+  <div id="shareModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4" onclick="if(event.target===this) toggleShareModal()">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative text-left" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">{cluster["icon"]}</span>
+          <h3 class="font-bold text-zinc-100 text-sm sm:text-base">Share Tool</h3>
+        </div>
+        <button onclick="toggleShareModal()" class="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition-colors text-sm">✕</button>
+      </div>
+
+      <p class="text-xs text-zinc-400 mb-5 leading-relaxed">
+        Send this private, client-side utility to friends or communities. No tracking, zero accounts, instant execution.
+      </p>
+
+      <!-- Direct Link Input + Copy Button -->
+      <div class="flex items-center gap-2 p-1.5 rounded-xl bg-zinc-950 border border-zinc-800 mb-5">
+        <input id="shareUrlInput" type="text" readonly value="{share_url}" class="bg-transparent text-xs text-zinc-300 px-2 py-1 flex-1 outline-none font-mono selection:bg-emerald-500 selection:text-black">
+        <button id="copyShareBtn" onclick="copyShareLink()" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-semibold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer">
+          <span id="copyIcon">📋</span>
+          <span id="copyText">Copy</span>
+        </button>
+      </div>
+
+      <!-- Social Media Share Buttons -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <a href="{twitter_share_url}" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 transition-all text-xs text-zinc-300">
+          <span class="font-bold text-sm">𝕏</span>
+          <span class="text-[11px]">Twitter / X</span>
+        </a>
+        <a href="{telegram_share_url}" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 transition-all text-xs text-zinc-300">
+          <span class="text-sm">✈️</span>
+          <span class="text-[11px]">Telegram</span>
+        </a>
+        <a href="{reddit_share_url}" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 transition-all text-xs text-zinc-300">
+          <span class="text-sm">🤖</span>
+          <span class="text-[11px]">Reddit</span>
+        </a>
+        <a href="{whatsapp_share_url}" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 transition-all text-xs text-zinc-300">
+          <span class="text-sm">💬</span>
+          <span class="text-[11px]">WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleShareModal() {{
+      if (navigator.share && window.innerWidth < 640) {{
+        navigator.share({{
+          title: {json.dumps(tool_meta["title"])},
+          text: {json.dumps(tool_meta["description"])},
+          url: window.location.href
+        }}).catch(() => {{}});
+        return;
+      }}
+      const modal = document.getElementById('shareModal');
+      modal.classList.toggle('hidden');
+    }}
+
+    function copyShareLink() {{
+      const input = document.getElementById('shareUrlInput');
+      const copyText = document.getElementById('copyText');
+      const copyIcon = document.getElementById('copyIcon');
+      
+      navigator.clipboard.writeText(input.value || window.location.href).then(() => {{
+        copyText.textContent = 'Copied!';
+        copyIcon.textContent = '✓';
+        setTimeout(() => {{
+          copyText.textContent = 'Copy';
+          copyIcon.textContent = '📋';
+        }}, 2000);
+      }}).catch(() => {{
+        input.select();
+        document.execCommand('copy');
+        copyText.textContent = 'Copied!';
+        copyIcon.textContent = '✓';
+        setTimeout(() => {{
+          copyText.textContent = 'Copy';
+          copyIcon.textContent = '📋';
+        }}, 2000);
+      }});
+    }}
+  </script>
 </body>
 </html>
 """

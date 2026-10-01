@@ -61,11 +61,17 @@
         </span>
       </div>
 
-      <div class="flex items-center gap-3">
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-medium">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <span class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-medium">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
           Radical Privacy
         </span>
+        <button onclick="toggleShareModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800/80 hover:bg-zinc-700/80 border border-zinc-700/60 text-zinc-200 text-xs font-medium transition-all hover:border-emerald-500/40 cursor-pointer">
+          <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+          </svg>
+          <span>Share</span>
+        </button>
       </div>
     </div>
   </header>
@@ -574,5 +580,90 @@
       <span class="text-emerald-500/70">100% Client-Side Execution</span>
     </div>
   </footer>
+
+  <!-- Universal Share Modal -->
+  <div id="shareModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4" onclick="if(event.target===this) toggleShareModal()">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative text-left" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🤝</span>
+          <h3 class="font-bold text-zinc-100 text-sm sm:text-base">Share Tool</h3>
+        </div>
+        <button onclick="toggleShareModal()" class="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition-colors text-sm">✕</button>
+      </div>
+
+      <p class="text-xs text-zinc-400 mb-5 leading-relaxed">
+        Send this private, client-side utility to friends or communities. No tracking, zero accounts, instant execution.
+      </p>
+
+      <!-- Direct Link Input + Copy Button -->
+      <div class="flex items-center gap-2 p-1.5 rounded-xl bg-zinc-950 border border-zinc-800 mb-5">
+        <input id="shareUrlInput" type="text" readonly value="https://petiay83.github.io/sovereign-tools/tools/nvc-builder/" class="bg-transparent text-xs text-zinc-300 px-2 py-1 flex-1 outline-none font-mono selection:bg-emerald-500 selection:text-black">
+        <button id="copyShareBtn" onclick="copyShareLink()" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-semibold transition-all flex items-center gap-1.5 shrink-0 cursor-pointer">
+          <span id="copyIcon">📋</span>
+          <span id="copyText">Copy</span>
+        </button>
+      </div>
+
+      <!-- Social Media Share Buttons -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <a href="https://twitter.com/intent/tweet?text=Non-Violent%20Communication%20%28NVC%29%20Phrasing%20Transformer&url=https%3A//petiay83.github.io/sovereign-tools/tools/nvc-builder/" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 transition-all text-xs text-zinc-300">
+          <span class="font-bold text-sm">𝕏</span>
+          <span class="text-[11px]">Twitter / X</span>
+        </a>
+        <a href="https://t.me/share/url?url=https%3A//petiay83.github.io/sovereign-tools/tools/nvc-builder/&text=Non-Violent%20Communication%20%28NVC%29%20Phrasing%20Transformer" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 transition-all text-xs text-zinc-300">
+          <span class="text-sm">✈️</span>
+          <span class="text-[11px]">Telegram</span>
+        </a>
+        <a href="https://reddit.com/submit?url=https%3A//petiay83.github.io/sovereign-tools/tools/nvc-builder/&title=Non-Violent%20Communication%20%28NVC%29%20Phrasing%20Transformer" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 transition-all text-xs text-zinc-300">
+          <span class="text-sm">🤖</span>
+          <span class="text-[11px]">Reddit</span>
+        </a>
+        <a href="https://api.whatsapp.com/send?text=Non-Violent%20Communication%20%28NVC%29%20Phrasing%20Transformer%20https%3A//petiay83.github.io/sovereign-tools/tools/nvc-builder/" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 transition-all text-xs text-zinc-300">
+          <span class="text-sm">💬</span>
+          <span class="text-[11px]">WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleShareModal() {
+      if (navigator.share && window.innerWidth < 640) {
+        navigator.share({
+          title: "Non-Violent Communication (NVC) Phrasing Transformer",
+          text: "Transform reactive blaming into clear Observation, Emotion, Need, and Actionable Request.",
+          url: window.location.href
+        }).catch(() => {});
+        return;
+      }
+      const modal = document.getElementById('shareModal');
+      modal.classList.toggle('hidden');
+    }
+
+    function copyShareLink() {
+      const input = document.getElementById('shareUrlInput');
+      const copyText = document.getElementById('copyText');
+      const copyIcon = document.getElementById('copyIcon');
+      
+      navigator.clipboard.writeText(input.value || window.location.href).then(() => {
+        copyText.textContent = 'Copied!';
+        copyIcon.textContent = '✓';
+        setTimeout(() => {
+          copyText.textContent = 'Copy';
+          copyIcon.textContent = '📋';
+        }, 2000);
+      }).catch(() => {
+        input.select();
+        document.execCommand('copy');
+        copyText.textContent = 'Copied!';
+        copyIcon.textContent = '✓';
+        setTimeout(() => {
+          copyText.textContent = 'Copy';
+          copyIcon.textContent = '📋';
+        }, 2000);
+      });
+    }
+  </script>
 </body>
 </html>

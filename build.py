@@ -452,18 +452,46 @@ def build_all():
         f.write(generate_robots(registry))
     print("✅ Generated robots.txt")
 
-    print(f"🎉 Build completed successfully! Active tools: {tools_built}")
+def submit_indexnow(key="a0e6956b6fee12a3d0a6c5c00ce92219"):
+    import urllib.request
+    print("📡 Submitting URLs to IndexNow (Bing, DuckDuckGo, Yandex)...")
+    registry = load_registry()
+    base_url = registry["site"]["baseUrl"]
+    urls = [f"{base_url}/"]
+    for t in registry["tools"]:
+        if t.get("status") == "live":
+            urls.append(f"{base_url}/tools/{t['id']}/")
+    
+    payload = {
+        "host": "petiay83.github.io",
+        "key": key,
+        "keyLocation": f"{base_url}/{key}.txt",
+        "urlList": urls
+    }
+    
+    headers = {"Content-Type": "application/json; charset=utf-8"}
+    data = json.dumps(payload).encode("utf-8")
+    
+    for endpoint in ["https://api.indexnow.org/indexnow", "https://www.bing.com/indexnow"]:
+        try:
+            req = urllib.request.Request(endpoint, data=data, headers=headers, method="POST")
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                print(f"✅ IndexNow ({endpoint}): HTTP {resp.status} (URLs submitted!)")
+        except Exception as e:
+            print(f"⚠️ IndexNow ({endpoint}) response: {e}")
 
 def deploy():
     build_all()
     print("📦 Committing and pushing to GitHub...")
     subprocess.run(["git", "add", "."], cwd=ROOT_DIR, check=True)
-    subprocess.run(["git", "commit", "-m", "Update site and micro-tools"], cwd=ROOT_DIR)
+    subprocess.run(["git", "commit", "-m", "Deploy IndexNow verification and latest updates"], cwd=ROOT_DIR)
     subprocess.run(["git", "push", "origin", "main"], cwd=ROOT_DIR, check=True)
     print("🌐 Pushed to GitHub main branch! GitHub Pages will refresh automatically.")
 
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--deploy":
         deploy()
+    elif len(sys.argv) > 1 and sys.argv[1] == "--indexnow":
+        submit_indexnow()
     else:
         build_all()

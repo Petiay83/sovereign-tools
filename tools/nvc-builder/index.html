@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Non-Violent Communication (NVC) Phrasing Transformer — Sovereign Tools</title>
+  <meta name="description" content="Transform reactive blaming into clear Observation, Emotion, Need, and Actionable Request.">
+  <meta property="og:title" content="Non-Violent Communication (NVC) Phrasing Transformer">
+  <meta property="og:description" content="Transform reactive blaming into clear Observation, Emotion, Need, and Actionable Request.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://petiay83.github.io/sovereign-tools/tools/nvc-builder/">
+  <meta name="google-site-verification" content="zaZl48bXL6x4bPO_O4vIjsYZQ2Sex89rhdC0i51FRxU">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              500: '#10b981',
+              600: '#059669',
+              900: '#064e3b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-[#090d16] text-zinc-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black">
+
+  <div class="h-1 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-500"></div>
+
+  <!-- Universal Tool Navbar -->
+  <header class="border-b border-zinc-800/80 bg-zinc-950/60 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="https://petiay83.github.io/sovereign-tools/" class="text-zinc-400 hover:text-white flex items-center gap-1.5 text-xs font-medium px-2.5 py-1.5 rounded-lg hover:bg-zinc-800/60 transition-colors border border-transparent hover:border-zinc-800">
+          <span>←</span>
+          <span>Hub</span>
+        </a>
+        <span class="text-zinc-700">/</span>
+        <span class="text-xs text-zinc-400 font-medium flex items-center gap-1">
+          <span>🤝</span> Authentic Connection
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Radical Privacy
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tool App Container -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-8 w-full">
+    <div class="space-y-10">
+
+  <!-- Header Section -->
+  <div class="text-center max-w-3xl mx-auto space-y-3">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+      <span>🤝</span> Interpersonal Clarity & Empathy
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+      Non-Violent Communication (NVC) Phrasing Transformer
+    </h1>
+    <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+      Transform reactive accusations, passive-aggressive venting, and defensive triggers into clean, vulnerable, and actionable connection requests using Marshall Rosenberg's 4-step <strong>OFNR</strong> framework.
+    </p>
+  </div>
+
+  <!-- Presets Bar -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 sm:p-5">
+    <div class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3 flex items-center justify-between">
+      <span>⚡ Common Conflict Archetypes</span>
+      <span class="text-[11px] text-zinc-500 normal-case">Click to load and reframe a friction scenario</span>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+      <button onclick="applyPreset('phone')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-emerald-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 flex items-center gap-1.5">
+          <span>📱</span> Screen-Distracted Partner
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">"You're always on your phone during dinner!"</div>
+      </button>
+
+      <button onclick="applyPreset('late')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-cyan-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-cyan-400 flex items-center gap-1.5">
+          <span>⏰</span> Late Colleague
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">"You clearly don't respect my time or our team!"</div>
+      </button>
+
+      <button onclick="applyPreset('chores')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-indigo-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-indigo-400 flex items-center gap-1.5">
+          <span>🧹</span> Domestic Chores & Mental Load
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">"I have to do everything around here!"</div>
+      </button>
+
+      <button onclick="applyPreset('ghost')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-amber-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-amber-400 flex items-center gap-1.5">
+          <span>💬</span> Unreturned Text Message
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">"Why are you ignoring me? Clearly I don't matter."</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Raw Input Sandbox & Pseudo-Feeling Linter -->
+  <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
+    <div class="flex items-center justify-between">
+      <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300">
+        Raw Reactive Draft / Frustrated Thought (Optional Sandbox)
+      </label>
+      <span class="text-[10px] text-zinc-500 font-mono">100% Private (Local RAM only)</span>
+    </div>
+
+    <div class="relative">
+      <textarea id="rawDraftInput" rows="2" placeholder="e.g. You always ignore me when we eat dinner, you care more about your social media than our relationship!"
+                class="w-full px-4 py-2.5 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 text-xs focus:outline-none focus:border-emerald-500 transition-colors"></textarea>
+    </div>
+
+    <!-- Pseudo-Feeling Linter Warning (Appears if blame words detected) -->
+    <div id="linterAlert" class="hidden p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-start gap-2.5">
+      <span class="text-base">⚠️</span>
+      <div class="space-y-1">
+        <strong class="font-bold">Pseudo-Feeling Warning:</strong>
+        <p id="linterText" class="text-zinc-300 text-[11px] leading-relaxed">
+          Words like "ignored", "manipulated", or "disrespected" are not emotions — they are moralistic judgments about the other person's intent. Shift focus to what you somatically feel inside (scared, lonely, exhausted).
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- The 4-Step OFNR Guided Pipeline -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- Left Controls: The 4 Steps -->
+    <div class="lg:col-span-7 space-y-6">
+
+      <!-- Step 1: Observation -->
+      <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-5 space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xs flex items-center justify-center border border-emerald-500/40">1</span>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Observation (Camera Check)</h3>
+          </div>
+          <span class="text-[10px] text-zinc-500 font-mono">Zero evaluation or generalization</span>
+        </div>
+        <p class="text-[11px] text-zinc-400">
+          What would a video camera record? Strip away "always", "never", and motives.
+        </p>
+        <input type="text" id="obsInput" value="When you looked down at your phone three times while I was sharing my day yesterday"
+               class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 text-xs focus:outline-none focus:border-emerald-500 font-medium">
+      </div>
+
+      <!-- Step 2: Genuine Feeling -->
+      <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-5 space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 font-bold text-xs flex items-center justify-center border border-cyan-500/40">2</span>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-cyan-400">Genuine Feeling (Somatic Emotion)</h3>
+          </div>
+          <span class="text-[10px] text-zinc-500 font-mono">True emotional vulnerability</span>
+        </div>
+        <p class="text-[11px] text-zinc-400">
+          How do you feel somatically? Select from curated non-accusatory emotions:
+        </p>
+
+        <!-- Quick Feelings Chips -->
+        <div class="flex flex-wrap gap-1.5" id="feelingsChips">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <input type="text" id="feelingInput" value="lonely and disconnected"
+               class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 text-xs focus:outline-none focus:border-cyan-500 font-medium">
+      </div>
+
+      <!-- Step 3: Universal Need -->
+      <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-5 space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 font-bold text-xs flex items-center justify-center border border-indigo-500/40">3</span>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-400">Universal Human Need</h3>
+          </div>
+          <span class="text-[10px] text-zinc-500 font-mono">Root value without strategy</span>
+        </div>
+        <p class="text-[11px] text-zinc-400">
+          Every negative feeling is an unmet universal need. Select your fundamental driver:
+        </p>
+
+        <!-- Universal Needs Chips -->
+        <div class="flex flex-wrap gap-1.5" id="needsChips">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <input type="text" id="needInput" value="presence, emotional safety, and shared quality time"
+               class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 text-xs focus:outline-none focus:border-indigo-500 font-medium">
+      </div>
+
+      <!-- Step 4: Actionable Positive Request -->
+      <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-5 space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 font-bold text-xs flex items-center justify-center border border-amber-500/40">4</span>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-amber-400">Actionable Request (Not a Demand)</h3>
+          </div>
+          <span class="text-[10px] text-zinc-500 font-mono">Positive, present-tense, doable</span>
+        </div>
+        <p class="text-[11px] text-zinc-400">
+          Ask for a concrete positive action. Must allow a comfortable "no" without retaliation.
+        </p>
+        <input type="text" id="requestInput" value="put our phones face-down in another room for the next 20 minutes while we eat"
+               class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 text-xs focus:outline-none focus:border-amber-500 font-medium">
+      </div>
+
+    </div>
+
+    <!-- Right Output: Synthesized NVC Statement & Contrast -->
+    <div class="lg:col-span-5 space-y-6">
+
+      <!-- Tone Switcher -->
+      <div class="flex items-center gap-1.5 bg-zinc-950 p-1 rounded-xl border border-zinc-800">
+        <button id="toneBtnPartner" onclick="setTone('partner')" class="flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+          ❤️ Intimate
+        </button>
+        <button id="toneBtnWork" onclick="setTone('work')" class="flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all text-zinc-400 hover:text-white">
+          💼 Workplace
+        </button>
+        <button id="toneBtnFamily" onclick="setTone('family')" class="flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all text-zinc-400 hover:text-white">
+          👨‍👩‍👧 Family
+        </button>
+      </div>
+
+      <!-- Transformed NVC Statement Card -->
+      <div class="bg-gradient-to-br from-emerald-950/40 via-zinc-900 to-zinc-900 border border-emerald-500/40 rounded-2xl p-6 shadow-xl space-y-4 relative">
+        <div class="flex items-center justify-between pb-3 border-b border-zinc-800">
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+            <span>✨</span> Transformed NVC Request
+          </span>
+          <button onclick="copyNVC()" id="copyNvcBtn" class="px-3 py-1 bg-emerald-500 hover:bg-emerald-400 text-black text-[11px] font-bold rounded-lg transition-all flex items-center gap-1 shadow-md shadow-emerald-950/40">
+            <span>📋 Copy</span>
+          </button>
+        </div>
+
+        <!-- Synthesized Output Quote -->
+        <div id="nvcOutputBox" class="text-sm text-zinc-100 font-medium leading-relaxed italic bg-zinc-950/70 p-4 rounded-xl border border-zinc-800/80">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Formula Legend -->
+        <div class="grid grid-cols-2 gap-2 text-[10px] text-zinc-400 pt-2 font-mono">
+          <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Observation</div>
+          <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-cyan-400"></span> Genuine Feeling</div>
+          <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-indigo-400"></span> Core Need</div>
+          <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Doable Request</div>
+        </div>
+      </div>
+
+      <!-- Before vs After Empathy Contrast -->
+      <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-5 space-y-4">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-2">
+          <span>🧠</span> Neurobiological Impact on Listener
+        </h4>
+
+        <!-- Reactive Mode -->
+        <div class="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 space-y-1">
+          <div class="text-[11px] font-bold text-rose-400 flex items-center gap-1">
+            <span>🚨</span> Reactive Blaming (Jackal Mode)
+          </div>
+          <p class="text-[11px] text-zinc-400 leading-snug">
+            Triggers amygdala hijack in listener. Creates immediate fight, flight, or defensive denial. ZERO authentic listening occurs.
+          </p>
+        </div>
+
+        <!-- NVC Mode -->
+        <div class="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 space-y-1">
+          <div class="text-[11px] font-bold text-emerald-400 flex items-center gap-1">
+            <span>🛡️</span> Non-Violent Communication (Giraffe Mode)
+          </div>
+          <p class="text-[11px] text-zinc-300 leading-snug">
+            Lowers threat detection. Because you do not judge or blame, the listener feels safe to access empathy without losing face.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Deep Psychological Framework & Principles -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 space-y-6">
+    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+      <span>📖</span> The Philosophical Mechanics of Rosenberg's NVC
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-zinc-400 leading-relaxed">
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-emerald-400">
+          <span>1.</span> The Video Camera Test
+        </h4>
+        <p>
+          "You are messy" is a moralistic judgment. "Your jacket has been on the dining chair for three days" is an observation. When we mix evaluation with observation, people hear criticism and resist everything that follows.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-cyan-400">
+          <span>2.</span> The Pseudo-Feeling Trap
+        </h4>
+        <p>
+          Saying "I feel ignored" is not an emotion; it is an accusation: "I think you are deliberately neglecting me." Genuine feelings (lonely, anxious, sad) originate inside you and describe your body's state without indicting the other person.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-indigo-400">
+          <span>3.</span> Request vs Demand
+        </h4>
+        <p>
+          How do you know if your request was secretly a demand? By how you treat the person if they say "no". If a "no" results in guilt-tripping, cold silence, or anger, it was a coercive demand, not a genuine request.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Interactive Engine JavaScript -->
+<script>
+  // Curated Feelings Taxonomy
+  const FEELINGS_LIST = [
+    'anxious', 'lonely', 'exhausted', 'overwhelmed', 'frustrated',
+    'heartbroken', 'confused', 'scared', 'disheartened', 'unsettled'
+  ];
+
+  // Universal Needs Taxonomy
+  const NEEDS_LIST = [
+    'presence & connection', 'emotional safety', 'predictability', 'respect & consideration',
+    'rest & physical balance', 'autonomy', 'clarity & directness', 'cooperation & fairness'
+  ];
+
+  // Common Pseudo-Feelings Words to Lint
+  const PSEUDO_FEELINGS = [
+    'ignored', 'abandoned', 'manipulated', 'attacked', 'betrayed',
+    'disrespected', 'unappreciated', 'judged', 'controlled', 'cheated',
+    'misunderstood', 'unseen', 'unheard', 'rejected'
+  ];
+
+  // State
+  let currentTone = 'partner'; // 'partner', 'work', 'family'
+
+  // DOM Elements
+  const rawDraftInput = document.getElementById('rawDraftInput');
+  const linterAlert = document.getElementById('linterAlert');
+  const linterText = document.getElementById('linterText');
+
+  const obsInput = document.getElementById('obsInput');
+  const feelingInput = document.getElementById('feelingInput');
+  const needInput = document.getElementById('needInput');
+  const requestInput = document.getElementById('requestInput');
+  const nvcOutputBox = document.getElementById('nvcOutputBox');
+
+  const toneBtnPartner = document.getElementById('toneBtnPartner');
+  const toneBtnWork = document.getElementById('toneBtnWork');
+  const toneBtnFamily = document.getElementById('toneBtnFamily');
+
+  const feelingsChipsContainer = document.getElementById('feelingsChips');
+  const needsChipsContainer = document.getElementById('needsChips');
+
+  // Archetype Presets
+  const PRESETS = {
+    phone: {
+      obs: "When you checked your phone three times while I was sharing my day yesterday",
+      feeling: "lonely and disconnected",
+      need: "presence, emotional safety, and shared quality time",
+      request: "put our phones face-down in another room for the next 20 minutes while we eat",
+      raw: "You're always on your phone during dinner, you care more about Instagram than me!"
+    },
+    late: {
+      obs: "When you arrived 20 minutes after our scheduled 10:00 AM project sync this morning",
+      feeling: "frustrated and overwhelmed",
+      need: "predictability, respect for deadlines, and team synchronization",
+      request: "send a quick message 15 minutes ahead of time whenever an unexpected delay occurs",
+      raw: "You clearly have zero respect for my time or our team's schedule!"
+    },
+    chores: {
+      obs: "When the dishes from last night remained in the sink this afternoon",
+      feeling: "exhausted and overburdened",
+      need: "cooperation, shared responsibility, and physical rest",
+      request: "agree on a 10-minute cleanup routine right after dinner tonight together",
+      raw: "I do everything in this house while you just sit on the couch doing nothing!"
+    },
+    ghost: {
+      obs: "When two days passed without a response to my question about our weekend plans",
+      feeling: "anxious and uncertain",
+      need: "clarity, reliability, and emotional connection",
+      request: "let me know by 6:00 PM today if this weekend works or if you need to reschedule",
+      raw: "Why are you ignoring me? Clearly our friendship doesn't matter to you at all."
+    }
+  };
+
+  // Populate Chips
+  function populateChips() {
+    feelingsChipsContainer.innerHTML = FEELINGS_LIST.map(f => `
+      <button type="button" onclick="selectFeeling('${f}')" 
+              class="px-2 py-0.5 rounded text-[11px] bg-zinc-950 text-zinc-400 hover:text-cyan-300 border border-zinc-800 hover:border-cyan-500/40 transition-all font-mono">
+        + ${f}
+      </button>
+    `).join('');
+
+    needsChipsContainer.innerHTML = NEEDS_LIST.map(n => `
+      <button type="button" onclick="selectNeed('${n}')" 
+              class="px-2 py-0.5 rounded text-[11px] bg-zinc-950 text-zinc-400 hover:text-indigo-300 border border-zinc-800 hover:border-indigo-500/40 transition-all font-mono">
+        + ${n}
+      </button>
+    `).join('');
+  }
+
+  function selectFeeling(f) {
+    let current = feelingInput.value.trim();
+    if (current && !current.includes(f)) {
+      feelingInput.value = `${current}, ${f}`;
+    } else {
+      feelingInput.value = f;
+    }
+    updateNVC();
+  }
+
+  function selectNeed(n) {
+    let current = needInput.value.trim();
+    if (current && !current.includes(n)) {
+      needInput.value = `${current}, and ${n}`;
+    } else {
+      needInput.value = n;
+    }
+    updateNVC();
+  }
+
+  // Apply Presets
+  function applyPreset(key) {
+    const p = PRESETS[key];
+    if (!p) return;
+    obsInput.value = p.obs;
+    feelingInput.value = p.feeling;
+    needInput.value = p.need;
+    requestInput.value = p.request;
+    rawDraftInput.value = p.raw;
+    lintDraft(p.raw);
+    updateNVC();
+  }
+
+  // Set Tone
+  function setTone(tone) {
+    currentTone = tone;
+    [toneBtnPartner, toneBtnWork, toneBtnFamily].forEach(b => {
+      b.className = 'flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all text-zinc-400 hover:text-white';
+    });
+
+    if (tone === 'partner') {
+      toneBtnPartner.className = 'flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+    } else if (tone === 'work') {
+      toneBtnWork.className = 'flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+    } else {
+      toneBtnFamily.className = 'flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+    }
+    updateNVC();
+  }
+
+  // Pseudo-Feeling Linter
+  function lintDraft(text) {
+    const lower = text.toLowerCase();
+    const found = PSEUDO_FEELINGS.filter(word => lower.includes(word));
+
+    if (found.length > 0) {
+      linterAlert.classList.remove('hidden');
+      linterText.innerHTML = `
+        Detected pseudo-feeling word(s): <strong class="text-rose-400 font-mono">"${found.join('", "')}"</strong>. 
+        In NVC, these describe what you believe the other person is doing to you, which inevitably triggers defensiveness. 
+        Try shifting to your true vulnerability: <span class="text-cyan-300 font-mono">scared, exhausted, lonely, or anxious</span>.
+      `;
+    } else {
+      linterAlert.classList.add('hidden');
+    }
+  }
+
+  // Update Synthesized Statement
+  function updateNVC() {
+    const obs = obsInput.value.trim() || "[Specific Observation]";
+    const feeling = feelingInput.value.trim() || "[Genuine Feeling]";
+    const need = needInput.value.trim() || "[Universal Need]";
+    const req = requestInput.value.trim() || "[Actionable Request]";
+
+    let intro = "When I notice that";
+    let feelingIntro = "I feel";
+    let needIntro = "because I value";
+    let reqIntro = "Would you be willing to";
+
+    if (currentTone === 'work') {
+      intro = "When reviewing the situation where";
+      feelingIntro = "I experience genuine concern and";
+      needIntro = "because for this project we depend on";
+      reqIntro = "Would you be open to";
+    } else if (currentTone === 'family') {
+      intro = "When";
+      feelingIntro = "I find myself feeling";
+      needIntro = "because what really matters to me in our family is";
+      reqIntro = "Could we try to";
+    }
+
+    nvcOutputBox.innerHTML = `
+      "${intro} <span class="text-emerald-400 font-semibold underline decoration-emerald-500/40 underline-offset-2">${obs}</span>, 
+      ${feelingIntro} <span class="text-cyan-300 font-semibold underline decoration-cyan-500/40 underline-offset-2">${feeling}</span>, 
+      ${needIntro} <span class="text-indigo-300 font-semibold underline decoration-indigo-500/40 underline-offset-2">${need}</span>. 
+      ${reqIntro} <span class="text-amber-300 font-semibold underline decoration-amber-500/40 underline-offset-2">${req}</span>?"
+    `;
+  }
+
+  // Copy Clean Text
+  function copyNVC() {
+    const obs = obsInput.value.trim();
+    const feeling = feelingInput.value.trim();
+    const need = needInput.value.trim();
+    const req = requestInput.value.trim();
+
+    let text = `When ${obs}, I feel ${feeling} because I need ${need}. Would you be willing to ${req}?`;
+
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyNvcBtn');
+      btn.innerHTML = '<span>✓ Copied!</span>';
+      setTimeout(() => {
+        btn.innerHTML = '<span>📋 Copy</span>';
+      }, 2000);
+    });
+  }
+
+  // Event Listeners
+  rawDraftInput.addEventListener('input', (e) => {
+    lintDraft(e.target.value);
+  });
+
+  [obsInput, feelingInput, needInput, requestInput].forEach(inp => {
+    inp.addEventListener('input', () => updateNVC());
+  });
+
+  // Initialization
+  populateChips();
+  updateNVC();
+</script>
+
+  </main>
+
+  <footer class="border-t border-zinc-800/80 bg-zinc-950/40 mt-16 py-6">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between text-xs text-zinc-500">
+      <a href="https://petiay83.github.io/sovereign-tools/" class="hover:text-zinc-300">← Back to All Sovereign Tools</a>
+      <span class="text-emerald-500/70">100% Client-Side Execution</span>
+    </div>
+  </footer>
+</body>
+</html>

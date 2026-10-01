@@ -1,0 +1,805 @@
+<div class="space-y-10">
+
+  <!-- Header Section -->
+  <div class="text-center max-w-3xl mx-auto space-y-3">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+      <span>🧬</span> Evidence-Based Longevity Protocol
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+      Longevity Risk Ratios & Atherosclerosis Index
+    </h1>
+    <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+      Evaluate atherogenic particle count (ApoB), insulin resistance (TG/HDL ratio), Atherogenic Index of Plasma (AIP), and discordant lipid phenotypes based on current cardiovascular longevity research.
+    </p>
+  </div>
+
+  <!-- Presets Bar -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 sm:p-5">
+    <div class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3 flex items-center justify-between">
+      <span>⚡ Quick Clinical Archetypes</span>
+      <span class="text-[11px] text-zinc-500 normal-case">Click to explore common phenotypes</span>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+      <button onclick="applyPreset('attia')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-emerald-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 flex items-center gap-1.5">
+          <span>🧬</span> Longevity Target (Attia)
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">ApoB 55 · TG 65 · HDL 68 · LDL 58</div>
+      </button>
+
+      <button onclick="applyPreset('discordant')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-amber-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-amber-400 flex items-center gap-1.5">
+          <span>⚠️</span> Hidden Discordance Trap
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">LDL 88 (Normal) but ApoB 115 (High!)</div>
+      </button>
+
+      <button onclick="applyPreset('metabolic')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-rose-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-rose-400 flex items-center gap-1.5">
+          <span>⚡</span> Metabolic Syndrome
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">ApoB 130 · TG 240 · HDL 35 · sdLDL High</div>
+      </button>
+
+      <button onclick="applyPreset('lmhr')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-indigo-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-indigo-400 flex items-center gap-1.5">
+          <span>🥩</span> Lean Mass Hyper-Responder
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">LDL 240 · HDL 95 · TG 50 (Keto/LMHR)</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Primary Lab Values Input Card -->
+  <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-zinc-800 gap-4">
+      <div>
+        <h2 class="text-base font-bold text-white flex items-center gap-2">
+          <span>🩸</span> Enter Your Lipid Panel Values
+        </h2>
+        <p class="text-xs text-zinc-400">Values are processed 100% in your browser memory. Never transmitted or logged.</p>
+      </div>
+
+      <!-- Unit Switcher Toggle -->
+      <div class="flex items-center gap-2 self-start sm:self-auto bg-zinc-950 p-1 rounded-xl border border-zinc-700">
+        <button id="unitBtnMgDl" onclick="setUnit('mgdl')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+          US (mg/dL)
+        </button>
+        <button id="unitBtnMmol" onclick="setUnit('mmol')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-zinc-400 hover:text-white">
+          International (mmol/L)
+        </button>
+      </div>
+    </div>
+
+    <!-- Inputs Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+
+      <!-- ApoB Input -->
+      <div class="space-y-2 p-3.5 bg-zinc-950/80 rounded-xl border border-emerald-500/30">
+        <label class="block text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center justify-between">
+          <span>ApoB</span>
+          <span class="text-[10px] text-emerald-500/70 font-normal">Primary Causal</span>
+        </label>
+        <div class="relative">
+          <input type="number" id="inputApoB" value="55" step="1" min="10" max="300"
+                 class="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-sm font-semibold focus:outline-none focus:border-emerald-500">
+          <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-500 text-xs font-mono unit-label-apob">mg/dL</span>
+        </div>
+        <p class="text-[10px] text-zinc-400 leading-tight">Count of all atherogenic particles (LDL, VLDL, Lp(a)).</p>
+      </div>
+
+      <!-- Triglycerides Input -->
+      <div class="space-y-2 p-3.5 bg-zinc-950/80 rounded-xl border border-zinc-800">
+        <label class="block text-xs font-bold text-zinc-300 uppercase tracking-wider flex items-center justify-between">
+          <span>Triglycerides (TG)</span>
+        </label>
+        <div class="relative">
+          <input type="number" id="inputTG" value="65" step="1" min="10" max="1500"
+                 class="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-sm font-semibold focus:outline-none focus:border-emerald-500">
+          <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-500 text-xs font-mono unit-label-tg">mg/dL</span>
+        </div>
+        <p class="text-[10px] text-zinc-400 leading-tight">Circulating fat in blood. Proxy for liver fat & carbohydrate load.</p>
+      </div>
+
+      <!-- HDL-C Input -->
+      <div class="space-y-2 p-3.5 bg-zinc-950/80 rounded-xl border border-zinc-800">
+        <label class="block text-xs font-bold text-zinc-300 uppercase tracking-wider flex items-center justify-between">
+          <span>HDL Cholesterol</span>
+        </label>
+        <div class="relative">
+          <input type="number" id="inputHDL" value="68" step="1" min="5" max="180"
+                 class="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-sm font-semibold focus:outline-none focus:border-emerald-500">
+          <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-500 text-xs font-mono unit-label-chol">mg/dL</span>
+        </div>
+        <p class="text-[10px] text-zinc-400 leading-tight">Reverse cholesterol transport carrier & metabolic marker.</p>
+      </div>
+
+      <!-- LDL-C Input -->
+      <div class="space-y-2 p-3.5 bg-zinc-950/80 rounded-xl border border-zinc-800">
+        <label class="block text-xs font-bold text-zinc-300 uppercase tracking-wider flex items-center justify-between">
+          <span>LDL Cholesterol</span>
+        </label>
+        <div class="relative">
+          <input type="number" id="inputLDL" value="58" step="1" min="10" max="500"
+                 class="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-sm font-semibold focus:outline-none focus:border-emerald-500">
+          <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-500 text-xs font-mono unit-label-chol">mg/dL</span>
+        </div>
+        <p class="text-[10px] text-zinc-400 leading-tight">Standard lab measurement of cholesterol mass inside LDL.</p>
+      </div>
+
+      <!-- Total Cholesterol Input -->
+      <div class="space-y-2 p-3.5 bg-zinc-950/80 rounded-xl border border-zinc-800">
+        <label class="block text-xs font-bold text-zinc-300 uppercase tracking-wider flex items-center justify-between">
+          <span>Total Cholesterol (TC)</span>
+        </label>
+        <div class="relative">
+          <input type="number" id="inputTC" value="139" step="1" min="50" max="600"
+                 class="w-full px-3 py-2 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-100 font-mono text-sm font-semibold focus:outline-none focus:border-emerald-500">
+          <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-500 text-xs font-mono unit-label-chol">mg/dL</span>
+        </div>
+        <p class="text-[10px] text-zinc-400 leading-tight">Sum of all circulating cholesterol fractions.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Diagnostic Headline / Discordance Assessment Banner -->
+  <div id="discordanceBanner" class="p-6 rounded-2xl border transition-all duration-300">
+    <!-- Rendered dynamically by JavaScript -->
+  </div>
+
+  <!-- Key Longevity Ratios Matrix -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+
+    <!-- Card 1: ApoB Absolute Target -->
+    <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between text-xs text-zinc-400 font-semibold mb-1">
+          <span>ApoB Burden</span>
+          <span id="badgeApoB" class="px-2 py-0.5 rounded text-[10px] font-bold">Optimal</span>
+        </div>
+        <div class="text-2xl font-black font-mono tracking-tight text-white my-1" id="valApoBDisplay">
+          55 mg/dL
+        </div>
+        <p class="text-xs text-zinc-400" id="descApoB">
+          Optimal longevity target (< 60 mg/dL). Halts atherosclerosis plaque accumulation.
+        </p>
+      </div>
+
+      <!-- Gauge Bar -->
+      <div class="space-y-1">
+        <div class="flex justify-between text-[10px] text-zinc-500 font-mono">
+          <span><60</span>
+          <span>80</span>
+          <span>100+</span>
+        </div>
+        <div class="w-full h-2 bg-zinc-800 rounded-full overflow-hidden flex">
+          <div id="barApoBOptimal" class="h-full bg-emerald-500 transition-all duration-500" style="width: 33%"></div>
+          <div id="barApoBMod" class="h-full bg-amber-500 transition-all duration-500" style="width: 33%"></div>
+          <div id="barApoBHigh" class="h-full bg-rose-500 transition-all duration-500" style="width: 34%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: TG / HDL Ratio (Insulin Resistance Surrogate) -->
+    <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between text-xs text-zinc-400 font-semibold mb-1">
+          <span>TG / HDL Ratio</span>
+          <span id="badgeTGHDL" class="px-2 py-0.5 rounded text-[10px] font-bold">Optimal</span>
+        </div>
+        <div class="text-2xl font-black font-mono tracking-tight text-white my-1" id="valTGHDLDisplay">
+          0.96
+        </div>
+        <p class="text-xs text-zinc-400" id="descTGHDL">
+          Ideal insulin sensitivity (< 1.0). Indicates predominantly large, buoyant LDL particles.
+        </p>
+      </div>
+
+      <!-- Gauge Bar -->
+      <div class="space-y-1">
+        <div class="flex justify-between text-[10px] text-zinc-500 font-mono">
+          <span><1.0</span>
+          <span>2.0</span>
+          <span>3.0+</span>
+        </div>
+        <div class="w-full h-2 bg-zinc-800 rounded-full overflow-hidden flex">
+          <div class="h-full bg-emerald-500" style="width: 33%"></div>
+          <div class="h-full bg-amber-500" style="width: 33%"></div>
+          <div class="h-full bg-rose-500" style="width: 34%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Atherogenic Index of Plasma (AIP) -->
+    <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between text-xs text-zinc-400 font-semibold mb-1">
+          <span>AIP [log10(TG/HDL)]</span>
+          <span id="badgeAIP" class="px-2 py-0.5 rounded text-[10px] font-bold">Low Risk</span>
+        </div>
+        <div class="text-2xl font-black font-mono tracking-tight text-white my-1" id="valAIPDisplay">
+          -0.37
+        </div>
+        <p class="text-xs text-zinc-400" id="descAIP">
+          Logarithmic marker of small dense LDL particle fraction and CAD hazard.
+        </p>
+      </div>
+
+      <!-- Gauge Bar -->
+      <div class="space-y-1">
+        <div class="flex justify-between text-[10px] text-zinc-500 font-mono">
+          <span><0.11</span>
+          <span>0.21</span>
+          <span>>0.21</span>
+        </div>
+        <div class="w-full h-2 bg-zinc-800 rounded-full overflow-hidden flex">
+          <div class="h-full bg-emerald-500" style="width: 40%"></div>
+          <div class="h-full bg-amber-500" style="width: 30%"></div>
+          <div class="h-full bg-rose-500" style="width: 30%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Non-HDL & Remnant-C -->
+    <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+      <div>
+        <div class="flex items-center justify-between text-xs text-zinc-400 font-semibold mb-1">
+          <span>Non-HDL & Remnant-C</span>
+          <span id="badgeNonHDL" class="px-2 py-0.5 rounded text-[10px] font-bold">Optimal</span>
+        </div>
+        <div class="text-2xl font-black font-mono tracking-tight text-white my-1" id="valNonHDLDisplay">
+          71 mg/dL
+        </div>
+        <p class="text-xs text-zinc-400" id="descNonHDL">
+          Remnant-C: ~13 mg/dL. Captures all atherogenic cholesterol when ApoB is unavailable.
+        </p>
+      </div>
+
+      <!-- Gauge Bar -->
+      <div class="space-y-1">
+        <div class="flex justify-between text-[10px] text-zinc-500 font-mono">
+          <span><80</span>
+          <span>100</span>
+          <span>130+</span>
+        </div>
+        <div class="w-full h-2 bg-zinc-800 rounded-full overflow-hidden flex">
+          <div class="h-full bg-emerald-500" style="width: 35%"></div>
+          <div class="h-full bg-amber-500" style="width: 30%"></div>
+          <div class="h-full bg-rose-500" style="width: 35%"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Deep Clinical Analysis & Biomarker Breakdown Table -->
+  <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-6 space-y-5">
+    <div>
+      <h3 class="text-base font-bold text-white flex items-center gap-2">
+        <span>📊</span> Comprehensive Biomarker Target Breakdown
+      </h3>
+      <p class="text-xs text-zinc-400">Comparing your exact lab values against European Society of Cardiology (ESC) & Peter Attia longevity thresholds.</p>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs border-collapse">
+        <thead>
+          <tr class="border-b border-zinc-800 text-zinc-400 uppercase tracking-wider font-mono text-[11px]">
+            <th class="py-3 px-3">Biomarker / Ratio</th>
+            <th class="py-3 px-3">Your Value</th>
+            <th class="py-3 px-3">Longevity Target</th>
+            <th class="py-3 px-3">Standard Lab Target</th>
+            <th class="py-3 px-3">Status</th>
+          </tr>
+        </thead>
+        <tbody id="biomarkerTableBody" class="divide-y divide-zinc-800/60 font-mono">
+          <!-- Populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Evidence-Based Strategic Levers & Interventions -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 space-y-6">
+    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+      <span>🛡️</span> Actionable Evidence-Based Clinical Levers
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-zinc-400 leading-relaxed">
+      <!-- Lever 1: Nutrition -->
+      <div class="space-y-2.5 p-4 rounded-xl bg-zinc-950/60 border border-zinc-800">
+        <h4 class="font-bold text-zinc-200 text-sm flex items-center gap-1.5 text-emerald-400">
+          <span>🥗</span> Dietary Interventions
+        </h4>
+        <ul class="space-y-1.5 list-disc list-inside text-zinc-400">
+          <li><strong>Reduce Saturated Fat:</strong> Saturated fatty acids downregulate LDL receptor (LDLR) recycling on hepatocytes, spiking ApoB.</li>
+          <li><strong>Viscous Soluble Fiber:</strong> 10–15g/day psyllium or beta-glucan binds bile acids, forcing the liver to clear ApoB particles.</li>
+          <li><strong>Lower Glycemic Load:</strong> High refined carbs and fructose drive hepatic de novo lipogenesis, elevating VLDL/Triglycerides.</li>
+        </ul>
+      </div>
+
+      <!-- Lever 2: Training & Metabolic -->
+      <div class="space-y-2.5 p-4 rounded-xl bg-zinc-950/60 border border-zinc-800">
+        <h4 class="font-bold text-zinc-200 text-sm flex items-center gap-1.5 text-cyan-400">
+          <span>🏃</span> Exercise & Zone 2 Training
+        </h4>
+        <ul class="space-y-1.5 list-disc list-inside text-zinc-400">
+          <li><strong>Mitochondrial Fat Oxidation:</strong> 150–180 min/week of Zone 2 cardio enhances muscle triglyceride clearance and boosts lipoprotein lipase (LPL).</li>
+          <li><strong>Resistance Training:</strong> Increases GLUT4 translocation and reverses peripheral insulin resistance, rapidly crushing high TG/HDL ratios.</li>
+          <li><strong>Visceral Fat Reduction:</strong> Direct reduction in portal free fatty acids entering the liver.</li>
+        </ul>
+      </div>
+
+      <!-- Lever 3: Pharmacotherapy Context -->
+      <div class="space-y-2.5 p-4 rounded-xl bg-zinc-950/60 border border-zinc-800">
+        <h4 class="font-bold text-zinc-200 text-sm flex items-center gap-1.5 text-indigo-400">
+          <span>💊</span> Pharmacotherapy (Clinical Context)
+        </h4>
+        <ul class="space-y-1.5 list-disc list-inside text-zinc-400">
+          <li><strong>Statins (HMG-CoA Reductase):</strong> Upregulates hepatic LDL receptors; decreases ApoB by 30–50%.</li>
+          <li><strong>Ezetimibe (NPC1L1 Inhibitor):</strong> Blocks intestinal cholesterol absorption by ~50%; adds an extra 15–20% ApoB reduction.</li>
+          <li><strong>PCSK9 Inhibitors / siRNA:</strong> Prevents LDLR degradation, dropping ApoB to physiological infant levels (< 30 mg/dL).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Citations / Academic References -->
+    <div class="pt-4 border-t border-zinc-800/80 text-[11px] text-zinc-500 space-y-1">
+      <div class="font-semibold text-zinc-400">Scientific Foundations:</div>
+      <p>1. Sniderman AD, et al. <em>Apolipoprotein B Versus Low-Density Lipoprotein Cholesterol as the Primary Marker of Cardiovascular Risk.</em> JAMA Cardiol. 2022.</p>
+      <p>2. Mach F, et al. <em>2019 ESC/EAS Guidelines for the management of dyslipidaemias: lipid modification to reduce cardiovascular risk.</em> Eur Heart J. 2020.</p>
+      <p>3. Dobiásová M, Frohlich J. <em>The new atherogenic index of plasma (log[TG/HDL-C]) reflects the fitting of lipoprotein particles.</em> Clin Biochem. 2001.</p>
+      <p>4. Dayspring TD, Attia P. <em>The Drive: Cardiovascular Disease and Advanced Lipidology Series.</em></p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Interactive Engine JavaScript -->
+<script>
+  // Conversion Constants
+  // 1 mmol/L cholesterol = 38.67 mg/dL
+  // 1 mmol/L triglycerides = 88.57 mg/dL
+  const CHOL_FACTOR = 38.67;
+  const TG_FACTOR = 88.57;
+
+  // Active State (Stored internally in mg/dL for consistent calculations)
+  let activeUnit = 'mgdl'; // 'mgdl' or 'mmol'
+
+  let state = {
+    apob: 55,
+    tg: 65,
+    hdl: 68,
+    ldl: 58,
+    tc: 139
+  };
+
+  // DOM Input References
+  const inputApoB = document.getElementById('inputApoB');
+  const inputTG = document.getElementById('inputTG');
+  const inputHDL = document.getElementById('inputHDL');
+  const inputLDL = document.getElementById('inputLDL');
+  const inputTC = document.getElementById('inputTC');
+
+  const unitBtnMgDl = document.getElementById('unitBtnMgDl');
+  const unitBtnMmol = document.getElementById('unitBtnMmol');
+
+  // Switch Measurement Units
+  function setUnit(newUnit) {
+    if (activeUnit === newUnit) return;
+    activeUnit = newUnit;
+
+    if (activeUnit === 'mgdl') {
+      unitBtnMgDl.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+      unitBtnMmol.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-zinc-400 hover:text-white';
+      
+      document.querySelectorAll('.unit-label-apob').forEach(el => el.textContent = 'mg/dL');
+      document.querySelectorAll('.unit-label-tg').forEach(el => el.textContent = 'mg/dL');
+      document.querySelectorAll('.unit-label-chol').forEach(el => el.textContent = 'mg/dL');
+
+      inputApoB.value = Math.round(state.apob);
+      inputTG.value = Math.round(state.tg);
+      inputHDL.value = Math.round(state.hdl);
+      inputLDL.value = Math.round(state.ldl);
+      inputTC.value = Math.round(state.tc);
+    } else {
+      unitBtnMmol.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+      unitBtnMgDl.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-zinc-400 hover:text-white';
+
+      document.querySelectorAll('.unit-label-apob').forEach(el => el.textContent = 'g/L');
+      document.querySelectorAll('.unit-label-tg').forEach(el => el.textContent = 'mmol/L');
+      document.querySelectorAll('.unit-label-chol').forEach(el => el.textContent = 'mmol/L');
+
+      // ApoB in g/L = mg/dL / 100
+      inputApoB.value = (state.apob / 100).toFixed(2);
+      inputTG.value = (state.tg / TG_FACTOR).toFixed(2);
+      inputHDL.value = (state.hdl / CHOL_FACTOR).toFixed(2);
+      inputLDL.value = (state.ldl / CHOL_FACTOR).toFixed(2);
+      inputTC.value = (state.tc / CHOL_FACTOR).toFixed(2);
+    }
+
+    updateCalculations();
+  }
+
+  // Clinical Archetype Presets
+  function applyPreset(name) {
+    if (name === 'attia') {
+      state = { apob: 55, tg: 65, hdl: 68, ldl: 58, tc: 139 };
+    } else if (name === 'discordant') {
+      state = { apob: 115, tg: 190, hdl: 40, ldl: 88, tc: 166 };
+    } else if (name === 'metabolic') {
+      state = { apob: 130, tg: 240, hdl: 35, ldl: 140, tc: 223 };
+    } else if (name === 'lmhr') {
+      state = { apob: 165, tg: 50, hdl: 95, ldl: 240, tc: 345 };
+    }
+
+    // Refresh UI inputs according to current active unit
+    if (activeUnit === 'mgdl') {
+      inputApoB.value = Math.round(state.apob);
+      inputTG.value = Math.round(state.tg);
+      inputHDL.value = Math.round(state.hdl);
+      inputLDL.value = Math.round(state.ldl);
+      inputTC.value = Math.round(state.tc);
+    } else {
+      inputApoB.value = (state.apob / 100).toFixed(2);
+      inputTG.value = (state.tg / TG_FACTOR).toFixed(2);
+      inputHDL.value = (state.hdl / CHOL_FACTOR).toFixed(2);
+      inputLDL.value = (state.ldl / CHOL_FACTOR).toFixed(2);
+      inputTC.value = (state.tc / CHOL_FACTOR).toFixed(2);
+    }
+
+    updateCalculations();
+  }
+
+  // Recalculate Metrics and Update DOM
+  function updateCalculations() {
+    // Read input values into standard state (mg/dL)
+    if (activeUnit === 'mgdl') {
+      state.apob = parseFloat(inputApoB.value) || 0;
+      state.tg = parseFloat(inputTG.value) || 0;
+      state.hdl = parseFloat(inputHDL.value) || 0;
+      state.ldl = parseFloat(inputLDL.value) || 0;
+      state.tc = parseFloat(inputTC.value) || (state.hdl + state.ldl + state.tg / 5);
+    } else {
+      state.apob = (parseFloat(inputApoB.value) || 0) * 100;
+      state.tg = (parseFloat(inputTG.value) || 0) * TG_FACTOR;
+      state.hdl = (parseFloat(inputHDL.value) || 0) * CHOL_FACTOR;
+      state.ldl = (parseFloat(inputLDL.value) || 0) * CHOL_FACTOR;
+      state.tc = (parseFloat(inputTC.value) || 0) * CHOL_FACTOR;
+    }
+
+    // Mathematical Derived Metrics
+    const nonHDL = Math.max(0, state.tc - state.hdl);
+    const remnantC = Math.max(0, state.tc - (state.hdl + state.ldl));
+    const tgHdlRatioMg = state.hdl > 0 ? (state.tg / state.hdl) : 0;
+
+    // AIP requires molar concentrations in mmol/L
+    const tgMmol = state.tg / TG_FACTOR;
+    const hdlMmol = state.hdl / CHOL_FACTOR;
+    const aip = (tgMmol > 0 && hdlMmol > 0) ? Math.log10(tgMmol / hdlMmol) : 0;
+
+    // Unit strings
+    const cholUnit = activeUnit === 'mgdl' ? 'mg/dL' : 'mmol/L';
+    const apobUnit = activeUnit === 'mgdl' ? 'mg/dL' : 'g/L';
+
+    // Format helper
+    function fmtChol(valMg) {
+      if (activeUnit === 'mgdl') return `${Math.round(valMg)} mg/dL`;
+      return `${(valMg / CHOL_FACTOR).toFixed(2)} mmol/L`;
+    }
+    function fmtApoB(valMg) {
+      if (activeUnit === 'mgdl') return `${Math.round(valMg)} mg/dL`;
+      return `${(valMg / 100).toFixed(2)} g/L`;
+    }
+
+    // 1. ApoB Assessment
+    const valApoBDisplay = document.getElementById('valApoBDisplay');
+    const badgeApoB = document.getElementById('badgeApoB');
+    const descApoB = document.getElementById('descApoB');
+
+    valApoBDisplay.textContent = fmtApoB(state.apob);
+    if (state.apob < 60) {
+      badgeApoB.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+      badgeApoB.textContent = 'Optimal (< 5th %ile)';
+      descApoB.textContent = 'Longevity target (< 60 mg/dL). Clinically halts atherogenesis and plaque progression.';
+    } else if (state.apob <= 80) {
+      badgeApoB.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30';
+      badgeApoB.textContent = 'Favorable (20th %ile)';
+      descApoB.textContent = 'Low-to-moderate particle count. Acceptable for low-risk individuals with zero CAC score.';
+    } else if (state.apob <= 100) {
+      badgeApoB.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
+      badgeApoB.textContent = 'Borderline Elevated';
+      descApoB.textContent = 'Moderate particle density. Atherosclerosis actively accumulating over lifelong horizon.';
+    } else {
+      badgeApoB.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30';
+      badgeApoB.textContent = 'High Atherogenic Burden';
+      descApoB.textContent = 'Severe particle excess. Significant subendothelial particle entrapment occurring continuously.';
+    }
+
+    // 2. TG / HDL Assessment
+    const valTGHDLDisplay = document.getElementById('valTGHDLDisplay');
+    const badgeTGHDL = document.getElementById('badgeTGHDL');
+    const descTGHDL = document.getElementById('descTGHDL');
+
+    valTGHDLDisplay.textContent = tgHdlRatioMg.toFixed(2);
+    if (tgHdlRatioMg < 1.0) {
+      badgeTGHDL.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+      badgeTGHDL.textContent = 'Ideal (< 1.0)';
+      descTGHDL.textContent = 'Excellent insulin sensitivity. Correlates with large, buoyant, non-oxidized LDL Pattern A.';
+    } else if (tgHdlRatioMg <= 2.0) {
+      badgeTGHDL.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30';
+      badgeTGHDL.textContent = 'Normal (1.0–2.0)';
+      descTGHDL.textContent = 'Normal insulin sensitivity. Low presence of small dense atherogenic particles.';
+    } else if (tgHdlRatioMg <= 3.0) {
+      badgeTGHDL.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
+      badgeTGHDL.textContent = 'Borderline sdLDL';
+      descTGHDL.textContent = 'Emergence of Pattern B small dense LDL particles and hepatic triglyceride overproduction.';
+    } else {
+      badgeTGHDL.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30';
+      badgeTGHDL.textContent = 'Insulin Resistant (> 3.0)';
+      descTGHDL.textContent = 'High metabolic syndrome & insulin resistance signature. Predominance of small dense LDL.';
+    }
+
+    // 3. AIP Assessment
+    const valAIPDisplay = document.getElementById('valAIPDisplay');
+    const badgeAIP = document.getElementById('badgeAIP');
+    const descAIP = document.getElementById('descAIP');
+
+    valAIPDisplay.textContent = aip.toFixed(2);
+    if (aip < 0.11) {
+      badgeAIP.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+      badgeAIP.textContent = 'Low Risk (< 0.11)';
+      descAIP.textContent = 'Favorable particle sizing. Minimal small dense atherogenic fractions.';
+    } else if (aip <= 0.21) {
+      badgeAIP.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
+      badgeAIP.textContent = 'Intermediate (0.11–0.21)';
+      descAIP.textContent = 'Moderate atherogenic plasma environment. Lifestyle optimization indicated.';
+    } else {
+      badgeAIP.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30';
+      badgeAIP.textContent = 'High Atherogenic Risk';
+      descAIP.textContent = 'Strongly associated with coronary artery disease and accelerated plaque creation.';
+    }
+
+    // 4. Non-HDL & Remnant-C
+    const valNonHDLDisplay = document.getElementById('valNonHDLDisplay');
+    const badgeNonHDL = document.getElementById('badgeNonHDL');
+    const descNonHDL = document.getElementById('descNonHDL');
+
+    valNonHDLDisplay.textContent = fmtChol(nonHDL);
+    const remnantStr = fmtChol(remnantC);
+    descNonHDL.textContent = `Remnant-C: ${remnantStr}. Normal target < 24 mg/dL (< 0.6 mmol/L).`;
+
+    if (nonHDL < 80) {
+      badgeNonHDL.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+      badgeNonHDL.textContent = 'Optimal (< 80)';
+    } else if (nonHDL <= 100) {
+      badgeNonHDL.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30';
+      badgeNonHDL.textContent = 'Favorable';
+    } else if (nonHDL <= 130) {
+      badgeNonHDL.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
+      badgeNonHDL.textContent = 'Moderate Risk';
+    } else {
+      badgeNonHDL.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30';
+      badgeNonHDL.textContent = 'Elevated';
+    }
+
+    // 5. Discordance Analysis Engine & Banner
+    renderDiscordanceEngine(tgHdlRatioMg, nonHDL);
+
+    // 6. Biomarker Breakdown Table
+    renderTable();
+  }
+
+  // Discordance Analysis Banner
+  function renderDiscordanceEngine(tgHdlRatioMg, nonHDL) {
+    const banner = document.getElementById('discordanceBanner');
+    
+    // Check for LMHR: High LDL (>180), Low TG (<70), High HDL (>75)
+    const isLMHR = state.ldl >= 180 && state.tg <= 75 && state.hdl >= 75;
+
+    // Check for Discordant High-Risk: LDL-C normal (<100) but ApoB elevated (>90)
+    const isDiscordantHighRisk = state.ldl < 100 && state.apob >= 90;
+
+    // Check for Concordant Low (Optimal)
+    const isConcordantOptimal = state.apob < 70 && state.ldl < 90 && tgHdlRatioMg < 1.5;
+
+    // Check for Concordant High
+    const isConcordantHigh = state.apob >= 100 && state.ldl >= 130;
+
+    if (isDiscordantHighRisk) {
+      banner.className = 'p-6 rounded-2xl border bg-amber-950/30 border-amber-500/50 shadow-lg shadow-amber-950/20';
+      banner.innerHTML = `
+        <div class="flex items-start gap-4">
+          <div class="text-3xl">⚠️</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xs uppercase font-extrabold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                CRITICAL CLINICAL FINDING: DISCORDANT HIGH RISK
+              </span>
+            </div>
+            <h3 class="text-base font-bold text-white">
+              False Sense of Security: Normal LDL-C (${Math.round(state.ldl)} mg/dL) with Dangerous ApoB Particle Count (${Math.round(state.apob)} mg/dL)
+            </h3>
+            <p class="text-xs text-zinc-300 leading-relaxed">
+              Standard medical checkups relying solely on LDL-C would label you as "normal" or "low risk". However, your elevated ApoB reveals a high concentration of <strong>small, cholesterol-depleted, dense LDL particles</strong>. Clinical trial data (JAMA Cardiology 2022) confirms that when LDL-C and ApoB diverge, <strong>cardiovascular risk follows ApoB, NOT LDL-C</strong>.
+            </p>
+          </div>
+        </div>
+      `;
+    } else if (isLMHR) {
+      banner.className = 'p-6 rounded-2xl border bg-indigo-950/30 border-indigo-500/50 shadow-lg shadow-indigo-950/20';
+      banner.innerHTML = `
+        <div class="flex items-start gap-4">
+          <div class="text-3xl">🥩</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xs uppercase font-extrabold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">
+                PHENOTYPE DETECTED: LEAN MASS HYPER-RESPONDER (LMHR)
+              </span>
+            </div>
+            <h3 class="text-base font-bold text-white">
+              Lipid Triad: Massive LDL-C Elevation (${Math.round(state.ldl)} mg/dL) with Ultra-Low TG (${Math.round(state.tg)} mg/dL) and High HDL (${Math.round(state.hdl)} mg/dL)
+            </h3>
+            <p class="text-xs text-zinc-300 leading-relaxed">
+              This lipid triad commonly emerges on ketogenic, carnivore, or low-carb diets in metabolically fit individuals. While insulin sensitivity is pristine (TG/HDL = ${tgHdlRatioMg.toFixed(2)}), ApoB remains markedly elevated. Ongoing research (Norwitz, Budoff et al.) is studying plaque progression in this cohort, but traditional lipidology considers high lifelong particle count a significant independent risk factor.
+            </p>
+          </div>
+        </div>
+      `;
+    } else if (isConcordantOptimal) {
+      banner.className = 'p-6 rounded-2xl border bg-emerald-950/30 border-emerald-500/50 shadow-lg shadow-emerald-950/20';
+      banner.innerHTML = `
+        <div class="flex items-start gap-4">
+          <div class="text-3xl">🛡️</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xs uppercase font-extrabold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                PHENOTYPE DETECTED: CONCORDANT OPTIMAL (LONGEVITY TIER)
+              </span>
+            </div>
+            <h3 class="text-base font-bold text-white">
+              Minimal Atherosclerosis Progression Risk Across All Particle & Metabolic Markers
+            </h3>
+            <p class="text-xs text-zinc-300 leading-relaxed">
+              Both cholesterol mass (LDL-C) and particle count (ApoB) are in the lowest percentiles, combined with low triglycerides and high insulin sensitivity. At these concentrations (< 60 mg/dL ApoB), arterial endothelial retention of apolipoproteins is near non-existent.
+            </p>
+          </div>
+        </div>
+      `;
+    } else if (isConcordantHigh) {
+      banner.className = 'p-6 rounded-2xl border bg-rose-950/30 border-rose-500/50 shadow-lg shadow-rose-950/20';
+      banner.innerHTML = `
+        <div class="flex items-start gap-4">
+          <div class="text-3xl">🚨</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xs uppercase font-extrabold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40">
+                ELEVATED CONCORDANT BURDEN
+              </span>
+            </div>
+            <h3 class="text-base font-bold text-white">
+              High Particle Count and High Cholesterol Mass Concurrently Present
+            </h3>
+            <p class="text-xs text-zinc-300 leading-relaxed">
+              Both ApoB (${Math.round(state.apob)} mg/dL) and LDL-C (${Math.round(state.ldl)} mg/dL) are substantially above preventive longevity thresholds. Aggressive lifestyle adjustments (saturated fat reduction, soluble fiber) or discussion with a physician regarding pharmacotherapy is strongly recommended.
+            </p>
+          </div>
+        </div>
+      `;
+    } else {
+      banner.className = 'p-6 rounded-2xl border bg-zinc-900/60 border-zinc-800';
+      banner.innerHTML = `
+        <div class="flex items-start gap-4">
+          <div class="text-3xl">⚖️</div>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xs uppercase font-extrabold px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
+                MODERATE CONCORDANT PROFILE
+              </span>
+            </div>
+            <h3 class="text-base font-bold text-white">
+              Moderate Atherogenic Particle Exposure
+            </h3>
+            <p class="text-xs text-zinc-400 leading-relaxed">
+              Values fall in the typical Western median range. While not immediately pathological by conventional primary care standards, long-term longevity protocols recommend driving ApoB closer to < 60–70 mg/dL to maximize healthspan.
+            </p>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  // Render Table of Biomarkers
+  function renderTable() {
+    const tbody = document.getElementById('biomarkerTableBody');
+    const isMg = activeUnit === 'mgdl';
+    const u = isMg ? 'mg/dL' : 'mmol/L';
+    const uApo = isMg ? 'mg/dL' : 'g/L';
+
+    function fmtC(valMg) {
+      return isMg ? `${Math.round(valMg)} mg/dL` : `${(valMg / CHOL_FACTOR).toFixed(2)} mmol/L`;
+    }
+    function fmtT(valMg) {
+      return isMg ? `${Math.round(valMg)} mg/dL` : `${(valMg / TG_FACTOR).toFixed(2)} mmol/L`;
+    }
+    function fmtA(valMg) {
+      return isMg ? `${Math.round(valMg)} mg/dL` : `${(valMg / 100).toFixed(2)} g/L`;
+    }
+
+    const tgHdl = state.hdl > 0 ? (state.tg / state.hdl) : 0;
+    const nonHDL = Math.max(0, state.tc - state.hdl);
+    const remnantC = Math.max(0, state.tc - (state.hdl + state.ldl));
+
+    const rows = [
+      {
+        name: 'ApoB (Apolipoprotein B)',
+        val: fmtA(state.apob),
+        longevity: isMg ? '< 60 mg/dL' : '< 0.60 g/L',
+        standard: isMg ? '< 90 mg/dL' : '< 0.90 g/L',
+        status: state.apob < 60 ? 'Optimal' : (state.apob <= 80 ? 'Favorable' : (state.apob <= 100 ? 'Borderline' : 'Elevated')),
+        statusColor: state.apob < 60 ? 'text-emerald-400' : (state.apob <= 80 ? 'text-cyan-400' : (state.apob <= 100 ? 'text-amber-400' : 'text-rose-400'))
+      },
+      {
+        name: 'TG / HDL-C Ratio',
+        val: tgHdl.toFixed(2),
+        longevity: '< 1.00',
+        standard: '< 2.00',
+        status: tgHdl < 1.0 ? 'Optimal' : (tgHdl <= 2.0 ? 'Normal' : (tgHdl <= 3.0 ? 'Borderline sdLDL' : 'Insulin Resistant')),
+        statusColor: tgHdl < 1.0 ? 'text-emerald-400' : (tgHdl <= 2.0 ? 'text-cyan-400' : (tgHdl <= 3.0 ? 'text-amber-400' : 'text-rose-400'))
+      },
+      {
+        name: 'LDL-C (Mass)',
+        val: fmtC(state.ldl),
+        longevity: isMg ? '< 55-70 mg/dL' : '< 1.4-1.8 mmol/L',
+        standard: isMg ? '< 100 mg/dL' : '< 2.6 mmol/L',
+        status: state.ldl < 70 ? 'Optimal' : (state.ldl <= 100 ? 'Favorable' : (state.ldl <= 130 ? 'Moderate' : 'Elevated')),
+        statusColor: state.ldl < 70 ? 'text-emerald-400' : (state.ldl <= 100 ? 'text-cyan-400' : (state.ldl <= 130 ? 'text-amber-400' : 'text-rose-400'))
+      },
+      {
+        name: 'Triglycerides (TG)',
+        val: fmtT(state.tg),
+        longevity: isMg ? '< 70-80 mg/dL' : '< 0.8-0.9 mmol/L',
+        standard: isMg ? '< 150 mg/dL' : '< 1.7 mmol/L',
+        status: state.tg < 80 ? 'Optimal' : (state.tg <= 120 ? 'Favorable' : (state.tg <= 150 ? 'Normal' : 'Elevated')),
+        statusColor: state.tg < 80 ? 'text-emerald-400' : (state.tg <= 120 ? 'text-cyan-400' : (state.tg <= 150 ? 'text-zinc-200' : 'text-rose-400'))
+      },
+      {
+        name: 'Non-HDL Cholesterol',
+        val: fmtC(nonHDL),
+        longevity: isMg ? '< 80 mg/dL' : '< 2.1 mmol/L',
+        standard: isMg ? '< 130 mg/dL' : '< 3.4 mmol/L',
+        status: nonHDL < 80 ? 'Optimal' : (nonHDL <= 100 ? 'Favorable' : (nonHDL <= 130 ? 'Moderate' : 'Elevated')),
+        statusColor: nonHDL < 80 ? 'text-emerald-400' : (nonHDL <= 100 ? 'text-cyan-400' : (nonHDL <= 130 ? 'text-amber-400' : 'text-rose-400'))
+      },
+      {
+        name: 'Remnant Cholesterol',
+        val: fmtC(remnantC),
+        longevity: isMg ? '< 18 mg/dL' : '< 0.45 mmol/L',
+        standard: isMg ? '< 24 mg/dL' : '< 0.6 mmol/L',
+        status: remnantC < 18 ? 'Optimal' : (remnantC <= 24 ? 'Normal' : 'Elevated'),
+        statusColor: remnantC < 18 ? 'text-emerald-400' : (remnantC <= 24 ? 'text-cyan-400' : 'text-rose-400')
+      }
+    ];
+
+    tbody.innerHTML = rows.map(r => `
+      <tr class="hover:bg-zinc-800/30 transition-colors">
+        <td class="py-3 px-3 font-semibold text-zinc-200 font-sans">${r.name}</td>
+        <td class="py-3 px-3 text-white font-bold">${r.val}</td>
+        <td class="py-3 px-3 text-emerald-400">${r.longevity}</td>
+        <td class="py-3 px-3 text-zinc-400">${r.standard}</td>
+        <td class="py-3 px-3 font-bold ${r.statusColor}">${r.status}</td>
+      </tr>
+    `).join('');
+  }
+
+  // Event Listeners for Live Keystroke Updates
+  [inputApoB, inputTG, inputHDL, inputLDL, inputTC].forEach(input => {
+    input.addEventListener('input', () => {
+      updateCalculations();
+    });
+  });
+
+  // Initial Calculation
+  updateCalculations();
+</script>

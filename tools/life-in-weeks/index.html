@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Life in Weeks & Finite Horizon Visualizer — Sovereign Tools</title>
+  <meta name="description" content="A high-impact 90-year visual grid mapping elapsed time, remaining seasons, and shared moments with loved ones.">
+  <meta property="og:title" content="Interactive Life in Weeks & Finite Horizon Visualizer">
+  <meta property="og:description" content="A high-impact 90-year visual grid mapping elapsed time, remaining seasons, and shared moments with loved ones.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://petiay83.github.io/sovereign-tools/tools/life-in-weeks/">
+  <meta name="google-site-verification" content="zaZl48bXL6x4bPO_O4vIjsYZQ2Sex89rhdC0i51FRxU">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              500: '#10b981',
+              600: '#059669',
+              900: '#064e3b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-[#090d16] text-zinc-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black">
+
+  <div class="h-1 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-500"></div>
+
+  <!-- Universal Tool Navbar -->
+  <header class="border-b border-zinc-800/80 bg-zinc-950/60 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="https://petiay83.github.io/sovereign-tools/" class="text-zinc-400 hover:text-white flex items-center gap-1.5 text-xs font-medium px-2.5 py-1.5 rounded-lg hover:bg-zinc-800/60 transition-colors border border-transparent hover:border-zinc-800">
+          <span>←</span>
+          <span>Hub</span>
+        </a>
+        <span class="text-zinc-700">/</span>
+        <span class="text-xs text-zinc-400 font-medium flex items-center gap-1">
+          <span>⏳</span> Stoicism & Memento Mori
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Radical Privacy
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tool App Container -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-8 w-full">
+    <div class="space-y-10">
+
+  <!-- Header Section -->
+  <div class="text-center max-w-3xl mx-auto space-y-3">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+      <span>⏳</span> Stoic Perspective & Memento Mori
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+      Interactive Life in Weeks & "Finite Moments" Horizon
+    </h1>
+    <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+      A human life spans roughly 4,000 weeks. Confront your finite horizon, visualize your past and future epochs, and quantify the fleeting "Tail End" of moments with those you love.
+    </p>
+  </div>
+
+  <!-- Presets Bar -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 sm:p-5">
+    <div class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3 flex items-center justify-between">
+      <span>⚡ Life Phase Archetypes</span>
+      <span class="text-[11px] text-zinc-500 normal-case">Click to explore different life horizons</span>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+      <button onclick="applyPreset('grad')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-emerald-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 flex items-center gap-1.5">
+          <span>🎓</span> Recent Graduate
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">Age 22 · ~3,280 weeks left · Horizon wide open</div>
+      </button>
+
+      <button onclick="applyPreset('builder')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-cyan-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-cyan-400 flex items-center gap-1.5">
+          <span>💼</span> Mid-Career Builder
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">Age 35 · ~2,600 weeks left · The Tail End begins</div>
+      </button>
+
+      <button onclick="applyPreset('mentor')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-indigo-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-indigo-400 flex items-center gap-1.5">
+          <span>🧭</span> The Second Mountain
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">Age 52 · ~1,720 weeks left · Depth & Legacy</div>
+      </button>
+
+      <button onclick="applyPreset('sage')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-amber-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-amber-400 flex items-center gap-1.5">
+          <span>🌅</span> Elder Sage
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">Age 68 · ~880 weeks left · Crystallized Wisdom</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Primary Inputs & Finite Parameters Card -->
+  <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Current Age Input -->
+      <div class="space-y-2">
+        <div class="flex justify-between items-center">
+          <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300">
+            Current Age
+          </label>
+          <span id="ageDisplay" class="font-mono text-emerald-400 font-bold text-sm">30 Years</span>
+        </div>
+        <div class="relative">
+          <input type="number" id="ageInput" value="30" min="1" max="100" step="1"
+                 class="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500">
+        </div>
+        <input type="range" id="ageRange" min="5" max="90" step="1" value="30"
+               class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+      </div>
+
+      <!-- Target Lifespan -->
+      <div class="space-y-2">
+        <div class="flex justify-between items-center">
+          <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300">
+            Target Lifespan
+          </label>
+          <span id="lifespanDisplay" class="font-mono text-cyan-400 font-bold text-sm">85 Years</span>
+        </div>
+        <div class="relative">
+          <input type="number" id="lifespanInput" value="85" min="50" max="105" step="1"
+                 class="w-full px-3 py-2.5 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 font-mono text-sm focus:outline-none focus:border-cyan-500">
+        </div>
+        <div class="flex justify-between text-[10px] text-zinc-500 font-mono">
+          <span>75 (Average)</span>
+          <span>85 (Longevity)</span>
+          <span>100 (Centenarian)</span>
+        </div>
+      </div>
+
+      <!-- Parents Face-Time Settings -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300">
+          Parents' Current Age
+        </label>
+        <div class="grid grid-cols-2 gap-2">
+          <div class="relative">
+            <input type="number" id="parentAgeInput" value="62" min="30" max="100" step="1"
+                   class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 font-mono text-xs focus:outline-none focus:border-emerald-500">
+            <span class="text-[9px] text-zinc-500 block mt-1">Their Age</span>
+          </div>
+          <div class="relative">
+            <input type="number" id="parentVisitsInput" value="3" min="0" max="52" step="1"
+                   class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 font-mono text-xs focus:outline-none focus:border-emerald-500">
+            <span class="text-[9px] text-zinc-500 block mt-1">Visits / Year</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Passion & Reading Pace -->
+      <div class="space-y-2">
+        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300">
+          Lifetime Reading Pace
+        </label>
+        <div class="grid grid-cols-2 gap-2">
+          <div class="relative">
+            <input type="number" id="booksPerYearInput" value="8" min="0" max="100" step="1"
+                   class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 font-mono text-xs focus:outline-none focus:border-emerald-500">
+            <span class="text-[9px] text-zinc-500 block mt-1">Books / Year</span>
+          </div>
+          <div class="relative">
+            <input type="number" id="tripsPerYearInput" value="2" min="0" max="20" step="1"
+                   class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 font-mono text-xs focus:outline-none focus:border-emerald-500">
+            <span class="text-[9px] text-zinc-500 block mt-1">Big Trips / Year</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- "Finite Moments" Dashboard (The Tail End) -->
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
+
+    <!-- Metric 1: Remaining Weeks -->
+    <div class="bg-gradient-to-br from-emerald-950/40 via-zinc-900 to-zinc-900 border border-emerald-500/40 rounded-2xl p-4 flex flex-col justify-between">
+      <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400">Total Weeks Left</span>
+      <div class="text-2xl sm:text-3xl font-black font-mono text-white tracking-tight my-2" id="kpiWeeksRemaining">
+        2,869
+      </div>
+      <span class="text-[10px] text-zinc-400" id="kpiWeeksLived">1,565 lived (35.3%)</span>
+    </div>
+
+    <!-- Metric 2: Remaining Summers -->
+    <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4 flex flex-col justify-between">
+      <span class="text-[11px] font-bold uppercase tracking-wider text-amber-400">Summers Left</span>
+      <div class="text-2xl sm:text-3xl font-black font-mono text-white tracking-tight my-2" id="kpiSummersRemaining">
+        55
+      </div>
+      <span class="text-[10px] text-zinc-400">Finite warm seasons to swim and travel</span>
+    </div>
+
+    <!-- Metric 3: Parent Face Time (The Tail End) -->
+    <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4 flex flex-col justify-between">
+      <span class="text-[11px] font-bold uppercase tracking-wider text-rose-400">Parent Days Left</span>
+      <div class="text-2xl sm:text-3xl font-black font-mono text-white tracking-tight my-2" id="kpiParentDays">
+        ~240 Days
+      </div>
+      <span class="text-[10px] text-zinc-400">~90% of all time is already in the past</span>
+    </div>
+
+    <!-- Metric 4: Lifetime Library -->
+    <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4 flex flex-col justify-between">
+      <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-400">Books Left</span>
+      <div class="text-2xl sm:text-3xl font-black font-mono text-white tracking-tight my-2" id="kpiBooksLeft">
+        440
+      </div>
+      <span class="text-[10px] text-zinc-400">Total volume of your remaining library</span>
+    </div>
+
+    <!-- Metric 5: Grand Journeys -->
+    <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4 flex flex-col justify-between">
+      <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-400">Adventures Left</span>
+      <div class="text-2xl sm:text-3xl font-black font-mono text-white tracking-tight my-2" id="kpiTripsLeft">
+        110
+      </div>
+      <span class="text-[10px] text-zinc-400">Major international trips and expeditions</span>
+    </div>
+
+    <!-- Metric 6: Peak Physical Energy -->
+    <div class="bg-zinc-900/70 border border-zinc-800 rounded-2xl p-4 flex flex-col justify-between">
+      <span class="text-[11px] font-bold uppercase tracking-wider text-teal-400">Prime Energy</span>
+      <div class="text-2xl sm:text-3xl font-black font-mono text-white tracking-tight my-2" id="kpiPrimeWeeks">
+        1,043 Wks
+      </div>
+      <span class="text-[10px] text-zinc-400">Weeks remaining before biological age 50</span>
+    </div>
+
+  </div>
+
+  <!-- The 90-Year Life in Weeks Grid (4,680 Weeks) -->
+  <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div>
+        <h2 class="text-base font-bold text-white flex items-center gap-2">
+          <span>🗺️</span> The Complete 90-Year Life Canvas
+        </h2>
+        <p class="text-xs text-zinc-400">
+          Each small square represents exactly <strong>one week</strong> of life. 52 columns per year, 90 rows from birth to age 90.
+        </p>
+      </div>
+
+      <!-- Life Epochs Legend -->
+      <div class="flex flex-wrap items-center gap-3 text-[11px] font-medium">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-sm bg-amber-500/80"></span>
+          <span class="text-zinc-400">Childhood (0-5)</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-sm bg-cyan-500/80"></span>
+          <span class="text-zinc-400">School (6-17)</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-sm bg-indigo-500/80"></span>
+          <span class="text-zinc-400">College / 20s (18-25)</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-sm bg-emerald-500/80"></span>
+          <span class="text-zinc-400">Career Prime (26-50)</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-sm bg-teal-500/80"></span>
+          <span class="text-zinc-400">Mastery (51-65)</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-sm bg-purple-500/80"></span>
+          <span class="text-zinc-400">Elder (66+)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Inspection Hover Bar -->
+    <div id="hoverInspection" class="h-6 flex items-center justify-between text-xs font-mono text-zinc-400 px-3 bg-zinc-950/80 rounded-lg border border-zinc-800/80">
+      <span>Hover over any week to inspect details</span>
+      <span class="text-emerald-400 flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Current week in life
+      </span>
+    </div>
+
+    <!-- Canvas Grid Container -->
+    <div class="w-full overflow-x-auto p-3 bg-zinc-950 rounded-xl border border-zinc-800/80">
+      <canvas id="lifeGridCanvas" class="mx-auto block cursor-crosshair"></canvas>
+    </div>
+
+    <div class="flex items-center justify-between text-[11px] text-zinc-500 font-mono">
+      <span>Week 1 (January / Winter)</span>
+      <span>Week 26 (Summer Solstice)</span>
+      <span>Week 52 (Year End)</span>
+    </div>
+  </div>
+
+  <!-- Stoic Philosophy & The Tail End Reflections -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 space-y-6">
+    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+      <span>📜</span> Seneca & The Calculus of Time
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-zinc-400 leading-relaxed">
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-emerald-400">
+          <span>1.</span> Life Is Not Short
+        </h4>
+        <blockquote class="italic text-zinc-300 border-l-2 border-emerald-500/50 pl-2">
+          "It is not that we have a short time to live, but that we waste a lot of it. Life is long if you know how to use it."
+        </blockquote>
+        <p>— Seneca, <em>De Brevitate Vitae</em> (On the Shortness of Life)</p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-rose-400">
+          <span>2.</span> The Tail End Reality
+        </h4>
+        <p>
+          By the time you graduate high school, you have already spent roughly 93% of the total in-person face time you will ever have with your parents. If you see them 3 times a year for a few days, you are living in the final 5% of the relationship. Make each visit intentional.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-cyan-400">
+          <span>3.</span> The Power of Finite Counting
+        </h4>
+        <p>
+          When something feels infinite, you treat it casually. When you realize you only have 40 more summers or 300 more books to read, choice becomes urgent. You stop reading books you hate, stop spending evenings with people who drain you, and start living deliberately.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Interactive Engine JavaScript -->
+<script>
+  // State
+  let currentAge = 30;
+  let targetLifespan = 85;
+  let parentAge = 62;
+  let parentVisits = 3;
+  let daysPerVisit = 4;
+  let parentLifeExpectancy = 82;
+  let booksPerYear = 8;
+  let tripsPerYear = 2;
+
+  // DOM Elements
+  const ageInput = document.getElementById('ageInput');
+  const ageRange = document.getElementById('ageRange');
+  const ageDisplay = document.getElementById('ageDisplay');
+
+  const lifespanInput = document.getElementById('lifespanInput');
+  const lifespanDisplay = document.getElementById('lifespanDisplay');
+
+  const parentAgeInput = document.getElementById('parentAgeInput');
+  const parentVisitsInput = document.getElementById('parentVisitsInput');
+  const booksPerYearInput = document.getElementById('booksPerYearInput');
+  const tripsPerYearInput = document.getElementById('tripsPerYearInput');
+
+  // KPI Elements
+  const kpiWeeksRemaining = document.getElementById('kpiWeeksRemaining');
+  const kpiWeeksLived = document.getElementById('kpiWeeksLived');
+  const kpiSummersRemaining = document.getElementById('kpiSummersRemaining');
+  const kpiParentDays = document.getElementById('kpiParentDays');
+  const kpiBooksLeft = document.getElementById('kpiBooksLeft');
+  const kpiTripsLeft = document.getElementById('kpiTripsLeft');
+  const kpiPrimeWeeks = document.getElementById('kpiPrimeWeeks');
+
+  const hoverInspection = document.getElementById('hoverInspection');
+  const canvas = document.getElementById('lifeGridCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // Archetype Presets
+  function applyPreset(name) {
+    if (name === 'grad') {
+      currentAge = 22;
+      targetLifespan = 85;
+      parentAge = 52;
+      parentVisits = 4;
+      booksPerYear = 10;
+      tripsPerYear = 3;
+    } else if (name === 'builder') {
+      currentAge = 35;
+      targetLifespan = 85;
+      parentAge = 65;
+      parentVisits = 3;
+      booksPerYear = 8;
+      tripsPerYear = 2;
+    } else if (name === 'mentor') {
+      currentAge = 52;
+      targetLifespan = 85;
+      parentAge = 78;
+      parentVisits = 4;
+      booksPerYear = 12;
+      tripsPerYear = 2;
+    } else if (name === 'sage') {
+      currentAge = 68;
+      targetLifespan = 85;
+      parentAge = 92;
+      parentVisits = 6;
+      booksPerYear = 15;
+      tripsPerYear = 1;
+    }
+
+    ageInput.value = currentAge;
+    ageRange.value = currentAge;
+    lifespanInput.value = targetLifespan;
+    parentAgeInput.value = parentAge;
+    parentVisitsInput.value = parentVisits;
+    booksPerYearInput.value = booksPerYear;
+    tripsPerYearInput.value = tripsPerYear;
+
+    updateCalculations();
+  }
+
+  // Get Epoch Color by Age
+  function getEpochColor(age) {
+    if (age <= 5) return '#f59e0b'; // Amber (Childhood)
+    if (age <= 17) return '#06b6d4'; // Cyan (School)
+    if (age <= 25) return '#6366f1'; // Indigo (College/20s)
+    if (age <= 50) return '#10b981'; // Emerald (Creative Prime)
+    if (age <= 65) return '#14b8a6'; // Teal (Mastery)
+    return '#a855f7'; // Purple (Elder Wisdom)
+  }
+
+  function getEpochName(age) {
+    if (age <= 5) return 'Early Childhood (Ages 0-5)';
+    if (age <= 17) return 'School Years (Ages 6-17)';
+    if (age <= 25) return 'Exploration & 20s (Ages 18-25)';
+    if (age <= 50) return 'Career & Creative Prime (Ages 26-50)';
+    if (age <= 65) return 'Mastery & Mentorship (Ages 51-65)';
+    return 'Elder Wisdom & Sabbatical (Ages 66+)';
+  }
+
+  // Recalculate Metrics and Update Dashboard
+  function updateCalculations() {
+    currentAge = parseInt(ageInput.value) || 30;
+    targetLifespan = parseInt(lifespanInput.value) || 85;
+    parentAge = parseInt(parentAgeInput.value) || 62;
+    parentVisits = parseInt(parentVisitsInput.value) || 3;
+    booksPerYear = parseInt(booksPerYearInput.value) || 8;
+    tripsPerYear = parseInt(tripsPerYearInput.value) || 2;
+
+    ageDisplay.textContent = `${currentAge} Years`;
+    lifespanDisplay.textContent = `${targetLifespan} Years`;
+
+    // Mathematical Life Metrics
+    const totalWeeks = Math.round(targetLifespan * 52.1775);
+    const livedWeeks = Math.min(totalWeeks, Math.round(currentAge * 52.1775));
+    const remainingWeeks = Math.max(0, totalWeeks - livedWeeks);
+    const elapsedPct = ((livedWeeks / totalWeeks) * 100).toFixed(1);
+
+    kpiWeeksRemaining.textContent = remainingWeeks.toLocaleString();
+    kpiWeeksLived.textContent = `${livedWeeks.toLocaleString()} lived (${elapsedPct}%)`;
+
+    // Remaining Summers
+    const summersLeft = Math.max(0, targetLifespan - currentAge);
+    kpiSummersRemaining.textContent = summersLeft;
+
+    // Remaining Parent Days (The Tail End)
+    const parentYearsLeft = Math.max(0, parentLifeExpectancy - parentAge);
+    const parentDaysLeft = Math.round(parentYearsLeft * parentVisits * daysPerVisit);
+    kpiParentDays.textContent = parentYearsLeft > 0 ? `~${parentDaysLeft} Days` : 'Cherished Memory';
+
+    // Remaining Books
+    const yearsLeft = Math.max(0, targetLifespan - currentAge);
+    kpiBooksLeft.textContent = (yearsLeft * booksPerYear).toLocaleString();
+
+    // Remaining Trips
+    kpiTripsLeft.textContent = (yearsLeft * tripsPerYear).toLocaleString();
+
+    // Peak Athletic / Biological Prime (until age 50)
+    const primeWeeksRemaining = Math.max(0, Math.round((50 - currentAge) * 52.1775));
+    kpiPrimeWeeks.textContent = currentAge < 50 ? `${primeWeeksRemaining.toLocaleString()} Wks` : 'Wise Veteran';
+
+    // Draw the 90-Year Life Canvas
+    drawLifeGrid();
+  }
+
+  // Draw 90x52 Life Grid on Canvas
+  const COLS = 52;
+  const ROWS = 90;
+  const CELL_SIZE = 8;
+  const GAP = 3;
+  const PAD_LEFT = 35;
+  const PAD_TOP = 25;
+
+  function initCanvas() {
+    const totalWidth = PAD_LEFT + COLS * (CELL_SIZE + GAP) + 15;
+    const totalHeight = PAD_TOP + ROWS * (CELL_SIZE + GAP) + 15;
+
+    canvas.width = totalWidth;
+    canvas.height = totalHeight;
+    canvas.style.width = `${totalWidth}px`;
+    canvas.style.height = `${totalHeight}px`;
+  }
+
+  function drawLifeGrid() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const livedWeeks = Math.round(currentAge * 52.1775);
+    const maxWeeks = Math.round(targetLifespan * 52.1775);
+
+    // Week Headers (Columns: 1, 10, 20, 30, 40, 52)
+    ctx.fillStyle = '#71717a';
+    ctx.font = '9px JetBrains Mono';
+    ctx.textAlign = 'center';
+    [1, 13, 26, 39, 52].forEach(w => {
+      const x = PAD_LEFT + (w - 1) * (CELL_SIZE + GAP) + CELL_SIZE / 2;
+      ctx.fillText(`W${w}`, x, PAD_TOP - 8);
+    });
+
+    for (let r = 0; r < ROWS; r++) {
+      const yearAge = r;
+      const y = PAD_TOP + r * (CELL_SIZE + GAP);
+
+      // Row Age Label (Every 10 years)
+      if (yearAge % 5 === 0) {
+        ctx.fillStyle = yearAge === currentAge ? '#34d399' : '#52525b';
+        ctx.font = '10px JetBrains Mono';
+        ctx.textAlign = 'right';
+        ctx.fillText(`${yearAge}`, PAD_LEFT - 8, y + CELL_SIZE);
+      }
+
+      for (let c = 0; c < COLS; c++) {
+        const x = PAD_LEFT + c * (CELL_SIZE + GAP);
+        const currentWeekNum = r * COLS + c;
+
+        // Life Beyond Target Lifespan
+        if (currentWeekNum >= maxWeeks) {
+          ctx.fillStyle = '#18181b'; // Dark background
+          ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
+          continue;
+        }
+
+        // Lived Weeks (Past)
+        if (currentWeekNum < livedWeeks) {
+          const epochColor = getEpochColor(yearAge);
+          ctx.fillStyle = epochColor;
+          ctx.globalAlpha = 0.45; // Dimmed lived epoch
+          ctx.fillRect(x, y, CELL_SIZE, CELL_SIZE);
+          ctx.globalAlpha = 1.0;
+        } 
+        // Active Current Week (Now!)
+        else if (currentWeekNum === livedWeeks) {
+          ctx.fillStyle = '#10b981';
+          ctx.fillRect(x - 1, y - 1, CELL_SIZE + 2, CELL_SIZE + 2);
+
+          // Pulsing halo
+          ctx.strokeStyle = '#34d399';
+          ctx.lineWidth = 1.5;
+          ctx.strokeRect(x - 2, y - 2, CELL_SIZE + 4, CELL_SIZE + 4);
+        } 
+        // Future Weeks
+        else {
+          const epochColor = getEpochColor(yearAge);
+          ctx.strokeStyle = epochColor;
+          ctx.globalAlpha = 0.35;
+          ctx.strokeRect(x, y, CELL_SIZE, CELL_SIZE);
+          ctx.globalAlpha = 1.0;
+        }
+      }
+    }
+  }
+
+  // Interactive Hover Inspection
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const col = Math.floor((x - PAD_LEFT) / (CELL_SIZE + GAP));
+    const row = Math.floor((y - PAD_TOP) / (CELL_SIZE + GAP));
+
+    if (col >= 0 && col < COLS && row >= 0 && row < ROWS) {
+      const age = row;
+      const weekInYear = col + 1;
+      const totalWeek = row * COLS + weekInYear;
+      const epoch = getEpochName(age);
+      const isPast = totalWeek < Math.round(currentAge * 52.1775);
+      const isCurrent = totalWeek === Math.round(currentAge * 52.1775);
+
+      const status = isCurrent ? '🌟 CURRENT WEEK' : (isPast ? '✓ Past Week' : '○ Future Week');
+      hoverInspection.innerHTML = `
+        <span>Age <strong>${age}</strong>, Week <strong>${weekInYear}</strong> of 52 · <span class="text-zinc-200">${epoch}</span></span>
+        <span class="${isCurrent ? 'text-emerald-400 font-bold' : (isPast ? 'text-zinc-500' : 'text-cyan-400')}">${status}</span>
+      `;
+    }
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    hoverInspection.innerHTML = `
+      <span>Hover over any week to inspect details</span>
+      <span class="text-emerald-400 flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Current week in life
+      </span>
+    `;
+  });
+
+  // Event Listeners
+  ageInput.addEventListener('input', (e) => {
+    currentAge = parseInt(e.target.value) || 30;
+    ageRange.value = currentAge;
+    updateCalculations();
+  });
+  ageRange.addEventListener('input', (e) => {
+    currentAge = parseInt(e.target.value) || 30;
+    ageInput.value = currentAge;
+    updateCalculations();
+  });
+
+  lifespanInput.addEventListener('input', () => updateCalculations());
+  parentAgeInput.addEventListener('input', () => updateCalculations());
+  parentVisitsInput.addEventListener('input', () => updateCalculations());
+  booksPerYearInput.addEventListener('input', () => updateCalculations());
+  tripsPerYearInput.addEventListener('input', () => updateCalculations());
+
+  // Initialization
+  initCanvas();
+  updateCalculations();
+</script>
+
+  </main>
+
+  <footer class="border-t border-zinc-800/80 bg-zinc-950/40 mt-16 py-6">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between text-xs text-zinc-500">
+      <a href="https://petiay83.github.io/sovereign-tools/" class="hover:text-zinc-300">← Back to All Sovereign Tools</a>
+      <span class="text-emerald-500/70">100% Client-Side Execution</span>
+    </div>
+  </footer>
+</body>
+</html>

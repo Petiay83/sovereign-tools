@@ -116,7 +116,7 @@
       "id": "life-in-weeks",
       "title": "Interactive Life in Weeks & Finite Horizon Visualizer",
       "cluster": "clarity",
-      "status": "planned",
+      "status": "live",
       "tags": [
         "memento-mori",
         "stoicism",

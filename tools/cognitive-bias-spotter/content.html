@@ -1,0 +1,512 @@
+<div class="space-y-10">
+
+  <!-- Header Section -->
+  <div class="text-center max-w-3xl mx-auto space-y-3">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+      <span>🧠</span> Cognitive Behavioral Deconstruction (CBT)
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+      Cognitive Bias Spotter for Daily Conflicts
+    </h1>
+    <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+      In the heat of conflict, the human mind automatically distorts reality. Diagnose your active cognitive fallacies, cross-examine automatic thoughts with Socratic inquiry, and synthesize a grounded, rational reframe.
+    </p>
+  </div>
+
+  <!-- Presets Bar -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 sm:p-5">
+    <div class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3 flex items-center justify-between">
+      <span>⚡ Common Conflict Thought Archetypes</span>
+      <span class="text-[11px] text-zinc-500 normal-case">Click to explore and reframe common cognitive traps</span>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+      <button onclick="applyPreset('boss')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-emerald-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 flex items-center gap-1.5">
+          <span>💼</span> The Aloof Meeting
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">"She didn't look at me, she's planning to fire me!"</div>
+      </button>
+
+      <button onclick="applyPreset('text')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-cyan-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-cyan-400 flex items-center gap-1.5">
+          <span>📱</span> The Unanswered Message
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">"Left on read for 3 hours, he clearly doesn't respect me."</div>
+      </button>
+
+      <button onclick="applyPreset('feedback')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-indigo-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-indigo-400 flex items-center gap-1.5">
+          <span>👥</span> The Critical Slide Feedback
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">"One slide was questioned, my whole deck is ruined."</div>
+      </button>
+
+      <button onclick="applyPreset('chores')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-amber-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-amber-400 flex items-center gap-1.5">
+          <span>🏠</span> Unspoken Domestic Rule
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">"If they cared, they SHOULD have known without asking."</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Hot Thought Input Sandbox -->
+  <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
+    <div class="flex items-center justify-between">
+      <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300">
+        1. The Conflict "Hot Thought" (Raw Internal Monologue)
+      </label>
+      <span class="text-[10px] text-zinc-500 font-mono">100% Client-Side Privacy (Local RAM only)</span>
+    </div>
+
+    <div class="relative">
+      <textarea id="hotThoughtInput" rows="2" placeholder="e.g. My manager didn't mention my work on the team call. She obviously thinks I'm incompetent and is preparing to replace me with someone else!"
+                class="w-full px-4 py-3 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 text-sm focus:outline-none focus:border-emerald-500 transition-colors font-medium"></textarea>
+    </div>
+
+    <!-- Live Pattern Scanner Alerts -->
+    <div id="scannerAlert" class="hidden p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-start gap-2.5">
+      <span class="text-base">⚠️</span>
+      <div class="space-y-1">
+        <strong class="font-bold">Distortion Linguistic Markers Detected:</strong>
+        <p id="scannerText" class="text-zinc-300 text-[11px] leading-relaxed">
+          Detected trigger words.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10-Distortion Diagnostic Matrix -->
+  <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
+    <div class="flex items-center justify-between pb-2 border-b border-zinc-800">
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-2">
+          <span>🏷️</span> 2. Tag Active Cognitive Distortions (Select all that apply)
+        </h3>
+        <p class="text-[11px] text-zinc-400">Click to diagnose which psychological lenses are currently warping your perception.</p>
+      </div>
+      <span id="taggedCountBadge" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        2 Active
+      </span>
+    </div>
+
+    <!-- Distortions Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3" id="distortionsGrid">
+      <!-- Populated by JavaScript -->
+    </div>
+  </div>
+
+  <!-- Socratic Cross-Examination Sieve (3 Evidence Tests) -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+    <!-- Test 1: The Evidence Test -->
+    <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-5 space-y-3 flex flex-col justify-between">
+      <div class="space-y-2">
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-400">
+          <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] flex items-center justify-center border border-emerald-500/40">1</span>
+          <span>Courtroom Evidence Test</span>
+        </div>
+        <p class="text-[11px] text-zinc-400 leading-tight">
+          What are the hard, observable facts that directly contradict this catastrophic thought?
+        </p>
+        <textarea id="evidenceContraInput" rows="3" placeholder="e.g. She praised my technical report last week, and she didn't single out anyone else either..."
+                  class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 text-xs focus:outline-none focus:border-emerald-500"></textarea>
+      </div>
+      <div class="text-[10px] text-zinc-500 font-mono">
+        Empirical Rule: Feelings are not admissible evidence in a courtroom.
+      </div>
+    </div>
+
+    <!-- Test 2: Hanlon's Razor (Alternative Hypotheses) -->
+    <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-5 space-y-3 flex flex-col justify-between">
+      <div class="space-y-2">
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cyan-400">
+          <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-300 text-[11px] flex items-center justify-center border border-cyan-500/40">2</span>
+          <span>Hanlon's Razor (Alternatives)</span>
+        </div>
+        <p class="text-[11px] text-zinc-400 leading-tight">
+          What are 2 plausible non-malicious reasons for their behavior (fatigue, stress, time constraints)?
+        </p>
+        <textarea id="hanlonInput" rows="3" placeholder="e.g. 1) The meeting ran out of time. 2) She was stressed about her own presentation to the board..."
+                  class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 text-xs focus:outline-none focus:border-cyan-500"></textarea>
+      </div>
+      <div class="text-[10px] text-zinc-500 font-mono">
+        Hanlon's Razor: Never attribute to malice that which is adequately explained by stress or exhaustion.
+      </div>
+    </div>
+
+    <!-- Test 3: The Best Friend Test -->
+    <div class="bg-zinc-900/80 border border-zinc-800 rounded-2xl p-5 space-y-3 flex flex-col justify-between">
+      <div class="space-y-2">
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-indigo-400">
+          <span class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-300 text-[11px] flex items-center justify-center border border-indigo-500/40">3</span>
+          <span>Best Friend Perspective Shift</span>
+        </div>
+        <p class="text-[11px] text-zinc-400 leading-tight">
+          If your closest, most respected friend had this exact panic, what objective advice would you give them?
+        </p>
+        <textarea id="friendInput" rows="3" placeholder="e.g. I would tell them: 'You are spiraling. One neutral meeting does not define your career. Ask her for a 5-min 1-on-1 if you need clarity.'"
+                  class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 text-xs focus:outline-none focus:border-indigo-500"></textarea>
+      </div>
+      <div class="text-[10px] text-zinc-500 font-mono">
+        Psychological Distance: Self-compassion restores objective prefrontal cortex control.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- The Rational Reframe Synthesis Card -->
+  <div class="bg-gradient-to-br from-emerald-950/40 via-zinc-900 to-zinc-900 border border-emerald-500/40 rounded-2xl p-6 sm:p-8 space-y-4 shadow-xl relative">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-zinc-800 gap-3">
+      <div>
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <span>✨</span> Synthesized Rational Reframe
+        </h3>
+        <p class="text-xs text-zinc-400">The balanced, high-agency truth free of cognitive distortions.</p>
+      </div>
+
+      <button onclick="copyReframe()" id="copyReframeBtn" class="self-start sm:self-auto px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold rounded-xl text-xs transition-all flex items-center gap-1.5 shadow-md shadow-emerald-950/40">
+        <span>📋 Copy Reframe</span>
+      </button>
+    </div>
+
+    <!-- Reframe Output Box -->
+    <div id="reframeOutputBox" class="text-sm text-zinc-100 font-medium leading-relaxed bg-zinc-950/80 p-5 rounded-xl border border-zinc-800/80 italic space-y-2">
+      <!-- Rendered dynamically -->
+    </div>
+
+    <div class="flex items-center justify-between text-[11px] text-zinc-500 font-mono pt-1">
+      <span>CBT Protocol: Aaron Beck & David Burns Framework</span>
+      <span class="text-emerald-400 font-medium">✓ Amygdala De-escalation Active</span>
+    </div>
+  </div>
+
+  <!-- Clinical CBT Educational Guide -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 space-y-6">
+    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+      <span>📖</span> The Science of Cognitive Restructuring
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-zinc-400 leading-relaxed">
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-emerald-400">
+          <span>1.</span> Thoughts Are Not Facts
+        </h4>
+        <p>
+          The brain is a predictive survival engine, not a truth-telling organ. Under social threat, evolutionary psychology biases us toward hyper-vigilance: assuming hostility, rejection, or catastrophe to avoid surprise danger.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-cyan-400">
+          <span>2.</span> The Amygdala Hijack
+        </h4>
+        <p>
+          When an automatic thought triggers fear or shame, the amygdala floods the bloodstream with cortisol and adrenaline within 100 milliseconds, shutting down nuanced prefrontal reasoning. Naming the distortion halts this cascade.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-indigo-400">
+          <span>3.</span> Not Toxic Positivity
+        </h4>
+        <p>
+          A rational reframe is NOT "Everything is wonderful!" It is ruthless, sober objectivity: acknowledging genuine challenges while stripping away the catastrophizing fiction created by your anxiety.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Interactive Engine JavaScript -->
+<script>
+  // 10 Classical CBT Interpersonal Distortions
+  const DISTORTIONS = [
+    {
+      id: 'mind_reading',
+      title: 'Mind Reading',
+      icon: '🔮',
+      desc: 'Assuming you know their negative thoughts or malice without proof.',
+      triggers: ['thinks', 'knows', 'obviously', 'secretly hates']
+    },
+    {
+      id: 'catastrophizing',
+      title: 'Catastrophizing',
+      icon: '💥',
+      desc: 'Projecting immediate worst-case collapse from a small signal.',
+      triggers: ['ruined', 'disaster', 'fire me', 'dump me', 'end of']
+    },
+    {
+      id: 'black_white',
+      title: 'All-or-Nothing',
+      icon: '⚖️',
+      desc: 'Splitting into extreme binary poles (100% loyal or 100% enemy).',
+      triggers: ['either', 'or', 'completely', 'total failure', 'perfect']
+    },
+    {
+      id: 'emotional_reasoning',
+      title: 'Emotional Reasoning',
+      icon: '💔',
+      desc: 'Treating internal panic as empirical proof of external intent.',
+      triggers: ['feel like', 'feel that', 'must mean', 'obviously']
+    },
+    {
+      id: 'personalization',
+      title: 'Personalization',
+      icon: '🎯',
+      desc: 'Assuming their bad mood or silence is entirely about you.',
+      triggers: ['because of me', 'my fault', 'punishing me']
+    },
+    {
+      id: 'overgeneralization',
+      title: 'Overgeneralization',
+      icon: '🔁',
+      desc: 'Expanding a single incident into a permanent universal law.',
+      triggers: ['always', 'never', 'every time', 'constantly']
+    },
+    {
+      id: 'mental_filter',
+      title: 'Mental Filter',
+      icon: '🔍',
+      desc: 'Fixating on one single slight while ignoring ten positive signs.',
+      triggers: ['only', 'just one', 'except']
+    },
+    {
+      id: 'discounting_positives',
+      title: 'Discounting Positive',
+      icon: '🚫',
+      desc: 'Rejecting good evidence as "accidental" or "pity".',
+      triggers: ['pity', 'didnt mean it', 'doesnt count']
+    },
+    {
+      id: 'should_statements',
+      title: '"Should" Statements',
+      icon: '📜',
+      desc: 'Demanding others obey unspoken rules in your head.',
+      triggers: ['should', 'ought to', 'must have known', 'supposed to']
+    },
+    {
+      id: 'labeling',
+      title: 'Labeling & Slurs',
+      icon: '🏷️',
+      desc: 'Affixing a totalizing pejorative identity tag to a person.',
+      triggers: ['narcissist', 'toxic', 'idiot', 'selfish', 'fake']
+    }
+  ];
+
+  // Presets
+  const PRESETS = {
+    boss: {
+      hot: "My manager didn't mention my work on the team call. She obviously thinks I'm incompetent and is preparing to replace me!",
+      tagged: ['mind_reading', 'catastrophizing'],
+      contra: "She praised my technical architecture document last week, and she didn't mention three other team members' projects either.",
+      hanlon: "1) The agenda was packed and she ran out of time. 2) She was anxious about her own upcoming budget review with leadership.",
+      friend: "I would tell them: 'You are jumping straight to worst-case panic. Ask her for a quick 1-on-1 check-in if you want feedback.'"
+    },
+    text: {
+      hot: "He's seen my text message and hasn't replied for three hours. He clearly doesn't respect me and is pulling away!",
+      tagged: ['mind_reading', 'emotional_reasoning'],
+      contra: "He called yesterday to ask about my day, and he frequently goes into deep focus work during weekday afternoons.",
+      hanlon: "1) He opened the text while walking into a meeting and forgot to hit send. 2) His phone battery died or he is driving.",
+      friend: "I would tell them: 'People have lives outside their screens. Put your phone down, go work out, and stop tracking minute-by-minute replies.'"
+    },
+    feedback: {
+      hot: "The VP questioned one metric on slide 4. The whole presentation was a complete failure and everyone knows I'm an impostor.",
+      tagged: ['black_white', 'catastrophizing', 'mental_filter'],
+      contra: "The team agreed enthusiastically with our conclusions on slides 5 through 12, and the VP approved our core budget request.",
+      hanlon: "1) The VP was genuinely curious about that single data source. 2) It is literally the VP's job to pressure-test numbers.",
+      friend: "I would tell them: 'One clarifying question is standard executive review. It is not an indictment of your intelligence.'"
+    },
+    chores: {
+      hot: "The dishes are still in the sink. If they loved me, they SHOULD know they need to be washed without me having to ask!",
+      tagged: ['should_statements', 'mind_reading'],
+      contra: "They vacuumed the living room without being asked on Sunday, and they consistently cook dinner on weeknights.",
+      hanlon: "1) They had a brutal client call and crashed on the couch. 2) They simply have a different visual threshold for clutter than I do.",
+      friend: "I would tell them: 'Your partner is not a psychic mind-reader. If you need help with dishes right now, ask directly and kindly.'"
+    }
+  };
+
+  // State
+  let activeTagged = ['mind_reading', 'catastrophizing'];
+
+  // DOM Elements
+  const hotThoughtInput = document.getElementById('hotThoughtInput');
+  const scannerAlert = document.getElementById('scannerAlert');
+  const scannerText = document.getElementById('scannerText');
+  const distortionsGrid = document.getElementById('distortionsGrid');
+  const taggedCountBadge = document.getElementById('taggedCountBadge');
+
+  const evidenceContraInput = document.getElementById('evidenceContraInput');
+  const hanlonInput = document.getElementById('hanlonInput');
+  const friendInput = document.getElementById('friendInput');
+  const reframeOutputBox = document.getElementById('reframeOutputBox');
+
+  // Render 10 Distortions Matrix
+  function renderDistortionsGrid() {
+    distortionsGrid.innerHTML = DISTORTIONS.map(d => {
+      const isTagged = activeTagged.includes(d.id);
+      return `
+        <div onclick="toggleDistortion('${d.id}')"
+             class="p-3 rounded-xl border cursor-pointer transition-all duration-200 flex flex-col justify-between ${
+               isTagged 
+                 ? 'bg-emerald-500/15 border-emerald-500/60 shadow-lg shadow-emerald-950/20' 
+                 : 'bg-zinc-950/70 border-zinc-800 hover:border-zinc-700'
+             }">
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="text-sm">${d.icon}</span>
+              <span class="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold ${
+                isTagged ? 'bg-emerald-500/30 text-emerald-300' : 'bg-zinc-800 text-zinc-500'
+              }">
+                ${isTagged ? 'ACTIVE' : 'OFF'}
+              </span>
+            </div>
+            <h4 class="text-xs font-bold text-white mb-1">${d.title}</h4>
+            <p class="text-[10px] text-zinc-400 leading-tight">${d.desc}</p>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    taggedCountBadge.textContent = `${activeTagged.length} Active`;
+    taggedCountBadge.className = activeTagged.length > 0 
+      ? 'text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+      : 'text-xs font-mono font-bold px-2 py-0.5 rounded bg-zinc-800 text-zinc-500 border border-zinc-700';
+  }
+
+  function toggleDistortion(id) {
+    if (activeTagged.includes(id)) {
+      activeTagged = activeTagged.filter(x => x !== id);
+    } else {
+      activeTagged.push(id);
+    }
+    renderDistortionsGrid();
+    updateReframe();
+  }
+
+  // Linguistic Scanner for Trigger Words
+  function scanHotThought(text) {
+    const lower = text.toLowerCase();
+    const foundMarkers = [];
+
+    DISTORTIONS.forEach(d => {
+      d.triggers.forEach(trig => {
+        if (lower.includes(trig) && !foundMarkers.includes(trig)) {
+          foundMarkers.push(trig);
+          if (!activeTagged.includes(d.id)) {
+            activeTagged.push(d.id);
+          }
+        }
+      });
+    });
+
+    if (foundMarkers.length > 0) {
+      scannerAlert.classList.remove('hidden');
+      scannerText.innerHTML = `Identified distortion pattern markers: <strong class="text-amber-300 font-mono">"${foundMarkers.join('", "')}"</strong>. Corresponding distortions have been highlighted below.`;
+    } else {
+      scannerAlert.classList.add('hidden');
+    }
+
+    renderDistortionsGrid();
+    updateReframe();
+  }
+
+  // Presets
+  function applyPreset(key) {
+    const p = PRESETS[key];
+    if (!p) return;
+    hotThoughtInput.value = p.hot;
+    activeTagged = [...p.tagged];
+    evidenceContraInput.value = p.contra;
+    hanlonInput.value = p.hanlon;
+    friendInput.value = p.friend;
+    scanHotThought(p.hot);
+    updateReframe();
+  }
+
+  // Synthesize Rational Reframe
+  function updateReframe() {
+    const hot = hotThoughtInput.value.trim() || "My automatic catastrophic thought...";
+    const contra = evidenceContraInput.value.trim();
+    const hanlon = hanlonInput.value.trim();
+    const friend = friendInput.value.trim();
+
+    const taggedNames = activeTagged.map(id => {
+      const d = DISTORTIONS.find(x => x.id === id);
+      return d ? d.title : id;
+    });
+
+    const distortionNotice = taggedNames.length > 0
+      ? `I recognize that I was falling into <strong class="text-rose-400 font-mono">${taggedNames.join(', ')}</strong>.`
+      : `I am stepping back from automatic panic.`;
+
+    const factualGrounding = contra 
+      ? `The objective facts are: <span class="text-emerald-300">${contra}</span>.`
+      : `Looking at the verifiable facts rather than my emotions, there is no hard proof of hostile intent.`;
+
+    const alternativeSpace = hanlon
+      ? `Plausible alternative explanations: <span class="text-cyan-300">${hanlon}</span>.`
+      : `Their reaction is much more likely driven by their own stress, distraction, or time constraints than malice toward me.`;
+
+    const actionResolution = friend
+      ? `Grounded advice: <strong class="text-amber-300">${friend}</strong>`
+      : `I will stay calm, refuse to take this personally, and communicate directly if clarification is truly needed.`;
+
+    reframeOutputBox.innerHTML = `
+      <p>"${distortionNotice}</p>
+      <p>${factualGrounding}</p>
+      <p>${alternativeSpace}</p>
+      <p>${actionResolution}"</p>
+    `;
+  }
+
+  // Copy Reframe as Markdown
+  function copyReframe() {
+    const hot = hotThoughtInput.value.trim();
+    const contra = evidenceContraInput.value.trim();
+    const hanlon = hanlonInput.value.trim();
+    const friend = friendInput.value.trim();
+    const taggedNames = activeTagged.map(id => DISTORTIONS.find(x => x.id === id)?.title).filter(Boolean);
+
+    const md = `# CBT Cognitive Reframe
+
+## 1. Hot Thought:
+"${hot}"
+
+## 2. Diagnosed Cognitive Distortions:
+${taggedNames.map(t => `- ${t}`).join('\n') || 'None'}
+
+## 3. Disconfirming Evidence (The Facts):
+${contra || 'None noted'}
+
+## 4. Alternative Explanations (Hanlon's Razor):
+${hanlon || 'None noted'}
+
+## 5. Grounded Rational Reframe:
+${friend || 'Stay calm and address reality with composed agency.'}
+
+*Generated via Sovereign Tools (CBT Conflict Reframe Engine)*`;
+
+    navigator.clipboard.writeText(md).then(() => {
+      const btn = document.getElementById('copyReframeBtn');
+      btn.innerHTML = '<span>✓ Copied to Clipboard!</span>';
+      setTimeout(() => {
+        btn.innerHTML = '<span>📋 Copy Reframe</span>';
+      }, 2000);
+    });
+  }
+
+  // Event Listeners
+  hotThoughtInput.addEventListener('input', (e) => {
+    scanHotThought(e.target.value);
+  });
+
+  [evidenceContraInput, hanlonInput, friendInput].forEach(inp => {
+    inp.addEventListener('input', () => updateReframe());
+  });
+
+  // Initialization
+  renderDistortionsGrid();
+  applyPreset('boss');
+</script>

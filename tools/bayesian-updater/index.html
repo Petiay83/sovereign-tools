@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bayesian Belief Updating & Evidence Evaluator — Sovereign Tools</title>
+  <meta name="description" content="Mathematically calibrate confidence in your hypotheses when new empirical evidence arrives.">
+  <meta property="og:title" content="Bayesian Belief Updating & Evidence Evaluator">
+  <meta property="og:description" content="Mathematically calibrate confidence in your hypotheses when new empirical evidence arrives.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://petiay83.github.io/sovereign-tools/tools/bayesian-updater/">
+  <meta name="google-site-verification" content="zaZl48bXL6x4bPO_O4vIjsYZQ2Sex89rhdC0i51FRxU">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              500: '#10b981',
+              600: '#059669',
+              900: '#064e3b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-[#090d16] text-zinc-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black">
+
+  <div class="h-1 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-500"></div>
+
+  <!-- Universal Tool Navbar -->
+  <header class="border-b border-zinc-800/80 bg-zinc-950/60 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="https://petiay83.github.io/sovereign-tools/" class="text-zinc-400 hover:text-white flex items-center gap-1.5 text-xs font-medium px-2.5 py-1.5 rounded-lg hover:bg-zinc-800/60 transition-colors border border-transparent hover:border-zinc-800">
+          <span>←</span>
+          <span>Hub</span>
+        </a>
+        <span class="text-zinc-700">/</span>
+        <span class="text-xs text-zinc-400 font-medium flex items-center gap-1">
+          <span>🧬</span> Rationality & Longevity
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Radical Privacy
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tool App Container -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-8 w-full">
+    <div class="space-y-10">
+
+  <!-- Header Section -->
+  <div class="text-center max-w-3xl mx-auto space-y-3">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+      <span>📐</span> Epistemic Rationality Engine
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+      Bayesian Evidence Updating Calculator
+    </h1>
+    <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+      Calibrate your beliefs mathematically. Eliminate the Base Rate Fallacy, quantify clue strength in Turing decibans, and chain multiple pieces of evidence with our Rational Sieve.
+    </p>
+  </div>
+
+  <!-- Presets Bar -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 sm:p-5">
+    <div class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3 flex items-center justify-between">
+      <span>⚡ Classic Rationality Archetypes</span>
+      <span class="text-[11px] text-zinc-500 normal-case">Click to explore foundational cognitive traps</span>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+      <button onclick="applyPreset('medical')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-emerald-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 flex items-center gap-1.5">
+          <span>🩺</span> Base Rate Fallacy
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">0.1% disease · 99% test · 5% false alarms</div>
+      </button>
+
+      <button onclick="applyPreset('startup')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-cyan-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-cyan-400 flex items-center gap-1.5">
+          <span>🚀</span> Startup Unicorn Bet
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">0.5% base rate + multi-signal evidence chain</div>
+      </button>
+
+      <button onclick="applyPreset('dna')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-amber-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-amber-400 flex items-center gap-1.5">
+          <span>⚖️</span> Forensic Match
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">1 in 500k prior · DNA match in city population</div>
+      </button>
+
+      <button onclick="applyPreset('sagan')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-indigo-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-indigo-400 flex items-center gap-1.5">
+          <span>🛸</span> Sagan's Razor
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">Extraordinary claims require extraordinary evidence</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Primary Bayes Engine Workspace -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- Left Controls Column (Inputs) -->
+    <div class="lg:col-span-6 space-y-6">
+
+      <!-- Prior Probability Card -->
+      <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <div class="flex items-center justify-between">
+          <label class="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-1.5">
+            <span>1. Prior Probability P(H)</span>
+          </label>
+          <span id="priorDisplay" class="font-mono text-emerald-400 font-bold text-sm">0.10% (1 in 1,000)</span>
+        </div>
+        <p class="text-xs text-zinc-400">
+          The baseline frequency / chance of the hypothesis being true <em>before</em> any specific evidence is observed.
+        </p>
+
+        <div class="space-y-3">
+          <div class="relative">
+            <input type="number" id="priorInput" value="0.1" step="0.01" min="0.0001" max="99.99"
+                   class="w-full pl-3 pr-8 py-2.5 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 font-mono text-sm focus:outline-none focus:border-emerald-500">
+            <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-zinc-500 font-mono text-sm">%</span>
+          </div>
+
+          <!-- Quick Scale Buttons -->
+          <div class="flex flex-wrap gap-1.5 text-[11px] font-mono">
+            <button onclick="setPrior(0.01)" class="px-2 py-1 bg-zinc-800 text-zinc-400 hover:text-white rounded-lg">1 in 10,000 (0.01%)</button>
+            <button onclick="setPrior(0.1)" class="px-2 py-1 bg-zinc-800 text-zinc-400 hover:text-white rounded-lg">1 in 1,000 (0.1%)</button>
+            <button onclick="setPrior(1.0)" class="px-2 py-1 bg-zinc-800 text-zinc-400 hover:text-white rounded-lg">1 in 100 (1%)</button>
+            <button onclick="setPrior(10.0)" class="px-2 py-1 bg-zinc-800 text-zinc-400 hover:text-white rounded-lg">10%</button>
+            <button onclick="setPrior(50.0)" class="px-2 py-1 bg-zinc-800 text-zinc-400 hover:text-white rounded-lg">50% (Coin toss)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mode Switcher: Single Clue vs Sequential Sieve -->
+      <div class="flex items-center gap-2 bg-zinc-950 p-1 rounded-xl border border-zinc-800">
+        <button id="modeBtnSingle" onclick="setMode('single')" class="flex-1 py-2 text-xs font-semibold rounded-lg transition-all bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+          Single Evidence / Test Mode
+        </button>
+        <button id="modeBtnSieve" onclick="setMode('sieve')" class="flex-1 py-2 text-xs font-semibold rounded-lg transition-all text-zinc-400 hover:text-white">
+          Sequential Clues Sieve (Chain)
+        </button>
+      </div>
+
+      <!-- Single Test Controls Container -->
+      <div id="singleModeContainer" class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
+        <div class="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center justify-between">
+          <span>2. Test Accuracy & Characteristics</span>
+          <span class="text-zinc-500 normal-case font-mono" id="bayesFactorSingleDisplay">LR: 19.8x (+13.0 dB)</span>
+        </div>
+
+        <!-- True Positive Rate (Sensitivity) -->
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs">
+            <span class="text-zinc-300 font-semibold">Sensitivity P(E|H)</span>
+            <span id="sensitivityDisplay" class="font-mono text-emerald-400 font-bold">99.0%</span>
+          </div>
+          <p class="text-[11px] text-zinc-500">True Positive Rate: Probability the test is positive when hypothesis is TRUE.</p>
+          <input type="range" id="sensitivityRange" min="1" max="100" step="0.5" value="99"
+                 class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+        </div>
+
+        <!-- False Positive Rate (1 - Specificity) -->
+        <div class="space-y-2">
+          <div class="flex justify-between text-xs">
+            <span class="text-zinc-300 font-semibold">False Positive Rate P(E|¬H)</span>
+            <span id="fprDisplay" class="font-mono text-rose-400 font-bold">5.0%</span>
+          </div>
+          <p class="text-[11px] text-zinc-500">False Alarm Rate: Probability the test triggers accidentally when hypothesis is FALSE.</p>
+          <input type="range" id="fprRange" min="0.1" max="50" step="0.1" value="5"
+                 class="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-rose-500">
+        </div>
+      </div>
+
+      <!-- Sequential Sieve Controls Container (Hidden by default) -->
+      <div id="sieveModeContainer" class="hidden bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="text-xs font-bold uppercase tracking-wider text-zinc-300">
+            <span>2. Sequential Evidence Sieve</span>
+          </div>
+          <button onclick="addEvidenceItem()" class="text-xs font-semibold px-2.5 py-1 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 rounded-lg transition-colors flex items-center gap-1">
+            <span>+ Add Clue</span>
+          </button>
+        </div>
+        <p class="text-xs text-zinc-400">
+          Add confirming or disconfirming clues. Each clue updates your odds multiplicatively in sequence.
+        </p>
+
+        <!-- Dynamic Evidence List -->
+        <div id="evidenceList" class="space-y-2.5 max-h-80 overflow-y-auto pr-1">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Results Column (Posterior, Natural Frequencies & Decibans) -->
+    <div class="lg:col-span-6 space-y-6">
+
+      <!-- Posterior Hero Banner -->
+      <div class="bg-gradient-to-br from-emerald-950/40 via-zinc-900 to-zinc-900 border border-emerald-500/40 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">
+            Updated Posterior Probability P(H|E)
+          </span>
+          <span id="evidenceWeightBadge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+            +13.0 dB Evidence
+          </span>
+        </div>
+
+        <div class="text-4xl sm:text-5xl font-black font-mono tracking-tight text-white my-2" id="posteriorDisplay">
+          1.94%
+        </div>
+
+        <div class="text-xs text-zinc-300 leading-relaxed mt-2" id="posteriorExplanation">
+          Even though the test has a 99% accuracy rate, getting a positive result means there is only a <strong>1.94% chance</strong> you actually have the condition!
+        </div>
+
+        <!-- Belief Tug-of-War Bar -->
+        <div class="mt-4 pt-4 border-t border-zinc-800 space-y-2">
+          <div class="flex justify-between text-[11px] font-mono text-zinc-400">
+            <span>Prior: <strong id="barPriorText" class="text-zinc-200">0.10%</strong></span>
+            <span>➔</span>
+            <span>Posterior: <strong id="barPosteriorText" class="text-emerald-400 font-bold">1.94%</strong></span>
+          </div>
+          <div class="w-full h-3 bg-zinc-950 rounded-full border border-zinc-800 overflow-hidden flex">
+            <div id="beliefBarFill" class="h-full bg-gradient-to-r from-emerald-500 to-cyan-400 transition-all duration-500" style="width: 1.94%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Natural Frequencies Visualizer (1,000 People Grid) -->
+      <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-2">
+            <span>👥</span> Natural Frequency Grid (Sample of 1,000 People)
+          </h3>
+          <span class="text-[10px] text-zinc-500 font-mono">Gerd Gigerenzer Method</span>
+        </div>
+        <p class="text-xs text-zinc-400" id="frequencyExplanation">
+          Out of 1,000 people, only 1 truly has the condition. 50 will trigger false positive alarms. Therefore, 1 out of 51 positive tests is an actual case!
+        </p>
+
+        <!-- Stats Legend Breakdown -->
+        <div class="grid grid-cols-3 gap-2 p-3 bg-zinc-950/70 rounded-xl border border-zinc-800 text-[11px] font-mono">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+            <div>
+              <span class="text-zinc-500 block text-[10px]">True Positives</span>
+              <strong id="statTP" class="text-emerald-300">1 person</strong>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
+            <div>
+              <span class="text-zinc-500 block text-[10px]">False Alarms</span>
+              <strong id="statFP" class="text-rose-300">50 people</strong>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-zinc-700 inline-block"></span>
+            <div>
+              <span class="text-zinc-500 block text-[10px]">True Negatives</span>
+              <strong id="statTN" class="text-zinc-400">949 people</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1,000 Dots SVG Matrix -->
+        <div class="p-3 bg-zinc-950/90 rounded-xl border border-zinc-800/80 overflow-hidden flex justify-center">
+          <svg id="dotsMatrix" class="w-full max-w-[420px] h-36" viewBox="0 0 500 200">
+            <!-- Populated dynamically by JavaScript (50 cols x 20 rows = 1,000 dots) -->
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- The Deciban & Evidence Weight Guide -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 space-y-6">
+    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+      <span>📐</span> The Mathematical Intuition of Bayes
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-zinc-400 leading-relaxed">
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-emerald-400">
+          <span>1.</span> The Base Rate Fallacy
+        </h4>
+        <p>
+          Humans intuitively judge probability by similarity, ignoring how rare the event is in the background. If a disease affects 1 in 10,000 people, even a test with 99% accuracy will produce 100 times more false positives than true positives.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-cyan-400">
+          <span>2.</span> Turing's Decibans (dB)
+        </h4>
+        <p>
+          Alan Turing measured evidence in "bans" and "decibans" at Bletchley Park while breaking Enigma. Just like decibels in sound, evidence weights add up linearly: +10 dB multiplies odds by 10x, +20 dB multiplies odds by 100x, and -10 dB divides odds by 10x.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-indigo-400">
+          <span>3.</span> Conservation of Expected Evidence
+        </h4>
+        <p>
+          You cannot anticipate being swayed in a specific direction before receiving evidence. If a positive test will make you believe $H$ more strongly, a negative test must proportionally make you believe $H$ less strongly.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Interactive Engine JavaScript -->
+<script>
+  // Global State
+  let mode = 'single'; // 'single' or 'sieve'
+  let priorPct = 0.1; // in percent (0.1 = 0.1%)
+  let sensitivity = 99.0; // P(E|H)
+  let fpr = 5.0; // P(E|not H)
+
+  // Sequential Evidence Items
+  let evidenceChain = [
+    { name: 'Initial Signal', bf: 20, desc: 'Strong positive clue (+13 dB)' }
+  ];
+
+  // DOM Elements
+  const priorInput = document.getElementById('priorInput');
+  const priorDisplay = document.getElementById('priorDisplay');
+  const modeBtnSingle = document.getElementById('modeBtnSingle');
+  const modeBtnSieve = document.getElementById('modeBtnSieve');
+  const singleModeContainer = document.getElementById('singleModeContainer');
+  const sieveModeContainer = document.getElementById('sieveModeContainer');
+
+  const sensitivityRange = document.getElementById('sensitivityRange');
+  const sensitivityDisplay = document.getElementById('sensitivityDisplay');
+  const fprRange = document.getElementById('fprRange');
+  const fprDisplay = document.getElementById('fprDisplay');
+
+  const posteriorDisplay = document.getElementById('posteriorDisplay');
+  const posteriorExplanation = document.getElementById('posteriorExplanation');
+  const evidenceWeightBadge = document.getElementById('evidenceWeightBadge');
+  const bayesFactorSingleDisplay = document.getElementById('bayesFactorSingleDisplay');
+
+  const barPriorText = document.getElementById('barPriorText');
+  const barPosteriorText = document.getElementById('barPosteriorText');
+  const beliefBarFill = document.getElementById('beliefBarFill');
+
+  const statTP = document.getElementById('statTP');
+  const statFP = document.getElementById('statFP');
+  const statTN = document.getElementById('statTN');
+  const frequencyExplanation = document.getElementById('frequencyExplanation');
+  const dotsMatrix = document.getElementById('dotsMatrix');
+  const evidenceList = document.getElementById('evidenceList');
+
+  // Switch Mode
+  function setMode(newMode) {
+    mode = newMode;
+    if (mode === 'single') {
+      modeBtnSingle.className = 'flex-1 py-2 text-xs font-semibold rounded-lg transition-all bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+      modeBtnSieve.className = 'flex-1 py-2 text-xs font-semibold rounded-lg transition-all text-zinc-400 hover:text-white';
+      singleModeContainer.classList.remove('hidden');
+      sieveModeContainer.classList.add('hidden');
+    } else {
+      modeBtnSieve.className = 'flex-1 py-2 text-xs font-semibold rounded-lg transition-all bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+      modeBtnSingle.className = 'flex-1 py-2 text-xs font-semibold rounded-lg transition-all text-zinc-400 hover:text-white';
+      singleModeContainer.classList.add('hidden');
+      sieveModeContainer.classList.remove('hidden');
+      renderEvidenceChain();
+    }
+    updateCalculations();
+  }
+
+  // Set Prior
+  function setPrior(val) {
+    priorPct = val;
+    priorInput.value = val;
+    updateCalculations();
+  }
+
+  // Preset Handlers
+  function applyPreset(preset) {
+    if (preset === 'medical') {
+      setMode('single');
+      priorPct = 0.1;
+      priorInput.value = 0.1;
+      sensitivity = 99;
+      sensitivityRange.value = 99;
+      fpr = 5.0;
+      fprRange.value = 5.0;
+    } else if (preset === 'startup') {
+      setMode('sieve');
+      priorPct = 0.5; // 1 in 200 base rate
+      priorInput.value = 0.5;
+      evidenceChain = [
+        { name: 'Elite Repeat Founder', bf: 6.3, desc: '+8.0 dB (Previous exit)' },
+        { name: 'Sticky Cohort Retention (30% MoM)', bf: 25.1, desc: '+14.0 dB (Strong Product-Market Fit)' },
+        { name: 'Heavily Crowded Market', bf: 0.32, desc: '-5.0 dB (Commoditization headwind)' }
+      ];
+      renderEvidenceChain();
+    } else if (preset === 'dna') {
+      setMode('single');
+      priorPct = 0.0002; // 1 in 500,000 in a metro area
+      priorInput.value = 0.0002;
+      sensitivity = 99.9;
+      sensitivityRange.value = 99.9;
+      fpr = 0.1; // 1 in 1,000 lab error or accidental partial match
+      fprRange.value = 0.1;
+    } else if (preset === 'sagan') {
+      setMode('single');
+      priorPct = 0.001; // 1 in 100,000 (Telepathy / Alien visit)
+      priorInput.value = 0.001;
+      sensitivity = 90.0;
+      sensitivityRange.value = 90.0;
+      fpr = 2.0; // 2% chance of eyewitness delusion / coincidence
+      fprRange.value = 2.0;
+    }
+    updateCalculations();
+  }
+
+  // Evidence Sieve Management
+  function renderEvidenceChain() {
+    evidenceList.innerHTML = evidenceChain.map((item, idx) => {
+      const dB = (10 * Math.log10(item.bf)).toFixed(1);
+      const isPositive = item.bf >= 1;
+      return `
+        <div class="flex items-center justify-between p-3 rounded-xl bg-zinc-950 border border-zinc-800 text-xs">
+          <div class="space-y-0.5">
+            <input type="text" value="${item.name}" onchange="updateEvidenceName(${idx}, this.value)"
+                   class="bg-transparent text-white font-semibold focus:outline-none focus:border-b border-emerald-500 text-xs w-48">
+            <div class="text-[10px] text-zinc-500">${item.desc}</div>
+          </div>
+          <div class="flex items-center gap-3">
+            <select onchange="updateEvidenceBF(${idx}, this.value)" class="bg-zinc-900 border border-zinc-700 text-zinc-200 text-xs rounded-lg px-2 py-1 font-mono">
+              <option value="1.5" ${item.bf === 1.5 ? 'selected' : ''}>Weak (+1.8 dB)</option>
+              <option value="3.16" ${item.bf === 3.16 ? 'selected' : ''}>Moderate (+5 dB)</option>
+              <option value="10" ${item.bf === 10 ? 'selected' : ''}>Substantial (+10 dB)</option>
+              <option value="20" ${item.bf === 20 ? 'selected' : ''}>Strong (+13 dB)</option>
+              <option value="100" ${item.bf === 100 ? 'selected' : ''}>Overwhelming (+20 dB)</option>
+              <option value="0.32" ${item.bf === 0.32 ? 'selected' : ''}>Disconfirming (-5 dB)</option>
+              <option value="0.1" ${item.bf === 0.1 ? 'selected' : ''}>Strong Counter (-10 dB)</option>
+            </select>
+            <span class="font-mono text-xs font-bold ${isPositive ? 'text-emerald-400' : 'text-rose-400'}">
+              ${isPositive ? '+' : ''}${dB} dB
+            </span>
+            <button onclick="removeEvidenceItem(${idx})" class="text-zinc-600 hover:text-rose-400 transition-colors text-sm px-1">✕</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function addEvidenceItem() {
+    evidenceChain.push({ name: `Observation #${evidenceChain.length + 1}`, bf: 10, desc: 'Substantial clue (+10 dB)' });
+    renderEvidenceChain();
+    updateCalculations();
+  }
+
+  function removeEvidenceItem(idx) {
+    evidenceChain.splice(idx, 1);
+    renderEvidenceChain();
+    updateCalculations();
+  }
+
+  function updateEvidenceName(idx, val) {
+    evidenceChain[idx].name = val;
+  }
+
+  function updateEvidenceBF(idx, val) {
+    const bf = parseFloat(val);
+    evidenceChain[idx].bf = bf;
+    evidenceChain[idx].desc = bf >= 1 ? `Confirming (${val}x)` : `Disconfirming (${val}x)`;
+    renderEvidenceChain();
+    updateCalculations();
+  }
+
+  // Core Bayesian Engine & Rendering
+  function updateCalculations() {
+    priorPct = Math.max(0.00001, Math.min(99.9999, parseFloat(priorInput.value) || 0.1));
+    const priorP = priorPct / 100;
+    const priorOdds = priorP / (1 - priorP);
+
+    sensitivity = parseFloat(sensitivityRange.value);
+    fpr = parseFloat(fprRange.value);
+
+    sensitivityDisplay.textContent = `${sensitivity.toFixed(1)}%`;
+    fprDisplay.textContent = `${fpr.toFixed(1)}%`;
+
+    // Prior format
+    const oneIn = Math.round(1 / priorP);
+    priorDisplay.textContent = `${priorPct < 0.01 ? priorPct.toFixed(4) : priorPct.toFixed(2)}% (1 in ${oneIn.toLocaleString()})`;
+    barPriorText.textContent = `${priorPct < 0.01 ? priorPct.toFixed(4) : priorPct.toFixed(2)}%`;
+
+    let totalBF = 1;
+    let totalDB = 0;
+
+    if (mode === 'single') {
+      const pEH = sensitivity / 100;
+      const pEnotH = fpr / 100;
+      totalBF = pEH / pEnotH;
+      totalDB = 10 * Math.log10(totalBF);
+      bayesFactorSingleDisplay.textContent = `LR: ${totalBF.toFixed(1)}x (${totalDB >= 0 ? '+' : ''}${totalDB.toFixed(1)} dB)`;
+    } else {
+      totalBF = evidenceChain.reduce((acc, item) => acc * item.bf, 1);
+      totalDB = 10 * Math.log10(totalBF);
+    }
+
+    // Bayesian Odds Update: Posterior Odds = Prior Odds * Bayes Factor
+    const posteriorOdds = priorOdds * totalBF;
+    const posteriorP = posteriorOdds / (1 + posteriorOdds);
+    const posteriorPct = posteriorP * 100;
+
+    // Display Results
+    posteriorDisplay.textContent = posteriorPct >= 99.9 ? '>99.9%' : (posteriorPct < 0.01 ? `${posteriorPct.toFixed(4)}%` : `${posteriorPct.toFixed(2)}%`);
+    barPosteriorText.textContent = `${posteriorPct.toFixed(2)}%`;
+    beliefBarFill.style.width = `${Math.min(100, Math.max(0.5, posteriorPct))}%`;
+    evidenceWeightBadge.textContent = `${totalDB >= 0 ? '+' : ''}${totalDB.toFixed(1)} dB Evidence`;
+
+    // Explanation text
+    if (mode === 'single') {
+      if (posteriorPct < 10) {
+        posteriorExplanation.innerHTML = `Counter-Intuitive Finding: Despite a <strong>${sensitivity.toFixed(0)}% sensitive</strong> test, because the base rate is so low (1 in ${oneIn.toLocaleString()}), a positive result still only translates to a <strong class="text-emerald-400 font-mono">${posteriorPct.toFixed(2)}%</strong> true probability! False alarms dominate.`;
+      } else if (posteriorPct < 50) {
+        posteriorExplanation.innerHTML = `Confidence increased from ${priorPct.toFixed(2)}% to <strong class="text-emerald-400 font-mono">${posteriorPct.toFixed(1)}%</strong>. More likely false than true, but worthy of serious follow-up.`;
+      } else {
+        posteriorExplanation.innerHTML = `Strong update: Evidence pushed belief from ${priorPct.toFixed(2)}% to <strong class="text-emerald-400 font-mono">${posteriorPct.toFixed(1)}%</strong>. Hypothesis is now substantially favored.`;
+      }
+    } else {
+      posteriorExplanation.innerHTML = `Sequential Sieve update: Chaining ${evidenceChain.length} clues multiplied prior odds by <strong class="text-cyan-300 font-mono">${totalBF.toFixed(1)}x</strong> (${totalDB >= 0 ? '+' : ''}${totalDB.toFixed(1)} dB), shifting confidence from ${priorPct.toFixed(2)}% to <strong class="text-emerald-400 font-mono">${posteriorPct.toFixed(2)}%</strong>.`;
+    }
+
+    // Render Natural Frequencies (1,000 Subjects)
+    renderNaturalFrequencies(priorP, sensitivity / 100, fpr / 100);
+  }
+
+  // 1,000 Dots Matrix Visualization (Gerd Gigerenzer Method)
+  function renderNaturalFrequencies(p_H, sens, p_fpr) {
+    const totalSample = 1000;
+    const trueSick = Math.round(totalSample * p_H);
+    const tpCount = Math.max(trueSick > 0 ? 1 : 0, Math.round(trueSick * sens));
+    const fnCount = trueSick - tpCount;
+
+    const trueHealthy = totalSample - trueSick;
+    const fpCount = Math.round(trueHealthy * p_fpr);
+    const tnCount = totalSample - tpCount - fnCount - fpCount;
+
+    statTP.textContent = `${tpCount} ${tpCount === 1 ? 'person' : 'people'}`;
+    statFP.textContent = `${fpCount} ${fpCount === 1 ? 'person' : 'people'}`;
+    statTN.textContent = `${tnCount} people`;
+
+    const totalPositives = tpCount + fpCount;
+    const trueFreqRatio = totalPositives > 0 ? ((tpCount / totalPositives) * 100).toFixed(1) : 0;
+
+    frequencyExplanation.innerHTML = `
+      Out of 1,000 subjects, <strong class="text-emerald-400">${trueSick}</strong> actually have the condition. 
+      The test correctly flags <strong class="text-emerald-400">${tpCount}</strong>, but triggers <strong class="text-rose-400">${fpCount}</strong> false alarms! 
+      If you test positive, you are 1 of <strong>${totalPositives}</strong> positives ➔ 
+      <strong class="text-cyan-300 font-mono">${tpCount} / ${totalPositives} = ${trueFreqRatio}% true chance</strong>.
+    `;
+
+    // Render SVG Matrix: 50 columns x 20 rows = 1,000 circles
+    const cols = 50;
+    const rows = 20;
+    let svgHtml = '';
+
+    let tpRemaining = tpCount;
+    let fpRemaining = fpCount;
+
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const x = 5 + c * 10;
+        const y = 8 + r * 9.5;
+        let color = '#27272a'; // neutral dark dot (TN)
+
+        if (tpRemaining > 0) {
+          color = '#10b981'; // Green (TP)
+          tpRemaining--;
+        } else if (fpRemaining > 0) {
+          color = '#f43f5e'; // Red (FP)
+          fpRemaining--;
+        }
+
+        svgHtml += `<circle cx="${x}" cy="${y}" r="3" fill="${color}" />`;
+      }
+    }
+
+    dotsMatrix.innerHTML = svgHtml;
+  }
+
+  // Event Listeners
+  priorInput.addEventListener('input', () => updateCalculations());
+  sensitivityRange.addEventListener('input', () => updateCalculations());
+  fprRange.addEventListener('input', () => updateCalculations());
+
+  // Initialization
+  updateCalculations();
+</script>
+
+  </main>
+
+  <footer class="border-t border-zinc-800/80 bg-zinc-950/40 mt-16 py-6">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between text-xs text-zinc-500">
+      <a href="https://petiay83.github.io/sovereign-tools/" class="hover:text-zinc-300">← Back to All Sovereign Tools</a>
+      <span class="text-emerald-500/70">100% Client-Side Execution</span>
+    </div>
+  </footer>
+</body>
+</html>

@@ -103,7 +103,7 @@
       "id": "bayesian-updater",
       "title": "Bayesian Belief Updating & Evidence Evaluator",
       "cluster": "rationality",
-      "status": "planned",
+      "status": "live",
       "tags": [
         "rationality",
         "bayes",

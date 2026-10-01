@@ -47,6 +47,7 @@ def generate_hub_html(registry):
   <meta property="og:description" content="{site["description"]}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{site["baseUrl"]}">
+  <meta name="google-site-verification" content="{site.get('googleSiteVerification', '')}">
   
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -333,6 +334,7 @@ def wrap_tool_content(tool_meta, content_html, registry):
   <meta property="og:description" content="{tool_meta["description"]}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{site["baseUrl"]}/tools/{tool_meta["id"]}/">
+  <meta name="google-site-verification" content="{site.get('googleSiteVerification', '')}">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stoic Dichotomy of Control Workspace — Sovereign Tools</title>
+  <meta name="description" content="Interactive triage of thoughts and anxieties: dissolve uncontrollable noise, synthesize agency.">
+  <meta property="og:title" content="Stoic Dichotomy of Control Workspace">
+  <meta property="og:description" content="Interactive triage of thoughts and anxieties: dissolve uncontrollable noise, synthesize agency.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://petiay83.github.io/sovereign-tools/tools/dichotomy-of-control/">
+  <meta name="google-site-verification" content="zaZl48bXL6x4bPO_O4vIjsYZQ2Sex89rhdC0i51FRxU">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              500: '#10b981',
+              600: '#059669',
+              900: '#064e3b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-[#090d16] text-zinc-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black">
+
+  <div class="h-1 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-500"></div>
+
+  <!-- Universal Tool Navbar -->
+  <header class="border-b border-zinc-800/80 bg-zinc-950/60 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="https://petiay83.github.io/sovereign-tools/" class="text-zinc-400 hover:text-white flex items-center gap-1.5 text-xs font-medium px-2.5 py-1.5 rounded-lg hover:bg-zinc-800/60 transition-colors border border-transparent hover:border-zinc-800">
+          <span>←</span>
+          <span>Hub</span>
+        </a>
+        <span class="text-zinc-700">/</span>
+        <span class="text-xs text-zinc-400 font-medium flex items-center gap-1">
+          <span>⏳</span> Stoicism & Memento Mori
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Radical Privacy
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tool App Container -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-8 w-full">
+    <div class="space-y-10">
+
+  <!-- Header Section -->
+  <div class="text-center max-w-3xl mx-auto space-y-3">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+      <span>🛡️</span> Epictetian Cognitive Filter
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+      Stoic Dichotomy of Control Deconstructer
+    </h1>
+    <p class="text-sm sm:text-base text-zinc-400 leading-relaxed">
+      Dissolve anxiety by deconstructing complex stressors. Filter out uncontrollable noise with <em>Amor Fati</em>, internalize external outcome traps, and channel 100% of your energy into sovereign personal agency.
+    </p>
+  </div>
+
+  <!-- Presets Bar -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 sm:p-5">
+    <div class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3 flex items-center justify-between">
+      <span>⚡ Common Stressor Archetypes</span>
+      <span class="text-[11px] text-zinc-500 normal-case">Click to load and deconstruct a scenario</span>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+      <button onclick="applyPreset('pitch')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-emerald-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-emerald-400 flex items-center gap-1.5">
+          <span>💼</span> High-Stakes Pitch / Interview
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">Fear of rejection vs radical preparation</div>
+      </button>
+
+      <button onclick="applyPreset('market')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-cyan-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-cyan-400 flex items-center gap-1.5">
+          <span>📉</span> Financial Volatility & Runway
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">Macro collapse vs personal burn rate</div>
+      </button>
+
+      <button onclick="applyPreset('relationship')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-indigo-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-indigo-400 flex items-center gap-1.5">
+          <span>💔</span> Interpersonal Tension / Conflict
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">Other's mood vs your integrity & words</div>
+      </button>
+
+      <button onclick="applyPreset('health')" class="preset-btn text-left p-3 rounded-xl bg-zinc-800/40 hover:bg-zinc-800 border border-zinc-700/50 hover:border-amber-500/50 transition-all group">
+        <div class="text-xs font-semibold text-zinc-200 group-hover:text-amber-400 flex items-center gap-1.5">
+          <span>🩺</span> Medical Scan / Health Anxiety
+        </div>
+        <div class="text-[11px] text-zinc-400 mt-1">Lab uncertainty vs lifestyle & calm</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Stressor Statement Input & Ataraxia Gauge -->
+  <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-6 shadow-xl space-y-6">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex-1 space-y-1">
+        <label class="block text-xs font-bold uppercase tracking-wider text-zinc-300">
+          Current Stressor or Threat
+        </label>
+        <input type="text" id="stressorTitleInput" value="High-stakes client presentation and fear of contract rejection"
+               class="w-full px-4 py-2.5 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 font-medium text-sm focus:outline-none focus:border-emerald-500 transition-colors">
+      </div>
+
+      <!-- Quick Add Thought Button -->
+      <div class="flex items-end gap-2">
+        <button onclick="openAddModal()" class="px-4 py-2.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 whitespace-nowrap">
+          <span>+ Add Thought Component</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Ataraxia Energy Gauge (Mental Energy Audit) -->
+    <div class="pt-4 border-t border-zinc-800/80 space-y-2">
+      <div class="flex items-center justify-between text-xs">
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-zinc-300 uppercase tracking-wider">Ataraxia Energy Ratio:</span>
+          <span id="ataraxiaStatus" class="font-semibold text-emerald-400">Centered & Sovereign</span>
+        </div>
+        <div class="font-mono text-xs">
+          <span id="pctAgency" class="text-emerald-400 font-bold">60% Agency</span>
+          <span class="text-zinc-600 mx-1">·</span>
+          <span id="pctNoise" class="text-rose-400 font-bold">40% Fate / Noise</span>
+        </div>
+      </div>
+
+      <!-- Segmented Bar -->
+      <div class="w-full h-3 bg-zinc-950 rounded-full border border-zinc-800 overflow-hidden flex">
+        <div id="barAgency" class="h-full bg-emerald-500 transition-all duration-300" style="width: 60%"></div>
+        <div id="barInternalized" class="h-full bg-cyan-500 transition-all duration-300" style="width: 20%"></div>
+        <div id="barFate" class="h-full bg-rose-500/80 transition-all duration-300" style="width: 20%"></div>
+      </div>
+
+      <div class="flex justify-between text-[10px] text-zinc-500 font-mono">
+        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> 100% Sovereign Agency</span>
+        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-cyan-500"></span> Internalized Goals</span>
+        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500/80"></span> Zero Control (Surrender)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Tri-Zone Deconstruction Workspace (3 Columns) -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+    <!-- Zone 1: Zero Control (Amor Fati) -->
+    <div class="bg-zinc-900/60 border border-rose-500/30 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between pb-2 border-b border-zinc-800">
+          <div class="flex items-center gap-2">
+            <span class="text-base">🌧️</span>
+            <div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-rose-400">Zero Control</h3>
+              <span class="text-[10px] text-zinc-500">External Fate · Radical Acceptance</span>
+            </div>
+          </div>
+          <span id="countFate" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">2</span>
+        </div>
+        <p class="text-[11px] text-zinc-400 leading-tight">
+          Things you cannot dictate by will. Agonizing over these causes cognitive paralysis.
+        </p>
+
+        <!-- Cards List -->
+        <div id="listFate" class="space-y-2">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-zinc-800/80 text-[10px] text-zinc-500 italic">
+        Stoic Mandate: <strong>Amor Fati</strong> (Love of fate). Cease fighting reality.
+      </div>
+    </div>
+
+    <!-- Zone 2: The Partial Control Trap (Internalized Standard) -->
+    <div class="bg-zinc-900/60 border border-cyan-500/30 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between pb-2 border-b border-zinc-800">
+          <div class="flex items-center gap-2">
+            <span class="text-base">⚡</span>
+            <div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-cyan-400">The Partial Trap</h3>
+              <span class="text-[10px] text-zinc-500">Irvine Model · Internalize Goal</span>
+            </div>
+          </div>
+          <span id="countInternalized" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">2</span>
+        </div>
+        <p class="text-[11px] text-zinc-400 leading-tight">
+          Desired external results. Transform external outcomes into internal excellence standards.
+        </p>
+
+        <!-- Cards List -->
+        <div id="listInternalized" class="space-y-2">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-zinc-800/80 text-[10px] text-zinc-500 italic">
+        Stoic Mandate: Shift from <em>"Win the game"</em> to <em>"Play at my absolute best"</em>.
+      </div>
+    </div>
+
+    <!-- Zone 3: Sovereign Control (Pure Agency & Action) -->
+    <div class="bg-zinc-900/60 border border-emerald-500/40 rounded-2xl p-5 flex flex-col justify-between space-y-4">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between pb-2 border-b border-zinc-800">
+          <div class="flex items-center gap-2">
+            <span class="text-base">🛡️</span>
+            <div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-400">Sovereign Agency</h3>
+              <span class="text-[10px] text-zinc-500">100% Control · Immediate Action</span>
+            </div>
+          </div>
+          <span id="countAgency" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">3</span>
+        </div>
+        <p class="text-[11px] text-zinc-400 leading-tight">
+          Your judgments, your boundaries, your preparation, your composure right now.
+        </p>
+
+        <!-- Cards List -->
+        <div id="listAgency" class="space-y-2">
+          <!-- Populated by JavaScript -->
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-zinc-800/80 text-[10px] text-zinc-500 italic">
+        Stoic Mandate: <strong>Prohairesis</strong> (Moral will). Execute without attachment to results.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Stoic Cognitive Shield (Action Plan Synthesis Card) -->
+  <div class="bg-gradient-to-br from-emerald-950/30 via-zinc-900 to-zinc-900 border border-emerald-500/40 rounded-2xl p-6 sm:p-8 space-y-6 shadow-xl">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-800">
+      <div>
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <span>🛡️</span> Your Stoic Cognitive Shield & Action Plan
+        </h3>
+        <p class="text-xs text-zinc-400">Synthesized actionable clarity ready to guide your day.</p>
+      </div>
+
+      <button onclick="copyActionPlan()" id="copyPlanBtn" class="self-start sm:self-auto px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-black font-semibold rounded-xl text-xs transition-all flex items-center gap-1.5 shadow-lg shadow-emerald-950/40">
+        <span>📋 Copy Plan (Markdown)</span>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Column A: Surrender List -->
+      <div class="space-y-2 p-4 rounded-xl bg-zinc-950/60 border border-rose-500/20">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
+          <span>1.</span> What I Consciously Surrender
+        </h4>
+        <div id="shieldFateList" class="text-xs text-zinc-300 space-y-1.5 leading-relaxed">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Column B: Internalized Standard -->
+      <div class="space-y-2 p-4 rounded-xl bg-zinc-950/60 border border-cyan-500/20">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+          <span>2.</span> My Internal Standard of Success
+        </h4>
+        <div id="shieldInternalizedList" class="text-xs text-zinc-300 space-y-1.5 leading-relaxed">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Column C: 15-Minute Next Action -->
+      <div class="space-y-2 p-4 rounded-xl bg-zinc-950/60 border border-emerald-500/30">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+          <span>3.</span> Sovereign 15-Minute Micro-Action
+        </h4>
+        <div id="shieldAgencyList" class="text-xs text-zinc-300 space-y-1.5 leading-relaxed">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Philosophical Wisdom & Core Quotes -->
+  <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 space-y-6">
+    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+      <span>📜</span> Foundational Stoic Precepts
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-zinc-400 leading-relaxed">
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-emerald-400">
+          <span>1.</span> The Enchiridion (Epictetus)
+        </h4>
+        <blockquote class="italic text-zinc-300 border-l-2 border-emerald-500/50 pl-2">
+          "Make it your study then to confront every harsh impression with the words: 'You are but an appearance, and not at all the thing you represent.' And examine it: is it concerning things in our power, or not? If not, have ready the answer: 'It is nothing to me.'"
+        </blockquote>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-cyan-400">
+          <span>2.</span> Internalizing Goals (William B. Irvine)
+        </h4>
+        <blockquote class="italic text-zinc-300 border-l-2 border-cyan-500/50 pl-2">
+          "When playing tennis, setting the goal of winning will bring disappointment if you lose. But setting the goal of playing your best possible game guarantees peace of mind regardless of the score."
+        </blockquote>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="font-semibold text-zinc-200 flex items-center gap-1.5 text-sm text-indigo-400">
+          <span>3.</span> The Citadel Within (Marcus Aurelius)
+        </h4>
+        <blockquote class="italic text-zinc-300 border-l-2 border-indigo-500/50 pl-2">
+          "You have power over your mind — not outside events. Realize this, and you will find strength. The mind that is free from passion is a citadel, for man has nothing more secure to which he can fly for refuge."
+        </blockquote>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal for Adding New Thought Item -->
+<div id="addModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+  <div class="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+    <div class="flex items-center justify-between pb-3 border-b border-zinc-800">
+      <h3 class="text-sm font-bold text-white">Add Thought Component</h3>
+      <button onclick="closeAddModal()" class="text-zinc-500 hover:text-white">✕</button>
+    </div>
+
+    <div class="space-y-3 text-xs">
+      <div>
+        <label class="block text-zinc-400 mb-1">Thought / Aspect Description:</label>
+        <input type="text" id="modalTextInput" placeholder="e.g. Whether the market crashes tomorrow..."
+               class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-100 focus:outline-none focus:border-emerald-500">
+      </div>
+
+      <div>
+        <label class="block text-zinc-400 mb-1">Assign to Zone:</label>
+        <select id="modalZoneSelect" class="w-full px-3 py-2 bg-zinc-950 border border-zinc-700 rounded-xl text-zinc-200 focus:outline-none focus:border-emerald-500">
+          <option value="fate">Zero Control (Fate / Noise) — Amor Fati</option>
+          <option value="internalized">Partial Trap (Internalize into Process Goal)</option>
+          <option value="agency" selected>Sovereign Agency (100% Control / Next Action)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-end gap-2 pt-2">
+      <button onclick="closeAddModal()" class="px-3 py-1.5 rounded-lg text-xs text-zinc-400 hover:text-white">Cancel</button>
+      <button onclick="saveModalItem()" class="px-4 py-1.5 bg-emerald-500 text-black font-semibold rounded-lg text-xs hover:bg-emerald-400">Add to Workspace</button>
+    </div>
+  </div>
+</div>
+
+<!-- Interactive Engine JavaScript -->
+<script>
+  // State
+  let stressorTitle = "High-stakes client presentation and fear of contract rejection";
+
+  let items = [
+    // Zero Control
+    { id: 'f1', zone: 'fate', text: "Whether the client's executive woke up in a bad mood" },
+    { id: 'f2', zone: 'fate', text: "Competitor secretly underbidding our proposal" },
+
+    // Partial Trap (Internalized)
+    { id: 'i1', zone: 'internalized', text: "Desire: 'I must close this contract' ➔ Standard: 'I will present our numbers with total clarity and zero defensive posture'" },
+    { id: 'i2', zone: 'internalized', text: "Desire: 'They must like me' ➔ Standard: 'I will remain polite, attentive, and authentic'" },
+
+    // Sovereign Agency
+    { id: 'a1', zone: 'agency', text: "Rehearse slide transitions twice out loud" },
+    { id: 'a2', zone: 'agency', text: "Prepare answers for the 3 hardest technical objections" },
+    { id: 'a3', zone: 'agency', text: "Get 8 hours of sleep and take 5 deep physiological sighs before walking in" }
+  ];
+
+  // Presets
+  const PRESETS = {
+    pitch: {
+      title: "High-stakes client presentation and fear of contract rejection",
+      items: [
+        { id: '1', zone: 'fate', text: "Whether the executive is having a bad personal day" },
+        { id: '2', zone: 'fate', text: "Internal corporate politics inside their procurement department" },
+        { id: '3', zone: 'internalized', text: "Desire: 'They must sign today' ➔ Standard: 'Communicate the value proposition with unshakeable calm and clarity'" },
+        { id: '4', zone: 'agency', text: "Rehearse key value metrics 3 times out loud" },
+        { id: '5', zone: 'agency', text: "Arrive 15 minutes early and double-check audio and HDMI connections" },
+        { id: '6', zone: 'agency', text: "Maintain steady eye contact and listen actively without interrupting" }
+      ]
+    },
+    market: {
+      title: "Macroeconomic inflation, crypto/stock plunge, and fear for personal savings",
+      items: [
+        { id: '1', zone: 'fate', text: "Federal Reserve interest rate decisions and global oil price shocks" },
+        { id: '2', zone: 'fate', text: "Daily portfolio red candles and market volatility" },
+        { id: '3', zone: 'internalized', text: "Desire: 'My net worth must never drop' ➔ Standard: 'Maintain an asset allocation that lets me sleep at night'" },
+        { id: '4', zone: 'agency', text: "Review and cut unnecessary recurring subscriptions to reduce monthly burn" },
+        { id: '5', zone: 'agency', text: "Ensure 6 months of living expenses are liquid in a high-yield savings buffer" },
+        { id: '6', zone: 'agency', text: "Close trading apps and dedicate 3 hours of deep work to creating customer value" }
+      ]
+    },
+    relationship: {
+      title: "Sudden coldness / distance from someone I care about deeply",
+      items: [
+        { id: '1', zone: 'fate', text: "Their unspoken internal anxieties, moods, and past emotional baggage" },
+        { id: '2', zone: 'fate', text: "Whether they choose to reply promptly or remain silent" },
+        { id: '3', zone: 'internalized', text: "Desire: 'They must validate me right now' ➔ Standard: 'Express my care honestly while maintaining firm personal dignity'" },
+        { id: '4', zone: 'agency', text: "Send one calm, non-accusatory message opening the door to talk when they are ready" },
+        { id: '5', zone: 'agency', text: "Put phone on Do Not Disturb and engage in a vigorous physical workout" },
+        { id: '6', zone: 'agency', text: "Refrain from reactive catastrophizing or desperate double-texting" }
+      ]
+    },
+    health: {
+      title: "Waiting for medical scan / lab bloodwork results with severe health anxiety",
+      items: [
+        { id: '1', zone: 'fate', text: "The biological data and biopsy results already inside the lab test tube" },
+        { id: '2', zone: 'fate', text: "Genetic predispositions inherited from biological ancestors" },
+        { id: '3', zone: 'internalized', text: "Desire: 'I must have zero biological flaws' ➔ Standard: 'Face any empirical reality with courage and medical diligence'" },
+        { id: '4', zone: 'agency', text: "Eat whole nutrient-dense meals and go for a 45-minute brisk walk in nature" },
+        { id: '5', zone: 'agency', text: "Write down the 3 specific questions for the physician when results arrive" },
+        { id: '6', zone: 'agency', text: "Practice 10 minutes of box breathing whenever catastrophic thoughts arise" }
+      ]
+    }
+  };
+
+  // DOM Elements
+  const stressorTitleInput = document.getElementById('stressorTitleInput');
+  const listFate = document.getElementById('listFate');
+  const listInternalized = document.getElementById('listInternalized');
+  const listAgency = document.getElementById('listAgency');
+
+  const countFate = document.getElementById('countFate');
+  const countInternalized = document.getElementById('countInternalized');
+  const countAgency = document.getElementById('countAgency');
+
+  const barAgency = document.getElementById('barAgency');
+  const barInternalized = document.getElementById('barInternalized');
+  const barFate = document.getElementById('barFate');
+
+  const pctAgency = document.getElementById('pctAgency');
+  const pctNoise = document.getElementById('pctNoise');
+  const ataraxiaStatus = document.getElementById('ataraxiaStatus');
+
+  const shieldFateList = document.getElementById('shieldFateList');
+  const shieldInternalizedList = document.getElementById('shieldInternalizedList');
+  const shieldAgencyList = document.getElementById('shieldAgencyList');
+
+  // Apply Preset
+  function applyPreset(key) {
+    const p = PRESETS[key];
+    if (!p) return;
+    stressorTitle = p.title;
+    stressorTitleInput.value = p.title;
+    items = JSON.parse(JSON.stringify(p.items));
+    renderAll();
+  }
+
+  // Render Everything
+  function renderAll() {
+    const fateItems = items.filter(i => i.zone === 'fate');
+    const internalizedItems = items.filter(i => i.zone === 'internalized');
+    const agencyItems = items.filter(i => i.zone === 'agency');
+
+    countFate.textContent = fateItems.length;
+    countInternalized.textContent = internalizedItems.length;
+    countAgency.textContent = agencyItems.length;
+
+    // Render Cards in Columns
+    function renderCard(item, borderColor, zoneName) {
+      return `
+        <div class="p-3 bg-zinc-950/80 rounded-xl border ${borderColor} text-xs text-zinc-200 flex items-start justify-between gap-2 group transition-all">
+          <div class="space-y-1">
+            <p class="leading-snug">${item.text}</p>
+          </div>
+          <div class="flex items-center gap-1 opacity-60 group-hover:opacity-100 transition-opacity">
+            <select onchange="moveZone('${item.id}', this.value)" class="bg-zinc-900 border border-zinc-700 text-zinc-400 text-[10px] rounded px-1 py-0.5 font-mono">
+              <option value="fate" ${item.zone === 'fate' ? 'selected' : ''}>Fate (0%)</option>
+              <option value="internalized" ${item.zone === 'internalized' ? 'selected' : ''}>Internalize</option>
+              <option value="agency" ${item.zone === 'agency' ? 'selected' : ''}>Agency (100%)</option>
+            </select>
+            <button onclick="deleteItem('${item.id}')" class="text-zinc-500 hover:text-rose-400 px-1 text-sm">✕</button>
+          </div>
+        </div>
+      `;
+    }
+
+    listFate.innerHTML = fateItems.length 
+      ? fateItems.map(i => renderCard(i, 'border-rose-500/20 hover:border-rose-500/40', 'fate')).join('')
+      : '<p class="text-zinc-600 text-xs italic py-2">No external noise captured.</p>';
+
+    listInternalized.innerHTML = internalizedItems.length
+      ? internalizedItems.map(i => renderCard(i, 'border-cyan-500/20 hover:border-cyan-500/40', 'internalized')).join('')
+      : '<p class="text-zinc-600 text-xs italic py-2">No partial traps identified.</p>';
+
+    listAgency.innerHTML = agencyItems.length
+      ? agencyItems.map(i => renderCard(i, 'border-emerald-500/30 hover:border-emerald-500/60', 'agency')).join('')
+      : '<p class="text-zinc-600 text-xs italic py-2">Define your sovereign micro-actions.</p>';
+
+    // Calculate Ataraxia Ratio
+    const total = items.length || 1;
+    const agencyWeight = agencyItems.length + (internalizedItems.length * 0.5);
+    const fateWeight = fateItems.length + (internalizedItems.length * 0.5);
+
+    const agencyPct = Math.round((agencyWeight / total) * 100);
+    const noisePct = 100 - agencyPct;
+
+    const wAgency = Math.round((agencyItems.length / total) * 100);
+    const wInt = Math.round((internalizedItems.length / total) * 100);
+    const wFate = Math.round((fateItems.length / total) * 100);
+
+    barAgency.style.width = `${wAgency}%`;
+    barInternalized.style.width = `${wInt}%`;
+    barFate.style.width = `${wFate}%`;
+
+    pctAgency.textContent = `${agencyPct}% Sovereign Focus`;
+    pctNoise.textContent = `${noisePct}% Fate & Noise`;
+
+    if (agencyPct >= 70) {
+      ataraxiaStatus.textContent = 'High Sovereign Clarity (Unshakeable)';
+      ataraxiaStatus.className = 'font-bold text-emerald-400';
+    } else if (agencyPct >= 50) {
+      ataraxiaStatus.textContent = 'Balanced Focus (Shift More to Agency)';
+      ataraxiaStatus.className = 'font-bold text-cyan-400';
+    } else {
+      ataraxiaStatus.textContent = 'Reactive Anxious Trap (Surrender More)';
+      ataraxiaStatus.className = 'font-bold text-rose-400';
+    }
+
+    // Render Cognitive Shield Section
+    shieldFateList.innerHTML = fateItems.map(i => `<p>• <span class="text-zinc-400 line-through">${i.text}</span> (Surrendered)</p>`).join('') || '<p class="text-zinc-500">None</p>';
+    shieldInternalizedList.innerHTML = internalizedItems.map(i => `<p>• <strong class="text-cyan-300">${i.text}</strong></p>`).join('') || '<p class="text-zinc-500">None</p>';
+    shieldAgencyList.innerHTML = agencyItems.map(i => `<p>• <strong class="text-emerald-300">${i.text}</strong></p>`).join('') || '<p class="text-zinc-500">None</p>';
+  }
+
+  // Move Zone Handler
+  function moveZone(id, newZone) {
+    const item = items.find(i => i.id === id);
+    if (item) {
+      item.zone = newZone;
+      renderAll();
+    }
+  }
+
+  // Delete Item Handler
+  function deleteItem(id) {
+    items = items.filter(i => i.id !== id);
+    renderAll();
+  }
+
+  // Modal Handlers
+  const addModal = document.getElementById('addModal');
+  const modalTextInput = document.getElementById('modalTextInput');
+  const modalZoneSelect = document.getElementById('modalZoneSelect');
+
+  function openAddModal() {
+    modalTextInput.value = '';
+    addModal.classList.remove('hidden');
+    modalTextInput.focus();
+  }
+
+  function closeAddModal() {
+    addModal.classList.add('hidden');
+  }
+
+  function saveModalItem() {
+    const text = modalTextInput.value.trim();
+    if (!text) return;
+    const zone = modalZoneSelect.value;
+    items.push({
+      id: 'custom_' + Date.now(),
+      zone: zone,
+      text: text
+    });
+    closeAddModal();
+    renderAll();
+  }
+
+  // Copy Action Plan as Markdown
+  function copyActionPlan() {
+    const title = stressorTitleInput.value.trim() || 'Stressor';
+    const fate = items.filter(i => i.zone === 'fate').map(i => `- [Surrendered] ${i.text}`).join('\n');
+    const internalized = items.filter(i => i.zone === 'internalized').map(i => `- [Internal Standard] ${i.text}`).join('\n');
+    const agency = items.filter(i => i.zone === 'agency').map(i => `- [Sovereign Action] ${i.text}`).join('\n');
+
+    const md = `# Stoic Cognitive Shield: ${title}
+
+## 1. What I Consciously Surrender (Amor Fati - Zero Control):
+${fate || 'None'}
+
+## 2. My Internalized Standard of Excellence:
+${internalized || 'None'}
+
+## 3. Sovereign Actions Within My 100% Agency:
+${agency || 'None'}
+
+*Generated via Sovereign Tools (Stoic Dichotomy of Control)*`;
+
+    navigator.clipboard.writeText(md).then(() => {
+      const btn = document.getElementById('copyPlanBtn');
+      btn.innerHTML = '<span>✓ Copied to Clipboard!</span>';
+      setTimeout(() => {
+        btn.innerHTML = '<span>📋 Copy Plan (Markdown)</span>';
+      }, 2500);
+    });
+  }
+
+  // Event Listeners
+  stressorTitleInput.addEventListener('input', (e) => {
+    stressorTitle = e.target.value;
+  });
+
+  // Initialization
+  renderAll();
+</script>
+
+  </main>
+
+  <footer class="border-t border-zinc-800/80 bg-zinc-950/40 mt-16 py-6">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between text-xs text-zinc-500">
+      <a href="https://petiay83.github.io/sovereign-tools/" class="hover:text-zinc-300">← Back to All Sovereign Tools</a>
+      <span class="text-emerald-500/70">100% Client-Side Execution</span>
+    </div>
+  </footer>
+</body>
+</html>

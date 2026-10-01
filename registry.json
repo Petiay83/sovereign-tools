@@ -37,7 +37,7 @@
       "id": "feie-tax-calculator",
       "title": "FEIE 330-Day Physical Presence & Expat Tax Calculator",
       "cluster": "nomad",
-      "status": "planned",
+      "status": "live",
       "tags": [
         "tax",
         "expat",

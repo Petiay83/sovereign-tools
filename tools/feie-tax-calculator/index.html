@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FEIE 330-Day Physical Presence & Expat Tax Calculator — Sovereign Tools</title>
+  <meta name="description" content="Determine IRS Foreign Earned Income Exclusion eligibility using a rolling 365-day qualifying period.">
+  <meta property="og:title" content="FEIE 330-Day Physical Presence & Expat Tax Calculator">
+  <meta property="og:description" content="Determine IRS Foreign Earned Income Exclusion eligibility using a rolling 365-day qualifying period.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://petiay83.github.io/sovereign-tools/tools/feie-tax-calculator/">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              500: '#10b981',
+              600: '#059669',
+              900: '#064e3b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-[#090d16] text-zinc-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-black">
+
+  <div class="h-1 bg-gradient-to-r from-emerald-500 via-cyan-500 to-indigo-500"></div>
+
+  <!-- Universal Tool Navbar -->
+  <header class="border-b border-zinc-800/80 bg-zinc-950/60 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="https://petiay83.github.io/sovereign-tools/" class="text-zinc-400 hover:text-white flex items-center gap-1.5 text-xs font-medium px-2.5 py-1.5 rounded-lg hover:bg-zinc-800/60 transition-colors border border-transparent hover:border-zinc-800">
+          <span>←</span>
+          <span>Hub</span>
+        </a>
+        <span class="text-zinc-700">/</span>
+        <span class="text-xs text-zinc-400 font-medium flex items-center gap-1">
+          <span>🌐</span> Nomad & Geo-Arbitrage
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/50 border border-emerald-800/50 text-emerald-400 text-xs font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Radical Privacy
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tool App Container -->
+  <main class="flex-1 max-w-5xl mx-auto px-4 sm:px-6 py-8 w-full">
+    <!-- FEIE 330-Day Physical Presence & Tax Exclusion Calculator Content -->
+<div class="space-y-8">
+  <!-- Title & Intro -->
+  <div class="border-b border-zinc-800 pb-6">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-800/40 text-emerald-400 text-xs font-mono mb-3">
+      <span>🌐</span> IRS SECTION 911 AUDIT ENGINE
+    </div>
+    <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-2">
+      FEIE 330-Day Physical Presence & Tax Exclusion Calculator
+    </h1>
+    <p class="text-zinc-400 text-sm sm:text-base leading-relaxed max-w-3xl">
+      U.S. expats and digital nomads can legally exclude up to <strong>$126,500 (2024)</strong> / <strong>$130,000 (2025)</strong> in foreign earned income from federal taxation. To qualify under the Physical Presence Test, you must spend at least <strong>330 full days</strong> abroad in <em>any</em> 12-consecutive-month window. This engine slides 365-day windows across your travel log to maximize your exclusion.
+    </p>
+  </div>
+
+  <!-- Quick Presets -->
+  <div class="bg-zinc-900/40 border border-zinc-800/80 p-4 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+    <span class="text-zinc-400 font-medium flex items-center gap-1.5">
+      <span>⚡</span> Load Test Scenarios:
+    </span>
+    <div class="flex flex-wrap gap-2">
+      <button type="button" onclick="loadScenario('nomad_pass')" class="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-medium transition-all">
+        🟢 Nomad Safe (350 Days Abroad)
+      </button>
+      <button type="button" onclick="loadScenario('close_call')" class="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-medium transition-all">
+        🟡 Close Call (US Vacation: 331 Days)
+      </button>
+      <button type="button" onclick="loadScenario('mid_year')" class="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-medium transition-all">
+        ✈️ Mid-Year Move (Prorated Form 2555)
+      </button>
+      <button type="button" onclick="loadScenario('failed')" class="px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-medium transition-all">
+        🔴 315 Days (Needs 15 More Days)
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Calculator Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- Left Column: Travel Log & Itinerary Builder (7 cols) -->
+    <div class="lg:col-span-7 space-y-6">
+      
+      <!-- Tax Year & Annual Statutory Limit Settings -->
+      <div class="bg-zinc-900/60 border border-zinc-800/80 p-5 rounded-2xl">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-4 flex items-center gap-2">
+          <span>📅</span> Tax Year & Statutory Limit
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-zinc-400 mb-1">Target Tax Year</label>
+            <select id="taxYearSelect" class="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-zinc-200 text-xs focus:outline-none focus:border-emerald-500">
+              <option value="2026">2026 (Est. $133,000)</option>
+              <option value="2025">2025 ($130,000)</option>
+              <option value="2024" selected>2024 ($126,500 · Leap Year)</option>
+              <option value="2023">2023 ($120,000)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-zinc-400 mb-1">Max Annual Limit ($)</label>
+            <input type="number" id="annualLimitInput" value="126500" step="500"
+                   class="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-zinc-200 text-xs font-mono focus:outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-zinc-400 mb-1">Your Foreign Income ($)</label>
+            <input type="number" id="earnedIncomeInput" value="120000" step="1000" placeholder="Optional"
+                   class="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-zinc-200 text-xs font-mono focus:outline-none focus:border-emerald-500">
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Trip Form -->
+      <div class="bg-zinc-900/60 border border-zinc-800/80 p-5 rounded-2xl space-y-4">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-400 flex items-center justify-between">
+          <span class="flex items-center gap-2"><span>✈️</span> Add Travel Leg / Stay</span>
+          <span class="text-[11px] text-zinc-500 lowercase">IRS Midnight-to-Midnight Rule applies</span>
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+          <div class="sm:col-span-4">
+            <label class="block text-[11px] text-zinc-400 mb-1">Location / Country</label>
+            <input type="text" id="tripLocation" placeholder="e.g. Portugal, Bali, USA"
+                   class="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-zinc-200 text-xs focus:outline-none focus:border-emerald-500">
+          </div>
+          <div class="sm:col-span-4">
+            <label class="block text-[11px] text-zinc-400 mb-1">Start Date</label>
+            <input type="date" id="tripStart"
+                   class="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-zinc-200 text-xs font-mono focus:outline-none focus:border-emerald-500">
+          </div>
+          <div class="sm:col-span-4">
+            <label class="block text-[11px] text-zinc-400 mb-1">End Date (Inclusive)</label>
+            <input type="date" id="tripEnd"
+                   class="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-zinc-200 text-xs font-mono focus:outline-none focus:border-emerald-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
+          <div class="sm:col-span-8">
+            <label class="block text-[11px] text-zinc-400 mb-1">Location Type (IRS Qualification)</label>
+            <select id="tripType" class="w-full px-3 py-2 bg-zinc-950 border border-zinc-800 rounded-xl text-zinc-200 text-xs focus:outline-none focus:border-emerald-500">
+              <option value="foreign">Foreign Country (Full 24h Presence)</option>
+              <option value="us">United States (Disqualifying Days)</option>
+              <option value="transit">International Transit / Waters (Does not count)</option>
+            </select>
+          </div>
+          <div class="sm:col-span-4">
+            <button type="button" onclick="addTripFromForm()"
+                    class="w-full py-2 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-lg shadow-emerald-950/40">
+              <span>+</span> Add Trip
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Itinerary List -->
+      <div class="bg-zinc-900/60 border border-zinc-800/80 p-5 rounded-2xl">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-400 flex items-center gap-2">
+            <span>📋</span> Travel Itinerary (<span id="tripCount">0</span> entries)
+          </h2>
+          <button type="button" onclick="clearAllTrips()" class="text-[11px] text-zinc-500 hover:text-rose-400 transition-colors">
+            Clear all
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-zinc-300">
+            <thead class="text-[11px] text-zinc-500 uppercase border-b border-zinc-800 bg-zinc-950/40">
+              <tr>
+                <th class="py-2.5 px-3">Location</th>
+                <th class="py-2.5 px-3">From</th>
+                <th class="py-2.5 px-3">To</th>
+                <th class="py-2.5 px-3">Days</th>
+                <th class="py-2.5 px-3">Type</th>
+                <th class="py-2.5 px-3 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="tripsTableBody" class="divide-y divide-zinc-800/50">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Audit Results & Form 2555 Breakdown (5 cols) -->
+    <div class="lg:col-span-5 space-y-6">
+
+      <!-- Status Hero Card -->
+      <div id="statusCard" class="p-6 rounded-2xl border transition-all duration-300 bg-zinc-900/60 border-zinc-800 space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold uppercase tracking-wider text-zinc-400">Physical Presence Audit</span>
+          <span id="qualificationBadge" class="px-3 py-1 rounded-full text-xs font-bold">Evaluating...</span>
+        </div>
+
+        <div>
+          <div class="text-xs text-zinc-400 mb-1">Allowable Foreign Income Exclusion</div>
+          <div class="flex items-baseline gap-2">
+            <span id="allowableExclusion" class="text-3xl sm:text-4xl font-extrabold font-mono text-white">$0</span>
+            <span id="prorationPercent" class="text-xs font-mono text-zinc-400">(0% of max)</span>
+          </div>
+        </div>
+
+        <!-- Safety Buffer / Deficit Alert -->
+        <div id="safetyBufferAlert" class="p-3.5 rounded-xl text-xs flex items-start gap-2.5 border">
+          <!-- Populated by script -->
+        </div>
+
+        <!-- Key Metrics Grid -->
+        <div class="grid grid-cols-2 gap-3 pt-3 border-t border-zinc-800/80 text-xs">
+          <div class="p-3 bg-zinc-950/60 rounded-xl border border-zinc-800/60">
+            <span class="text-zinc-500 block mb-0.5">Full Foreign Days</span>
+            <span id="qualifyingDaysCount" class="text-base font-bold font-mono text-emerald-400">0</span>
+            <span class="text-[10px] text-zinc-500 block">in best 365-day window</span>
+          </div>
+          <div class="p-3 bg-zinc-950/60 rounded-xl border border-zinc-800/60">
+            <span class="text-zinc-500 block mb-0.5">U.S. / Transit Days</span>
+            <span id="usDaysCount" class="text-base font-bold font-mono text-rose-400">0</span>
+            <span class="text-[10px] text-zinc-500 block">max allowed: 35 days</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- IRS Form 2555 Line-by-Line Helper -->
+      <div class="bg-zinc-900/60 border border-zinc-800/80 p-5 rounded-2xl space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-zinc-400 flex items-center gap-2">
+            <span>📑</span> Form 2555 Exact Mapping
+          </h2>
+          <span class="text-[10px] px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 font-mono">Part III & VII</span>
+        </div>
+
+        <p class="text-xs text-zinc-400 leading-relaxed">
+          Copy these exact values directly onto your IRS Form 2555 tax return:
+        </p>
+
+        <div class="space-y-2.5 text-xs font-mono">
+          <!-- Line 16 -->
+          <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/60 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-zinc-500 block font-sans">Line 16: Qualifying 12-Month Period</span>
+              <span id="formLine16" class="text-zinc-200 font-medium">None</span>
+            </div>
+            <button type="button" onclick="copyText('formLine16')" class="text-[11px] text-zinc-400 hover:text-emerald-400 font-sans px-2 py-1 rounded bg-zinc-800/60">
+              Copy
+            </button>
+          </div>
+
+          <!-- Line 17 -->
+          <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/60 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-zinc-500 block font-sans">Line 17: Full Foreign Days in Period</span>
+              <span id="formLine17" class="text-emerald-400 font-semibold">0</span>
+            </div>
+            <button type="button" onclick="copyText('formLine17')" class="text-[11px] text-zinc-400 hover:text-emerald-400 font-sans px-2 py-1 rounded bg-zinc-800/60">
+              Copy
+            </button>
+          </div>
+
+          <!-- Line 38 -->
+          <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/60 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-zinc-500 block font-sans">Line 38: Qualifying Days in Tax Year</span>
+              <span id="formLine38" class="text-cyan-400 font-semibold">0 / 366</span>
+            </div>
+            <button type="button" onclick="copyText('formLine38')" class="text-[11px] text-zinc-400 hover:text-emerald-400 font-sans px-2 py-1 rounded bg-zinc-800/60">
+              Copy
+            </button>
+          </div>
+
+          <!-- Line 40 -->
+          <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/60 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-zinc-500 block font-sans">Line 40: Max Allowable Exclusion</span>
+              <span id="formLine40" class="text-white font-bold">$0</span>
+            </div>
+            <button type="button" onclick="copyText('formLine40')" class="text-[11px] text-zinc-400 hover:text-emerald-400 font-sans px-2 py-1 rounded bg-zinc-800/60">
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Year Timeline Visualizer -->
+      <div class="bg-zinc-900/60 border border-zinc-800/80 p-5 rounded-2xl">
+        <div class="flex items-center justify-between mb-3 text-xs">
+          <span class="font-semibold uppercase tracking-wider text-zinc-400">Tax Year Presence Map</span>
+          <div class="flex items-center gap-3 text-[10px] text-zinc-400">
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-emerald-500"></span> Foreign</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded bg-rose-500"></span> US / Transit</span>
+          </div>
+        </div>
+        <div id="yearTimelineBar" class="h-6 w-full bg-zinc-950 rounded-lg overflow-hidden flex border border-zinc-800">
+          <!-- Dynamically populated day segments -->
+        </div>
+        <div class="flex justify-between text-[10px] text-zinc-500 mt-2 font-mono">
+          <span>Jan 1</span>
+          <span>Jul 1</span>
+          <span>Dec 31</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IRS Publication 54 Legal Nuances & Guidelines -->
+  <div class="mt-12 pt-8 border-t border-zinc-800/80 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-zinc-400 leading-relaxed">
+    <div class="p-5 bg-zinc-900/30 rounded-2xl border border-zinc-800/60 space-y-2">
+      <h3 class="text-sm font-bold text-zinc-200 flex items-center gap-1.5">
+        <span>⏰</span> The 24-Hour Midnight Rule
+      </h3>
+      <p>
+        Under IRS Publication 54, a "full day" is strictly a 24-hour period beginning at midnight and ending at midnight. The day you leave the United States or arrive in a foreign country generally does NOT count as a foreign day because you were not present for the entire 24 hours.
+      </p>
+    </div>
+
+    <div class="p-5 bg-zinc-900/30 rounded-2xl border border-zinc-800/60 space-y-2">
+      <h3 class="text-sm font-bold text-zinc-200 flex items-center gap-1.5">
+        <span>🔄</span> Arbitrary 12-Month Period
+      </h3>
+      <p>
+        Your 12-month qualifying period does <em>not</em> need to match the calendar year (Jan 1 to Dec 31). It can begin on any day of the year (e.g., May 14 to May 13 of the following year). You may choose whatever window maximizes your tax deduction.
+      </p>
+    </div>
+
+    <div class="p-5 bg-zinc-900/30 rounded-2xl border border-zinc-800/60 space-y-2">
+      <h3 class="text-sm font-bold text-zinc-200 flex items-center gap-1.5">
+        <span>🏠</span> Tax Home Requirement
+      </h3>
+      <p>
+        In addition to the physical day count, IRS Section 911 requires maintaining your "tax home" in a foreign country. You cannot maintain an "abode" in the United States while claiming FEIE, meaning your regular place of business or economic ties must be foreign.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // IRS Statutory Limits
+  const LIMITS = {
+    "2023": 120000,
+    "2024": 126500,
+    "2025": 130000,
+    "2026": 133000
+  };
+
+  // State
+  let trips = [];
+
+  // DOM Elements
+  const taxYearSelect = document.getElementById('taxYearSelect');
+  const annualLimitInput = document.getElementById('annualLimitInput');
+  const earnedIncomeInput = document.getElementById('earnedIncomeInput');
+  const tripLocation = document.getElementById('tripLocation');
+  const tripStart = document.getElementById('tripStart');
+  const tripEnd = document.getElementById('tripEnd');
+  const tripType = document.getElementById('tripType');
+  const tripsTableBody = document.getElementById('tripsTableBody');
+  const tripCountEl = document.getElementById('tripCount');
+
+  const statusCard = document.getElementById('statusCard');
+  const qualificationBadge = document.getElementById('qualificationBadge');
+  const allowableExclusionEl = document.getElementById('allowableExclusion');
+  const prorationPercentEl = document.getElementById('prorationPercent');
+  const safetyBufferAlert = document.getElementById('safetyBufferAlert');
+  const qualifyingDaysCount = document.getElementById('qualifyingDaysCount');
+  const usDaysCount = document.getElementById('usDaysCount');
+
+  const formLine16 = document.getElementById('formLine16');
+  const formLine17 = document.getElementById('formLine17');
+  const formLine38 = document.getElementById('formLine38');
+  const formLine40 = document.getElementById('formLine40');
+  const yearTimelineBar = document.getElementById('yearTimelineBar');
+
+  // Pre-loaded realistic scenarios
+  function loadScenario(type) {
+    const yr = taxYearSelect.value;
+    const prevYr = parseInt(yr) - 1;
+    const nextYr = parseInt(yr) + 1;
+
+    if (type === 'nomad_pass') {
+      trips = [
+        { id: 1, location: "United States (Departure)", start: `${prevYr}-12-15`, end: `${prevYr}-12-28`, type: 'us' },
+        { id: 2, location: "Transit / Flight", start: `${prevYr}-12-29`, end: `${prevYr}-12-29`, type: 'transit' },
+        { id: 3, location: "Thailand (Chiang Mai)", start: `${prevYr}-12-30`, end: `${yr}-06-30`, type: 'foreign' },
+        { id: 4, location: "USA (Summer Visit)", start: `${yr}-07-01`, end: `${yr}-07-14`, type: 'us' },
+        { id: 5, location: "Portugal (Lisbon)", start: `${yr}-07-15`, end: `${yr}-12-31`, type: 'foreign' }
+      ];
+    } else if (type === 'close_call') {
+      trips = [
+        { id: 1, location: "Spain (Valencia)", start: `${prevYr}-11-01`, end: `${yr}-06-01`, type: 'foreign' },
+        { id: 2, location: "USA (Family Vacation)", start: `${yr}-06-02`, end: `${yr}-07-06`, type: 'us' }, // 35 days in US
+        { id: 3, location: "Japan (Tokyo)", start: `${yr}-07-07`, end: `${nextYr}-03-01`, type: 'foreign' }
+      ];
+    } else if (type === 'mid_year') {
+      trips = [
+        { id: 1, location: "United States (Home)", start: `${yr}-01-01`, end: `${yr}-04-30`, type: 'us' },
+        { id: 2, location: "Transit / Flight", start: `${yr}-05-01`, end: `${yr}-05-01`, type: 'transit' },
+        { id: 3, location: "Germany (Berlin)", start: `${yr}-05-02`, end: `${nextYr}-06-01`, type: 'foreign' }
+      ];
+    } else if (type === 'failed') {
+      trips = [
+        { id: 1, location: "Mexico (CDMX)", start: `${prevYr}-10-01`, end: `${yr}-05-01`, type: 'foreign' },
+        { id: 2, location: "USA (Extended Contract/Home)", start: `${yr}-05-02`, end: `${yr}-06-21`, type: 'us' }, // 51 days in US
+        { id: 3, location: "Colombia (Medellin)", start: `${yr}-06-22`, end: `${nextYr}-02-01`, type: 'foreign' }
+      ];
+    }
+
+    saveAndAudit();
+  }
+
+  function formatDateStr(d) {
+    return d.toISOString().split('T')[0];
+  }
+
+  function parseDate(str) {
+    const [y, m, d] = str.split('-').map(Number);
+    return new Date(Date.UTC(y, m - 1, d));
+  }
+
+  function addDays(date, days) {
+    const res = new Date(date.getTime());
+    res.setUTCDate(res.getUTCDate() + days);
+    return res;
+  }
+
+  function daysBetween(d1, d2) {
+    return Math.round((d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+  }
+
+  function isLeapYear(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+  }
+
+  function addTripFromForm() {
+    const loc = tripLocation.value.trim() || 'Foreign Country';
+    const s = tripStart.value;
+    const e = tripEnd.value;
+    const t = tripType.value;
+
+    if (!s || !e) {
+      alert("Please specify both Start Date and End Date.");
+      return;
+    }
+
+    if (parseDate(s) > parseDate(e)) {
+      alert("Start Date cannot be after End Date.");
+      return;
+    }
+
+    trips.push({
+      id: Date.now(),
+      location: loc,
+      start: s,
+      end: e,
+      type: t
+    });
+
+    // Reset inputs
+    tripLocation.value = '';
+    tripStart.value = '';
+    tripEnd.value = '';
+
+    saveAndAudit();
+  }
+
+  function deleteTrip(id) {
+    trips = trips.filter(t => t.id !== id);
+    saveAndAudit();
+  }
+
+  function clearAllTrips() {
+    if (confirm("Clear all travel entries?")) {
+      trips = [];
+      saveAndAudit();
+    }
+  }
+
+  function copyText(elementId) {
+    const txt = document.getElementById(elementId).innerText;
+    navigator.clipboard.writeText(txt).then(() => {
+      alert(`Copied "${txt}" to clipboard!`);
+    });
+  }
+
+  taxYearSelect.addEventListener('change', () => {
+    const yr = taxYearSelect.value;
+    if (LIMITS[yr]) {
+      annualLimitInput.value = LIMITS[yr];
+    }
+    audit();
+  });
+
+  annualLimitInput.addEventListener('input', audit);
+  earnedIncomeInput.addEventListener('input', audit);
+
+  function renderTable() {
+    tripCountEl.textContent = trips.length;
+    if (trips.length === 0) {
+      tripsTableBody.innerHTML = `
+        <tr>
+          <td colspan="6" class="py-6 text-center text-zinc-500 text-xs">
+            No travel logs yet. Click a preset above or add your first trip.
+          </td>
+        </tr>
+      `;
+      return;
+    }
+
+    // Sort by start date
+    trips.sort((a, b) => a.start.localeCompare(b.start));
+
+    tripsTableBody.innerHTML = trips.map(t => {
+      const days = daysBetween(parseDate(t.start), parseDate(t.end));
+      let badge = '';
+      if (t.type === 'foreign') {
+        badge = `<span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">Foreign</span>`;
+      } else if (t.type === 'us') {
+        badge = `<span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 font-medium">U.S. Soil</span>`;
+      } else {
+        badge = `<span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-medium">Transit</span>`;
+      }
+
+      return `
+        <tr class="hover:bg-zinc-900/60 transition-colors">
+          <td class="py-2.5 px-3 font-medium text-zinc-200">${t.location}</td>
+          <td class="py-2.5 px-3 font-mono text-zinc-400">${t.start}</td>
+          <td class="py-2.5 px-3 font-mono text-zinc-400">${t.end}</td>
+          <td class="py-2.5 px-3 font-mono text-zinc-300 font-semibold">${days}d</td>
+          <td class="py-2.5 px-3">${badge}</td>
+          <td class="py-2.5 px-3 text-right">
+            <button onclick="deleteTrip(${t.id})" class="text-zinc-500 hover:text-rose-400 transition-colors p-1">
+              ✕
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // Core IRS Sliding Window Optimization Engine
+  function audit() {
+    renderTable();
+
+    const selectedYear = parseInt(taxYearSelect.value);
+    const statutoryLimit = parseFloat(annualLimitInput.value) || 126500;
+    const earnedIncome = parseFloat(earnedIncomeInput.value) || statutoryLimit;
+    const daysInTaxYear = isLeapYear(selectedYear) ? 366 : 365;
+
+    if (trips.length === 0) {
+      statusCard.className = 'p-6 rounded-2xl border transition-all duration-300 bg-zinc-900/60 border-zinc-800 space-y-4';
+      qualificationBadge.className = 'px-3 py-1 rounded-full text-xs font-semibold bg-zinc-800 text-zinc-400';
+      qualificationBadge.textContent = 'No Travel Data';
+      allowableExclusionEl.textContent = '$0';
+      prorationPercentEl.textContent = '(0% of max)';
+      safetyBufferAlert.className = 'p-3.5 rounded-xl text-xs flex items-start gap-2.5 border bg-zinc-950 border-zinc-800 text-zinc-400';
+      safetyBufferAlert.innerHTML = '<span>ℹ️</span> Add travel entries to begin calculating physical presence.';
+      qualifyingDaysCount.textContent = '0';
+      usDaysCount.textContent = '0';
+      formLine16.textContent = 'None';
+      formLine17.textContent = '0';
+      formLine38.textContent = `0 / ${daysInTaxYear}`;
+      formLine40.textContent = '$0';
+      drawTimeline([], selectedYear);
+      return;
+    }
+
+    // Build a continuous day map
+    // Find min and max date across trips
+    let minD = parseDate(trips[0].start);
+    let maxD = parseDate(trips[0].end);
+    trips.forEach(t => {
+      const s = parseDate(t.start);
+      const e = parseDate(t.end);
+      if (s < minD) minD = s;
+      if (e > maxD) maxD = e;
+    });
+
+    // Expand search range to cover full year boundaries
+    const taxYearStart = parseDate(`${selectedYear}-01-01`);
+    const taxYearEnd = parseDate(`${selectedYear}-12-31`);
+    if (taxYearStart < minD) minD = addDays(taxYearStart, -180);
+    if (taxYearEnd > maxD) maxD = addDays(taxYearEnd, 180);
+
+    // Create daily presence lookup
+    const dayMap = {}; // 'YYYY-MM-DD' -> 'foreign' | 'us' | 'transit'
+    const totalDays = daysBetween(minD, maxD);
+
+    for (let i = 0; i < totalDays; i++) {
+      const cur = addDays(minD, i);
+      const key = formatDateStr(cur);
+      dayMap[key] = 'us'; // Default to US if not outside
+    }
+
+    trips.forEach(t => {
+      const s = parseDate(t.start);
+      const e = parseDate(t.end);
+      const span = daysBetween(s, e);
+      for (let i = 0; i < span; i++) {
+        const cur = addDays(s, i);
+        const key = formatDateStr(cur);
+        dayMap[key] = t.type;
+      }
+    });
+
+    // Slide 365-day (or 366 leap) windows across the range
+    // Window must overlap with the selected tax year
+    let bestQualifyingWindow = null;
+    let maxOverlapDays = -1;
+    let maxForeignDaysInQualifying = -1;
+
+    let bestUnqualifiedWindow = null;
+    let maxForeignDaysInUnqualified = -1;
+
+    // Search all candidate start dates
+    const earliestStart = addDays(taxYearStart, -365);
+    const latestStart = taxYearEnd;
+    const searchStepDays = daysBetween(earliestStart, latestStart);
+
+    for (let i = 0; i <= searchStepDays; i++) {
+      const wStart = addDays(earliestStart, i);
+      const wEnd = addDays(wStart, 364); // 365 days window
+
+      let foreignCount = 0;
+      let overlapCount = 0;
+
+      for (let d = 0; d < 365; d++) {
+        const cur = addDays(wStart, d);
+        const key = formatDateStr(cur);
+        if (dayMap[key] === 'foreign') {
+          foreignCount++;
+        }
+        if (cur >= taxYearStart && cur <= taxYearEnd) {
+          overlapCount++;
+        }
+      }
+
+      if (foreignCount >= 330) {
+        // Qualifying window found! Optimize for highest overlap with Tax Year
+        if (overlapCount > maxOverlapDays || (overlapCount === maxOverlapDays && foreignCount > maxForeignDaysInQualifying)) {
+          maxOverlapDays = overlapCount;
+          maxForeignDaysInQualifying = foreignCount;
+          bestQualifyingWindow = {
+            start: wStart,
+            end: wEnd,
+            foreignDays: foreignCount,
+            overlapDays: overlapCount,
+            usDays: 365 - foreignCount
+          };
+        }
+      } else {
+        if (foreignCount > maxForeignDaysInUnqualified) {
+          maxForeignDaysInUnqualified = foreignCount;
+          bestUnqualifiedWindow = {
+            start: wStart,
+            end: wEnd,
+            foreignDays: foreignCount,
+            overlapDays: overlapCount,
+            usDays: 365 - foreignCount
+          };
+        }
+      }
+    }
+
+    // Evaluate Result
+    if (bestQualifyingWindow) {
+      const w = bestQualifyingWindow;
+      const prorationFactor = w.overlapDays / daysInTaxYear;
+      const maxPossibleExclusion = Math.round(statutoryLimit * prorationFactor);
+      const finalExclusion = Math.min(earnedIncome, maxPossibleExclusion);
+      const safetyBuffer = w.foreignDays - 330;
+
+      // Status UI
+      statusCard.className = 'p-6 rounded-2xl border transition-all duration-300 bg-zinc-900/60 border-emerald-500/40 space-y-4 shadow-xl shadow-emerald-950/20';
+      qualificationBadge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30';
+      qualificationBadge.textContent = '🟢 100% QUALIFIED';
+
+      allowableExclusionEl.textContent = `$${finalExclusion.toLocaleString('en-US')}`;
+      prorationPercentEl.textContent = `(${Math.round(prorationFactor * 100)}% of max $${statutoryLimit.toLocaleString('en-US')})`;
+
+      safetyBufferAlert.className = 'p-3.5 rounded-xl text-xs flex items-start gap-2.5 border bg-emerald-950/30 border-emerald-800/40 text-emerald-300';
+      safetyBufferAlert.innerHTML = `
+        <span class="text-base">🛡️</span>
+        <div>
+          <span class="font-bold">Audit Buffer: ${safetyBuffer} days to spare!</span>
+          <p class="text-emerald-400/80 mt-0.5">
+            You achieved ${w.foreignDays} full foreign days. You can spend up to ${safetyBuffer} more days in the U.S. during this 12-month period without losing your exclusion.
+          </p>
+        </div>
+      `;
+
+      qualifyingDaysCount.textContent = w.foreignDays;
+      usDaysCount.textContent = w.usDays;
+
+      // Form 2555 Mapping
+      formLine16.textContent = `${formatDateStr(w.start)} through ${formatDateStr(w.end)}`;
+      formLine17.textContent = `${w.foreignDays} full days`;
+      formLine38.textContent = `${w.overlapDays} / ${daysInTaxYear} days`;
+      formLine40.textContent = `$${finalExclusion.toLocaleString('en-US')}`;
+
+    } else {
+      const w = bestUnqualifiedWindow || { foreignDays: 0, usDays: 365, start: taxYearStart, end: taxYearEnd, overlapDays: 0 };
+      const deficit = 330 - w.foreignDays;
+
+      statusCard.className = 'p-6 rounded-2xl border transition-all duration-300 bg-zinc-900/60 border-rose-500/40 space-y-4 shadow-xl shadow-rose-950/20';
+      qualificationBadge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/30';
+      qualificationBadge.textContent = '🔴 NOT QUALIFIED';
+
+      allowableExclusionEl.textContent = '$0';
+      prorationPercentEl.textContent = '(Short of 330-day threshold)';
+
+      safetyBufferAlert.className = 'p-3.5 rounded-xl text-xs flex items-start gap-2.5 border bg-rose-950/30 border-rose-800/40 text-rose-300';
+      safetyBufferAlert.innerHTML = `
+        <span class="text-base">⚠️</span>
+        <div>
+          <span class="font-bold">Deficit: Need ${deficit} more full days abroad!</span>
+          <p class="text-rose-300/80 mt-0.5">
+            Your best 12-month window (${formatDateStr(w.start)} to ${formatDateStr(w.end)}) contains only ${w.foreignDays} full foreign days. You must remain abroad through ${formatDateStr(addDays(w.end, deficit))} or file an extension.
+          </p>
+        </div>
+      `;
+
+      qualifyingDaysCount.textContent = w.foreignDays;
+      usDaysCount.textContent = w.usDays;
+
+      formLine16.textContent = `Closest: ${formatDateStr(w.start)} to ${formatDateStr(w.end)}`;
+      formLine17.textContent = `${w.foreignDays} (Need ≥ 330)`;
+      formLine38.textContent = `0 / ${daysInTaxYear}`;
+      formLine40.textContent = '$0';
+    }
+
+    drawTimeline(dayMap, selectedYear);
+  }
+
+  function drawTimeline(dayMap, year) {
+    const daysInYear = isLeapYear(year) ? 366 : 365;
+    const yearStart = parseDate(`${year}-01-01`);
+
+    let html = '';
+    for (let i = 0; i < daysInYear; i++) {
+      const cur = addDays(yearStart, i);
+      const key = formatDateStr(cur);
+      const type = dayMap[key] || 'us';
+      const color = type === 'foreign' ? 'bg-emerald-500' : (type === 'transit' ? 'bg-amber-500' : 'bg-rose-500/80');
+      html += `<div class="flex-1 ${color} h-full" title="${key}: ${type.toUpperCase()}"></div>`;
+    }
+    yearTimelineBar.innerHTML = html;
+  }
+
+  function saveAndAudit() {
+    localStorage.setItem('sovereign_feie_trips', JSON.stringify(trips));
+    audit();
+  }
+
+  // Initial load
+  const saved = localStorage.getItem('sovereign_feie_trips');
+  if (saved) {
+    try {
+      trips = JSON.parse(saved);
+    } catch (e) {
+      trips = [];
+    }
+  }
+
+  if (trips.length === 0) {
+    loadScenario('nomad_pass');
+  } else {
+    audit();
+  }
+</script>
+
+  </main>
+
+  <footer class="border-t border-zinc-800/80 bg-zinc-950/40 mt-16 py-6">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between text-xs text-zinc-500">
+      <a href="https://petiay83.github.io/sovereign-tools/" class="hover:text-zinc-300">← Back to All Sovereign Tools</a>
+      <span class="text-emerald-500/70">100% Client-Side Execution</span>
+    </div>
+  </footer>
+</body>
+</html>
